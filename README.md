@@ -3,10 +3,10 @@
 ### 2017/03/24
 Work on frontend essentials to create a framework
 
-1. Login
-  ⋅⋅*Pages
-  ..*Tabs
-  ..*etc
+1.Login
+⋅⋅* Pages
+..* Tabs
+..* etc
   
 USE REACT
 
