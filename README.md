@@ -1,5 +1,5 @@
 # Covenent
-Clark
+## Clark
 2017/03/24
 Work on frontend essentials to create a framework
 
@@ -15,7 +15,7 @@ USE REACT
 
 Aim Finish Date: 2017/04/8
 
-Ben
+## Ben
 2017/03/24
 * Work on backend database essentials
 
