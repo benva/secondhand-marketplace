@@ -1,15 +1,11 @@
 # Covenent
 Clark
 2017/03/24
-* Work on frontend essentials to create a framework
-
-  *Login
-  
+Work on frontend essentials to create a framework
+  Login
     Pages
-    
-    *Tabs
-    
-    *etc
+    Tabs 
+    etc
   
 USE REACT
 
