@@ -1,7 +1,7 @@
 # Covenent
 ## Clark
 ### 2017/03/24
-Work on frontend essentials to create a framework
+#### Work on frontend essentials to create a framework
 
 1. Login
 * Pages
@@ -14,17 +14,12 @@ Aim Finish Date: 2017/04/8
 
 ## Ben
 ### 2017/03/24
-* Work on backend database essentials
-
-  *Database
-    - Users
-    
-	  ⁃ User info (locations)
-	  
-	  ⁃ Listings
-	  
-  	  ⁃ Feedback
-
+#### Work on backend database essentials
+1. Database
+* Users
+* User info (locations)
+* Listings
+* Feedback
 
 USE MONGO DB
 
