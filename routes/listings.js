@@ -9,7 +9,7 @@ var Listing = require('../models/listing');
 router.get('/', function(req, res, next) {
   Listing.find({}, function(err, listings) {
     if(err) {
-      res.render('error', { 'error': err })
+      res.render('error', { 'error': err });
     } else {
       res.render('listings', { 'listings': listings });
     }
@@ -22,10 +22,10 @@ router.get('/:id', function(req, res, next) {
 
   // If listing exists, show page
   Listing.findOne({ _id: id }, function(err, listing) {
-    if(listing == null) {
-      res.render('This listing does not exist!')
+    if(listing === null) {
+      res.render('This listing does not exist!');
     } else {
-      res.render('listing', { 'listing': listing })
+      res.render('listing', { 'listing': listing });
     }
   });
 });

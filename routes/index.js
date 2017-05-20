@@ -8,17 +8,17 @@ var Listing = require('../models/listing');
 
 /* GET home page */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' })
+  res.render('index', { title: 'Express' });
 });
 
 /* GET registration page */
 router.get('/registration', function(req, res, next) {
-  res.render('registration', { title: 'Create New User' })
+  res.render('registration', { title: 'Create New User' });
 });
 
 /* GET listing creation page */
 router.get('/create', function(req, res, next) {
-  res.render('create', { title: 'Create New Listing' })
+  res.render('create', { title: 'Create New Listing' });
 });
 
 /* POST add new user */
@@ -34,9 +34,9 @@ router.post('/adduser', function(req, res, next) {
 
   newUser.save(function(err) {
     if(err) {
-      res.render('error', { 'error': err })
+      res.render('error', { 'error': err });
     } else {
-      res.redirect('./users')
+      res.redirect('./users');
     }
   });
 });
@@ -53,11 +53,10 @@ router.post('/addlisting', function(req, res, next) {
   });
 
   newListing.save(function(err) {
-    // console.log(newListing._id)
     if(err) {
-      res.render('error', { 'error': err })
+      res.render('error', { 'error': err });
     } else {
-      res.redirect('./listings')
+      res.redirect('./listings');
     }
   });
 });
