@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/covenant');
 var User = require('../models/user');
 var Listing = require('../models/listing');
 

@@ -14,6 +14,8 @@ var listings = require('./routes/listings');
 
 var app = express();
 
+mongoose.connect('mongodb://localhost:27017/covenant');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
