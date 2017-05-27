@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 /* GET registration page */
 router.get('/register', function(req, res, next) {
-  res.render('register', { title: 'Create New User' });
+  res.render('register', { title: 'Register New User' });
 });
 
 /* GET listing creation page */
