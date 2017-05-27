@@ -10,8 +10,8 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET registration page */
-router.get('/registration', function(req, res, next) {
-  res.render('registration', { title: 'Create New User' });
+router.get('/register', function(req, res, next) {
+  res.render('register', { title: 'Create New User' });
 });
 
 /* GET listing creation page */
