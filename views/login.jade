@@ -1,8 +1,7 @@
 extends layout
 
 block content
-  form#formRegister(name="register",method="post",action="/register")
+  form#formLogin(name="login",method="post",action="/login")
     input#inputUserName(type="text", placeholder="Username", name="username")
     input#inputUserPassword(type="text", placeholder="Password", name="password")
-    input#inputUserEmail(type="text", placeholder="E-mail", name="email")
     button#btnSubmit(type="submit") Submit

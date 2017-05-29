@@ -5,19 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-//
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var User = require('./models/user');
+
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var listings = require('./routes/listings');
 
 var app = express();
-
-mongoose.connect('mongodb://localhost:27017/covenant');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,19 +30,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//
+// passport initilization
 app.use(passport.initialize());
 app.use(passport.session());
+
+// mongoose initilization
+mongoose.connect('mongodb://localhost:27017/covenant');
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/listings', listings);
 
-// test code
-var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
+// passport config
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
