@@ -6,5 +6,5 @@ block content
   p.
     #{listing.title}
   br
-  p.
-    sold by #{listing.seller}
+  p
+    a(href="../users/#{listing.seller}") #{listing.seller}

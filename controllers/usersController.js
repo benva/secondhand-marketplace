@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var Listing = require('../models/listing');
 
 // User profile page
 exports.userPage = function(req, res, next) {
@@ -9,7 +10,13 @@ exports.userPage = function(req, res, next) {
     if(user === null) {
       res.status(404).send('This user does not exist!');
     } else {
-      res.render('user', { user: user });
+      Listing.find({ seller: username }).sort([['updatedAt', 'desc']]).exec(function(err, listings) {
+        if(err) {
+          res.render('error', { 'error': err });
+        } else {
+          res.render('user', { title: user.username, user: user, listings: listings });
+        }
+      });
     }
   });
 };
