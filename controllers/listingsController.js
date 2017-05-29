@@ -9,7 +9,7 @@ exports.listingPage = function(req, res, next) {
     if(listing === null) {
       res.status(404).send('This user does not exist!');
     } else {
-      res.render('listing', { 'listing': listing });
+      res.render('listing', { listing: listing });
     }
   });
 };

@@ -9,7 +9,7 @@ exports.userPage = function(req, res, next) {
     if(user === null) {
       res.status(404).send('This user does not exist!');
     } else {
-      res.render('user', { 'user': user });
+      res.render('user', { user: user });
     }
   });
 };

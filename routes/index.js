@@ -7,12 +7,22 @@ var Listing = require('../models/listing');
 
 /* GET home page */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Covenant', user: req.user });
+  Listing.find({}).sort([['updatedAt' , 'desc']]).exec(function(err, listings) {
+    if(err) {
+      res.render('error', { 'error': err });
+    } else {
+      res.render('index', { title: 'Covenant', user: req.user, listings: listings });
+    }
+  });
 });
 
 /* GET login page */
 router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Login' });
+  if(req.user) {
+    res.redirect('/');
+  } else {
+    res.render('login', { title: 'Login' });
+  }
 });
 
 /* GET logout page */
@@ -23,13 +33,20 @@ router.get('/logout', function(req, res, next) {
 
 /* GET registration page */
 router.get('/register', function(req, res, next) {
-  res.render('register', { title: 'Register' });
+  if(req.user) {
+    res.redirect('/');
+  } else {
+    res.render('register', { title: 'Register' });
+  }
 });
 
 /* GET listing creation page */
 router.get('/create', function(req, res, next) {
-  // Must be logged in
-  res.render('create', { title: 'New Listing' });
+  if(req.user) {
+    res.render('create', { title: 'New Listing' });
+  } else {
+    res.redirect('./login');
+  }
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res, next) {
