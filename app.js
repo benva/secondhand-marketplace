@@ -8,9 +8,9 @@ var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/user');
-
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -31,6 +31,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // passport initilization
+app.use(session({
+  secret: 'secretkey',
+  resave: true,
+  saveUninitialized: false
+ }));
 app.use(passport.initialize());
 app.use(passport.session());
 

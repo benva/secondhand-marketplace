@@ -1,7 +1,6 @@
 extends layout
 
 block content
-  h1= title
   form#formAddListing(name="create",method="post",action="/create")
     input#inputUserName(type="text", placeholder="Designer", name="designer")
     input#inputUserEmail(type="text", placeholder="Title", name="title")
