@@ -66,8 +66,6 @@ exports.editListing = function(req, res, next) {
       }
     }
   });
-  
-  
 };
 
 // Listing edit post
@@ -84,8 +82,37 @@ exports.editPost = function(req, res, next) {
       res.redirect('./');
     }
   })
-}
+};
 
+// Listing deletion page
 exports.deleteListing = function(req, res, next) {
+  var id = req.params.id;
 
+  Listing.findOne({ _id: id }, function(err, listing) {
+    if(listing === null) {
+      res.status(404).send('This listing does not exist!');
+    } else {
+      // If user owns listing, confirm deletion
+      if(req.user != null &&  listing.seller.localeCompare(req.user.username) == 0) {
+        res.render('delete', { title: 'Delete Listing', listing: listing });
+      } else {
+        // Redirect if they do not own listing
+        res.redirect('/listings/' + id);
+      }
+    }
+  });
+};
+
+// Listing delete post
+exports.deletePost = function(req, res, next) {
+  var id = req.params.id;
+
+  // Remove listing
+  Listing.remove({ _id: id }, function(err) {
+    if(err) {
+      res.status(404).send('This listing does not exist!');
+    } else {
+      res.redirect('/');
+    }
+  });
 };

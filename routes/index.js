@@ -10,6 +10,7 @@ var Listing = require('../models/listing');
 
 /* GET home page */
 router.get('/', function(req, res, next) {
+  // Move this to listingsController.js
   Listing.find({}).sort([['updatedAt' , 'desc']]).exec(function(err, listings) {
     if(err) {
       res.render('error', { 'error': err });
