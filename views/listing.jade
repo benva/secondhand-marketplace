@@ -7,4 +7,8 @@ block content
     #{listing.title}
   br
   p
-    a(href="../users/#{listing.seller}") #{listing.seller}
+    a(href="/users/#{listing.seller}") #{listing.seller}
+  if(own)
+    a(href="/listings/#{listing._id}/edit") Edit listing
+    br
+    a(href="/listings/#{listing._id}/delete") Delete listing

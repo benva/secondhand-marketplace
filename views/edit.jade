@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  form#formEditListing(name="edit",method="post",action="/listings/#{listing._id}/edit")
+    input#inputUserName(type="text", value="#{listing.designer}", name="designer")
+    input#inputUserEmail(type="text", value="#{listing.title}", name="title")
+    button#btnSubmit(type="submit") Submit

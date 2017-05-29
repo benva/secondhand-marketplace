@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-var User = require('../models/user');
+var listingsController = require('../controllers/listingsController');
+var usersController = require('../controllers/usersController');
+
+// var User = require('../models/user');
 var Listing = require('../models/listing');
 
 /* GET home page */
@@ -54,48 +57,9 @@ router.post('/login', passport.authenticate('local'), function(req, res, next) {
 });
 
 /* POST add new user */
-router.post('/register', function(req, res, next) {
-
-  var newUser = new User({
-    username: req.body.username,
-    email: req.body.email,
-    rating: 0.0,
-    sales: 0
-  });
-  var password = req.body.password;
-
-  User.register(newUser, password, function(err, account) {
-    if(err) {
-      res.render('error', { 'error': err });
-    } else {
-      passport.authenticate('local')(req, res, function () {
-        res.redirect('/');
-      });
-    }
-  });
-});
+router.post('/register', usersController.createUser);
 
 /* POST add new listing */
-router.post('/create', function(req, res, next) {
-
-  var newListing = new Listing({
-    seller: req.user.username,
-    designer: req.body.designer,
-    title: req.body.title,
-    // category: req.body.category,
-    // price: req.body.price,
-    // size: req.body.size,
-    // description: req.body.description,
-    sold: false
-  });
-
-  newListing.save(function(err) {
-    if(err) {
-      res.render('error', { 'error': err });
-    } else {
-      res.redirect('./listings/' + newListing._id);
-    }
-  });
-});
+router.post('/create', listingsController.createListing);
 
 module.exports = router;
