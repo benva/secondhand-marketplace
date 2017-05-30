@@ -29,7 +29,7 @@ exports.editListing = function(req, res, next) {
   ListingModel.findOne({ _id: id }, function(err, listing) {
     if(listing === null) {
       // Send to 404 page
-
+      return res.render('error', { error: error });
     }
     // If current user owns listing, go to edit page
     if(req.user !== null &&  listing.seller.localeCompare(req.user.username) == 0) {

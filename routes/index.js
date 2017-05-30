@@ -4,24 +4,10 @@ var passport = require('passport');
 
 var index = require('../controllers/index');
 
-/* GET home page */
+
 router.get('/', index.home);
 
-/* GET login page */
-router.get('/login', function(req, res, next) {
-  if(req.user) {
-    return res.redirect('/');
-  }
-  res.render('login', { title: 'Login' });
-});
-
-/* GET logout page */
-router.get('/logout', function(req, res, next) {
-  req.logout();
-  res.redirect('/');
-})
-
-/* GET registration page */
+/* REGISTER */
 router.get('/register', function(req, res, next) {
   if(req.user) {
     return res.redirect('/');
@@ -29,7 +15,19 @@ router.get('/register', function(req, res, next) {
   res.render('register', { title: 'Register' });
 });
 
-/* GET listing creation page */
+router.post('/register', index.createUser);
+
+/* LOGIN */
+router.get('/login', function(req, res, next) {
+  if(req.user) {
+    return res.redirect('/');
+  }
+  res.render('login', { title: 'Login' });
+});
+
+router.post('/login', index.login);
+
+/* CREATE */
 router.get('/create', function(req, res, next) {
   if(req.user) {
     return res.render('create', { title: 'New Listing' });
@@ -37,13 +35,15 @@ router.get('/create', function(req, res, next) {
   res.redirect('./login');
 });
 
-/* POST login user */
-router.post('/login', index.login);
-
-/* POST add new user */
-router.post('/register', index.createUser);
-
-/* POST add new listing */
 router.post('/create', index.createListing);
+
+
+/* LOGOUT */
+router.get('/logout', function(req, res, next) {
+  req.logout();
+  res.redirect('/');
+});
+
+
 
 module.exports = router;

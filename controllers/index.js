@@ -6,7 +6,7 @@ var ListingModel = require('../models/listing');
 // Home page
 exports.home = function(req, res, next) {
   // Find all listings
-  // Change to more reasonable values
+  // Change query to more reasonable values
   ListingModel.find({}).sort([['updatedAt' , 'desc']]).exec(function(err, listings) {
     if(err) {
       return next(err);
@@ -24,8 +24,8 @@ exports.login = function(req, res, next) {
     }
     // If login fails send error message
     if(!user) { 
-      var message = 'Invalid username or password'; 
-      return res.render('login', { title: 'Login', error: message }); 
+      var error = 'Invalid username or password'; 
+      return res.render('login', { title: 'Login', error: error }); 
     }
     // Login and redirect to home page
     req.logIn(user, function(err) {
