@@ -12,16 +12,15 @@ exports.userPage = function(req, res, next) {
     if(user === null) {
       // Send to 404 page
 
-    } else {
-      // Find listings by this user
-      ListingModel.find({ seller: username }).sort([['updatedAt', 'desc']]).exec(function(err, listings) {
-        if(err) {
-          throw err;
-        } else {
-          res.render('user', { title: user.username, user: user, listings: listings });
-        }
-      });
     }
+    // Find listings by this user
+    ListingModel.find({ seller: username }).sort([['updatedAt', 'desc']]).exec(function(err, listings) {
+      if(err) {
+        return next(err);
+      }
+      
+      res.render('user', { title: user.username, user: user, listings: listings });
+    });
   });
 };
 
@@ -39,13 +38,16 @@ exports.createUser = function(req, res, next) {
   UserModel.register(newUser, password, function(err, account) {
     if(err) {
       // Send any errors to register page
-      if(err.name == 'MongoError')
+      if(err.name == 'MongoError') {
+        // bad practice to change existing variable like this
         err.message = 'User already exists with email address ' + newUser.email;
-      res.render('register', { title: 'Register', error: err });
-    } else {
-      passport.authenticate('local')(req, res, function () {
-        res.redirect('/');
-      });
+      }
+      
+      return res.render('register', { title: 'Register', error: err.message });
     }
+    // Log in user
+    passport.authenticate('local')(req, res, function () {
+      res.redirect('/');
+    });
   });
 };

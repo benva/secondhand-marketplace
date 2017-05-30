@@ -5,11 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var flash = require('connect-flash');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
+
 var UserModel = require('./models/user');
 
 var index = require('./routes/index');
@@ -30,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(flash());
 // passport initilization
 app.use(session({
   secret: 'secretkey',

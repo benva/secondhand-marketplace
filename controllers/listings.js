@@ -37,10 +37,10 @@ exports.createListing = function(req, res, next) {
 
   newListing.save(function(err) {
     if(err) {
-      throw err;
-    } else {
-      res.redirect('./listings/' + newListing._id);
+      return next(err);
     }
+
+    res.redirect('./listings/' + newListing._id);
   });
 };
 
@@ -53,21 +53,20 @@ exports.editListing = function(req, res, next) {
     if(listing === null) {
       // Send to 404 page
 
-    } else {
-      // If current user owns listing, go to edit page
-      if(req.user != null &&  listing.seller.localeCompare(req.user.username) == 0) {
-        ListingModel.findOne({ _id: id }, function(err, listing) {
-          if(listing === null) {
-            // Send to 404 page
+    }
+    // If current user owns listing, go to edit page
+    if(req.user !== null &&  listing.seller.localeCompare(req.user.username) == 0) {
+      ListingModel.findOne({ _id: id }, function(err, listing) {
+        if(listing === null) {
+          // Send to 404 page
 
-          } else {
-            res.render('edit', { listing: listing });
-          }
-        });
-      } else {
-        // Redirect if current user does not own listing
-        res.redirect('/listings/' + id);
-      }
+        }
+
+        return res.render('edit', { listing: listing });
+      });
+    // Redirect if current user does not own listing
+    } else {
+      return res.redirect('/listings/' + id);
     }
   });
 };
@@ -83,9 +82,9 @@ exports.editPost = function(req, res, next) {
     if(listing === null) {
       // Send to 404 page
 
-    } else {
-      res.redirect('./');
     }
+
+    res.redirect('./');
   })
 };
 
@@ -97,15 +96,14 @@ exports.deleteListing = function(req, res, next) {
     if(listing === null) {
       // Send to 404 page
 
-    } else {
-      // If user owns listing, confirm deletion
-      if(req.user != null &&  listing.seller.localeCompare(req.user.username) == 0) {
-        res.render('delete', { title: 'Delete ListingModel', listing: listing });
-      } else {
-        // Redirect if they do not own listing
-        res.redirect('/listings/' + id);
-      }
+    } 
+    // If user owns listing, confirm deletion
+    if(req.user !== null &&  listing.seller.localeCompare(req.user.username) == 0) {
+      return res.render('delete', { title: 'Delete ListingModel', listing: listing });
     }
+
+    // Redirect if they do not own listing
+    res.redirect('/listings/' + id);
   });
 };
 
@@ -116,9 +114,9 @@ exports.deletePost = function(req, res, next) {
   // Remove listing
   ListingModel.remove({ _id: id }, function(err) {
     if(err) {
-      throw err;
-    } else {
-      res.redirect('/');
+      return next(err);
     }
+
+    res.redirect('/');
   });
 };

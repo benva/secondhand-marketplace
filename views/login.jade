@@ -1,6 +1,9 @@
 extends layout
 
 block content
+  if(error)
+    p #{error}
+  br
   form#formLogin(name="login",method="post",action="/login")
     input#inputUserName(type="text", placeholder="Username", name="username")
     input#inputUserPassword(type="text", placeholder="Password", name="password")
