@@ -7,9 +7,8 @@ exports.listingPage = function(req, res, next) {
 
   // If listing exists, show page
   ListingModel.findOne({ _id: id }, function(err, listing) {
-    if(listing === null) {
-      // Send to 404 page
-
+    if(listing === undefined) {
+      return res.render('error', { error: '404 not found' });
     } else {
       // Set flag to true if user's own listing
       if(req.user != null && listing.seller.localeCompare(req.user.username) == 0) { 
@@ -27,9 +26,8 @@ exports.editListing = function(req, res, next) {
 
   // Find listing to edit
   ListingModel.findOne({ _id: id }, function(err, listing) {
-    if(listing === null) {
-      // Send to 404 page
-      return res.render('error', { error: error });
+    if(listing === undefined) {
+      return res.render('error', { error: '404 not found' });
     }
     // If current user owns listing, go to edit page
     if(req.user !== null &&  listing.seller.localeCompare(req.user.username) == 0) {
@@ -56,9 +54,8 @@ exports.editPost = function(req, res, next) {
 
   // Update listing, redirect back to listing page
   ListingModel.update({ _id: id }, {$set: { designer: designer, title: title }}, function(err, listing) {
-    if(listing === null) {
-      // Send to 404 page
-
+    if(listing === undefined) {
+      return res.render('error', { error: '404 not found' }); 
     }
 
     res.redirect('./');
@@ -70,9 +67,8 @@ exports.deleteListing = function(req, res, next) {
   var id = req.params.id;
 
   ListingModel.findOne({ _id: id }, function(err, listing) {
-    if(listing === null) {
-      // Send to 404 page
-
+    if(listing === undefined) {
+      return res.render('error', { error: '404 not found' });
     } 
     // If user owns listing, confirm deletion
     if(req.user !== null &&  listing.seller.localeCompare(req.user.username) == 0) {

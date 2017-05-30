@@ -8,8 +8,7 @@ exports.userPage = function(req, res, next) {
   // If username exists, show page
   UserModel.findOne({ username: username }, function(err, user) {
     if(user === null) {
-      // Send to 404 page
-      return res.render('error', { error: error });
+      return res.render('error', { error: '404 not found' });
     }
     // Find listings by this user
     ListingModel.find({ seller: username }).sort([['updatedAt', 'desc']]).exec(function(err, listings) {
