@@ -21,29 +21,6 @@ exports.listingPage = function(req, res, next) {
   });
 };
 
-// Create new listing
-exports.createListing = function(req, res, next) {
-
-  var newListing = new ListingModel({
-    seller: req.user.username,
-    designer: req.body.designer,
-    title: req.body.title,
-    // category: req.body.category,
-    // price: req.body.price,
-    // size: req.body.size,
-    // description: req.body.description,
-    sold: false
-  });
-
-  newListing.save(function(err) {
-    if(err) {
-      return next(err);
-    }
-
-    res.redirect('./listings/' + newListing._id);
-  });
-};
-
 // ListingModel edit page
 exports.editListing = function(req, res, next) {
   var id = req.params.id;  
