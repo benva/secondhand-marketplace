@@ -1,14 +1,15 @@
-var Listing = require('../models/listing');
+var ListingModel = require('../models/listing');
 
-// Listing page
+// ListingModel page
 exports.listingPage = function(req, res, next) {
   var id = req.params.id;
   var ownListing = false;
 
   // If listing exists, show page
-  Listing.findOne({ _id: id }, function(err, listing) {
+  ListingModel.findOne({ _id: id }, function(err, listing) {
     if(listing === null) {
-      res.status(404).send('This listing does not exist!');
+      // Send to 404 page
+
     } else {
       // Set flag to true if user's own listing
       if(req.user != null && listing.seller.localeCompare(req.user.username) == 0) { 
@@ -23,7 +24,7 @@ exports.listingPage = function(req, res, next) {
 // Create new listing
 exports.createListing = function(req, res, next) {
 
-  var newListing = new Listing({
+  var newListing = new ListingModel({
     seller: req.user.username,
     designer: req.body.designer,
     title: req.body.title,
@@ -36,65 +37,70 @@ exports.createListing = function(req, res, next) {
 
   newListing.save(function(err) {
     if(err) {
-      res.render('error', { 'error': err });
+      throw err;
     } else {
       res.redirect('./listings/' + newListing._id);
     }
   });
 };
 
-// Listing edit page
+// ListingModel edit page
 exports.editListing = function(req, res, next) {
   var id = req.params.id;  
 
-  // If user owns listing, go to the edit page
-  Listing.findOne({ _id: id }, function(err, listing) {
+  // Find listing to edit
+  ListingModel.findOne({ _id: id }, function(err, listing) {
     if(listing === null) {
-      res.status(404).send('This listing does not exist!');
+      // Send to 404 page
+
     } else {
+      // If current user owns listing, go to edit page
       if(req.user != null &&  listing.seller.localeCompare(req.user.username) == 0) {
-        Listing.findOne({ _id: id }, function(err, listing) {
+        ListingModel.findOne({ _id: id }, function(err, listing) {
           if(listing === null) {
-            res.status(404).send('This listing does not exist!');
+            // Send to 404 page
+
           } else {
             res.render('edit', { listing: listing });
           }
         });
       } else {
-        // Redirect if they do not own listing
+        // Redirect if current user does not own listing
         res.redirect('/listings/' + id);
       }
     }
   });
 };
 
-// Listing edit post
+// ListingModel edit post
 exports.editPost = function(req, res, next) {
   var id = req.params.id;
   var designer = req.body.designer;
   var title = req.body.title;
 
   // Update listing, redirect back to listing page
-  Listing.update({ _id: id }, {$set: { designer: designer, title: title }}, function(err, listing) {
+  ListingModel.update({ _id: id }, {$set: { designer: designer, title: title }}, function(err, listing) {
     if(listing === null) {
-      res.status(404).send('This listing does not exist!');
+      // Send to 404 page
+
     } else {
       res.redirect('./');
     }
   })
 };
 
-// Listing deletion page
+// ListingModel deletion page
 exports.deleteListing = function(req, res, next) {
   var id = req.params.id;
 
-  Listing.findOne({ _id: id }, function(err, listing) {
+  ListingModel.findOne({ _id: id }, function(err, listing) {
     if(listing === null) {
-      res.status(404).send('This listing does not exist!');
+      // Send to 404 page
+
     } else {
       // If user owns listing, confirm deletion
       if(req.user != null &&  listing.seller.localeCompare(req.user.username) == 0) {
-        res.render('delete', { title: 'Delete Listing', listing: listing });
+        res.render('delete', { title: 'Delete ListingModel', listing: listing });
       } else {
         // Redirect if they do not own listing
         res.redirect('/listings/' + id);
@@ -103,14 +109,14 @@ exports.deleteListing = function(req, res, next) {
   });
 };
 
-// Listing delete post
+// ListingModel delete post
 exports.deletePost = function(req, res, next) {
   var id = req.params.id;
 
   // Remove listing
-  Listing.remove({ _id: id }, function(err) {
+  ListingModel.remove({ _id: id }, function(err) {
     if(err) {
-      res.status(404).send('This listing does not exist!');
+      throw err;
     } else {
       res.redirect('/');
     }

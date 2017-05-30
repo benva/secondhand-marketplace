@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('./models/user');
+var UserModel = require('./models/user');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -47,9 +47,9 @@ app.use('/users', users);
 app.use('/listings', listings);
 
 // passport config
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(UserModel.authenticate()));
+passport.serializeUser(UserModel.serializeUser());
+passport.deserializeUser(UserModel.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

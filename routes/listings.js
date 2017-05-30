@@ -1,17 +1,17 @@
 var express = require('express');
 var router = express.Router();
 
-var listingsController = require('../controllers/listingsController');
+var listings = require('../controllers/listings');
 
 /* GET listing page */
-router.get('/:id', listingsController.listingPage);
+router.get('/:id', listings.listingPage);
 
-router.get('/:id/edit', listingsController.editListing);
+router.get('/:id/edit', listings.editListing);
 
-router.post('/:id/edit', listingsController.editPost);
+router.post('/:id/edit', listings.editPost);
 
-router.get('/:id/delete', listingsController.deleteListing);
+router.get('/:id/delete', listings.deleteListing);
 
-router.post('/:id/delete', listingsController.deletePost);
+router.post('/:id/delete', listings.deletePost);
 
 module.exports = router;

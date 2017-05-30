@@ -2,23 +2,12 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-var listingsController = require('../controllers/listingsController');
-var usersController = require('../controllers/usersController');
-
-// var User = require('../models/user');
-var Listing = require('../models/listing');
+var listings = require('../controllers/listings');
+var users = require('../controllers/users');
+var index = require('../controllers/index');
 
 /* GET home page */
-router.get('/', function(req, res, next) {
-  // Move this to listingsController.js
-  Listing.find({}).sort([['updatedAt' , 'desc']]).exec(function(err, listings) {
-    if(err) {
-      res.render('error', { 'error': err });
-    } else {
-      res.render('index', { title: 'Covenant', user: req.user, listings: listings });
-    }
-  });
-});
+router.get('/', index.home);
 
 /* GET login page */
 router.get('/login', function(req, res, next) {
@@ -53,14 +42,16 @@ router.get('/create', function(req, res, next) {
   }
 });
 
+/* POST login user */
+// Login with email/username
 router.post('/login', passport.authenticate('local'), function(req, res, next) {
   res.redirect('/');
 });
 
 /* POST add new user */
-router.post('/register', usersController.createUser);
+router.post('/register', users.createUser);
 
 /* POST add new listing */
-router.post('/create', listingsController.createListing);
+router.post('/create', listings.createListing);
 
 module.exports = router;

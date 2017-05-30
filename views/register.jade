@@ -1,6 +1,9 @@
 extends layout
 
 block content
+  if(error)
+    p #{error.message}
+  br
   form#formRegister(name="register",method="post",action="/register")
     input#inputUserName(type="text", placeholder="Username", name="username")
     input#inputUserPassword(type="text", placeholder="Password", name="password")
