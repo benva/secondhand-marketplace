@@ -98,8 +98,8 @@ exports.delete = function(req, res, next) {
 
   // Remove listing
   ListingModel.remove({ _id: id }, function(err) {
-    if(listing === undefined || listing === null) {
-      return res.render('error', { error: '404 not found' }); 
+    if(err) {
+      return next(err);
     }
   });
 
