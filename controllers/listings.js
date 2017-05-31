@@ -15,7 +15,7 @@ exports.listingPage = function(req, res, next) {
         ownListing = true; 
       }
 
-      res.render('listing', { listing: listing, own: ownListing });
+      res.render('listing', { title: listing.designer + ' ' + listing.title, listing: listing, own: ownListing });
     }
   });
 };
@@ -41,6 +41,7 @@ exports.editListing = function(req, res, next) {
           return res.render('error', { error: '404 not found' });
         }
 
+        // Find time in milliseconds since listing was bumped
         var currentDate = new Date();
         var oldDate = listing.lastBumped;
         var timeSinceBump = currentDate - oldDate;
@@ -55,7 +56,7 @@ exports.editListing = function(req, res, next) {
           bump.mins = Math.floor(nextBump / (60 * 1000) % 60);
         }
 
-        return res.render('edit', { listing: listing, bump: bump });
+        return res.render('edit', { title: 'Edit - ' + listing.designer + ' ' + listing.title, listing: listing, bump: bump });
       });
     // Redirect if current user does not own listing
     } else {

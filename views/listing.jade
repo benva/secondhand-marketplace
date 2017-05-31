@@ -7,11 +7,10 @@ block content
   p $#{listing.price}
   p #{listing.description}
   br
-  p sold by 
-    a(href="/users/#{listing.seller}") #{listing.seller}
+
   if(own)
-    br
     a(href="/listings/#{listing._id}/edit") Edit listing
-  //- else
+  if(!own)
+    a(href="/users/#{listing.seller}") #{listing.seller}
   //- add buying and messaging options
 
