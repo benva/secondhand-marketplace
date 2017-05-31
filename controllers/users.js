@@ -11,7 +11,7 @@ exports.userPage = function(req, res, next) {
       return res.render('error', { error: '404 not found' });
     }
     // Find listings by this user
-    ListingModel.find({ seller: username }).sort([['updatedAt', 'desc']]).exec(function(err, listings) {
+    ListingModel.find({ seller: username }).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
       if(err) {
         return next(err);
       }

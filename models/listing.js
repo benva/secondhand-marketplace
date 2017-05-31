@@ -10,8 +10,8 @@ var ListingSchema = new Schema({
   category : String,
   size : Schema.Types.Mixed,
   price : Number,
-  oldPrices : [Number],
   description : String,
+  lastBumped : Date,
   photos : [String],
   sold : Boolean,
   feedback : {

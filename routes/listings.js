@@ -8,12 +8,12 @@ router.get('/:id', listings.listingPage);
 
 /* EDIT */
 router.get('/:id/edit', listings.editListing);
-
 router.post('/:id/edit', listings.editPost);
 
 /* DELETE */
-// router.get('/:id/delete', listings.deleteListing);
+router.post('/:id/delete', listings.delete);
 
-router.post('/:id/delete', listings.deletePost);
+/* DROP PRICE */
+router.post('/:id/bump', listings.bump);
 
 module.exports = router;

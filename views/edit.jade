@@ -18,9 +18,16 @@ block content
     br
     //- select(name="size")
     //- br
+    input(value="#{listing.price}", name="price")
+    br
     textarea(name="description") #{listing.description}
     br
     button#btnSubmit(type="submit") Submit
   br
+  if(bump.flag)
+    form(name="drop", method="post", action="/listings/#{listing._id}/bump")
+      button(type="submit", name="bump") Bump
+  if(!bump.flag)
+    p #{bump.hours} hours and #{bump.mins} minutes until next bump
   form(name="delete", method="post", action="/listings/#{listing._id}/delete")
-      button(type="submit", name="delete") Delete listing
+    button(type="submit", name="delete") Delete listing

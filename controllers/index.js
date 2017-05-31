@@ -7,7 +7,7 @@ var ListingModel = require('../models/listing');
 exports.home = function(req, res, next) {
   // Find all listings
   // Change query to more reasonable values
-  ListingModel.find({}).sort([['updatedAt' , 'desc']]).exec(function(err, listings) {
+  ListingModel.find({}).sort([['lastBumped' , 'desc']]).exec(function(err, listings) {
     if(err) {
       return next(err);
     } 
@@ -76,6 +76,7 @@ exports.createListing = function(req, res, next) {
     // size: req.body.size,
     price: req.body.price,
     description: req.body.description,
+    lastBumped: new Date(),
     sold: false
   });
 
