@@ -29,7 +29,6 @@ exports.editListing = function(req, res, next) {
     mins: 0
   };
    
-
   // Find listing to edit
   ListingModel.findOne({ _id: id }, function(err, listing) {
     if(listing === undefined || listing === null) {
@@ -46,6 +45,8 @@ exports.editListing = function(req, res, next) {
         var oldDate = listing.lastBumped;
         var timeSinceBump = currentDate - oldDate;
         
+        // Determine whether the listing can be bumped or not
+        // 43200000 is 12 hours in milliseconds
         if(timeSinceBump >= 43200000) {
           bump.flag = true;
         } else {
