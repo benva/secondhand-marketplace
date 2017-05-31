@@ -1,6 +1,6 @@
 var ListingModel = require('../models/listing');
 
-// ListingModel page
+// Listing page
 exports.listingPage = function(req, res, next) {
   var id = req.params.id;
   var ownListing = false;
@@ -20,7 +20,7 @@ exports.listingPage = function(req, res, next) {
   });
 };
 
-// ListingModel edit page
+// Listing edit page
 exports.editListing = function(req, res, next) {
   var id = req.params.id;
   var bump = {
@@ -65,7 +65,7 @@ exports.editListing = function(req, res, next) {
   });
 };
 
-// ListingModel edit post
+// Listing edit post
 exports.editPost = function(req, res, next) {
   var id = req.params.id;
   var designer = req.body.designer;
@@ -92,7 +92,7 @@ exports.editPost = function(req, res, next) {
   res.redirect('/listings/' + id);
 };
 
-// ListingModel delete post
+// Listing delete post
 exports.delete = function(req, res, next) {
   var id = req.params.id;
 
@@ -106,10 +106,11 @@ exports.delete = function(req, res, next) {
   res.redirect('/');
 };
 
+// Bump listing to the top of the list
 exports.bump = function(req, res, next) {
   var id = req.params.id;
 
-  // Make this update to an integer
+  // Update lastBumped to the current timestamp
   ListingModel.update({ _id: id }, { $currentDate: { lastBumped: true }}, function(err, listing) {
     if(listing === undefined || listing === null) {
       return res.render('error', { error: '404 not found' }); 

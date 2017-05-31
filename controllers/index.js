@@ -55,7 +55,6 @@ exports.createUser = function(req, res, next) {
         // bad practice to change existing variable like this
         err.message = 'User already exists with email address ' + newUser.email;
       }
-      
       return res.render('register', { title: 'Register', error: err.message });
     }
     // Login newly created user

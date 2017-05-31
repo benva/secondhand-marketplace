@@ -2,7 +2,7 @@ extends layout
 
 block content
   if(error)
-    p #{error.message}
+    p #{error}
   br
   form(name="register",method="post",action="/register")
     input(type="text", placeholder="Username", name="username")
