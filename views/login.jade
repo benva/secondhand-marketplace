@@ -4,7 +4,9 @@ block content
   if(error)
     p #{error}
   br
-  form#formLogin(name="login",method="post",action="/login")
-    input#inputUserName(type="text", placeholder="Username", name="username")
-    input#inputUserPassword(type="text", placeholder="Password", name="password")
-    button#btnSubmit(type="submit") Submit
+  form(name="login",method="post",action="/login")
+    input(type="text", placeholder="Username", name="username")
+    br
+    input(type="text", placeholder="Password", name="password")
+    br
+    button(type="submit") Submit

@@ -1,14 +1,18 @@
 extends layout
 
 block content
-  h1.
-    #{listing.designer}
-  p.
-    #{listing.title}
+  h1 #{listing.designer}
+  h2 #{listing.title}
+  p #{listing.category} (#{listing.size})
+  p $#{listing.price}
+  p #{listing.description}
   br
-  p
+  p sold by 
     a(href="/users/#{listing.seller}") #{listing.seller}
   if(own)
-    a(href="/listings/#{listing._id}/edit") Edit listing
+    a(href="/listings/#{listing._id}/drop") Drop price 5%
     br
-    a(href="/listings/#{listing._id}/delete") Delete listing
+    a(href="/listings/#{listing._id}/edit") Edit listing
+  //- else
+  //- add buying and messaging options
+

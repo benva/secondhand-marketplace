@@ -4,8 +4,11 @@ block content
   if(error)
     p #{error.message}
   br
-  form#formRegister(name="register",method="post",action="/register")
-    input#inputUserName(type="text", placeholder="Username", name="username")
-    input#inputUserPassword(type="text", placeholder="Password", name="password")
-    input#inputUserEmail(type="text", placeholder="E-mail", name="email")
+  form(name="register",method="post",action="/register")
+    input(type="text", placeholder="Username", name="username")
+    br
+    input(type="text", placeholder="Password", name="password")
+    br
+    input(type="text", placeholder="E-mail", name="email")
+    br
     button#btnSubmit(type="submit") Submit

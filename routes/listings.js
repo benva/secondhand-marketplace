@@ -12,7 +12,7 @@ router.get('/:id/edit', listings.editListing);
 router.post('/:id/edit', listings.editPost);
 
 /* DELETE */
-router.get('/:id/delete', listings.deleteListing);
+// router.get('/:id/delete', listings.deleteListing);
 
 router.post('/:id/delete', listings.deletePost);
 

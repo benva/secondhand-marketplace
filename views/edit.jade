@@ -1,7 +1,26 @@
 extends layout
 
 block content
-  form#formEditListing(name="edit",method="post",action="/listings/#{listing._id}/edit")
-    input#inputUserName(type="text", value="#{listing.designer}", name="designer")
-    input#inputUserEmail(type="text", value="#{listing.title}", name="title")
+  
+  form(name="create", method="post", action="/listings/#{listing._id}/edit")
+    input(value="#{listing.designer}", name="designer")
+    br
+    input(value="#{listing.title}", name="title")
+    br
+    //- This should be dynamic
+    select(name="category")
+      option(selected disabled) Category
+      option(value="outerwear") Outerwear
+      option(value="tops") Tops
+      option(value="bottoms") Bottoms
+      option(value="footwear") Footwear
+      option(value="accessories") Accessories
+    br
+    //- select(name="size")
+    //- br
+    textarea(name="description") #{listing.description}
+    br
     button#btnSubmit(type="submit") Submit
+  br
+  form(name="delete", method="post", action="/listings/#{listing._id}/delete")
+      button(type="submit", name="delete") Delete listing

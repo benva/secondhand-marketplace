@@ -7,11 +7,11 @@ exports.listingPage = function(req, res, next) {
 
   // If listing exists, show page
   ListingModel.findOne({ _id: id }, function(err, listing) {
-    if(listing === undefined) {
+    if(listing === undefined || listing === null) {
       return res.render('error', { error: '404 not found' });
     } else {
       // Set flag to true if user's own listing
-      if(req.user != null && listing.seller.localeCompare(req.user.username) == 0) { 
+      if(req.user !== undefined && listing.seller.localeCompare(req.user.username) == 0) { 
         ownListing = true; 
       }
 
@@ -26,15 +26,14 @@ exports.editListing = function(req, res, next) {
 
   // Find listing to edit
   ListingModel.findOne({ _id: id }, function(err, listing) {
-    if(listing === undefined) {
+    if(listing === undefined || listing === null) {
       return res.render('error', { error: '404 not found' });
     }
     // If current user owns listing, go to edit page
-    if(req.user !== null &&  listing.seller.localeCompare(req.user.username) == 0) {
+    if(req.user !== undefined && listing.seller.localeCompare(req.user.username) == 0) {
       ListingModel.findOne({ _id: id }, function(err, listing) {
-        if(listing === null) {
-          // Send to 404 page
-
+        if(listing === undefined || listing === null) {
+          return res.render('error', { error: '404 not found' });
         }
 
         return res.render('edit', { listing: listing });
@@ -51,33 +50,24 @@ exports.editPost = function(req, res, next) {
   var id = req.params.id;
   var designer = req.body.designer;
   var title = req.body.title;
+  var category = req.body.category;
+  var size = req.body.size;
+  var description = req.body.description;
 
   // Update listing, redirect back to listing page
-  ListingModel.update({ _id: id }, {$set: { designer: designer, title: title }}, function(err, listing) {
-    if(listing === undefined) {
+  ListingModel.update({ _id: id }, {$set: { 
+    designer: designer, 
+    title: title,
+    category: category,
+    size: size,
+    description: description
+  }}, function(err, listing) {
+    if(listing === undefined || listing === null) {
       return res.render('error', { error: '404 not found' }); 
     }
 
     res.redirect('./');
   })
-};
-
-// ListingModel deletion page
-exports.deleteListing = function(req, res, next) {
-  var id = req.params.id;
-
-  ListingModel.findOne({ _id: id }, function(err, listing) {
-    if(listing === undefined) {
-      return res.render('error', { error: '404 not found' });
-    } 
-    // If user owns listing, confirm deletion
-    if(req.user !== null &&  listing.seller.localeCompare(req.user.username) == 0) {
-      return res.render('delete', { title: 'Delete ListingModel', listing: listing });
-    }
-
-    // Redirect if they do not own listing
-    res.redirect('/listings/' + id);
-  });
 };
 
 // ListingModel delete post

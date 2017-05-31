@@ -1,7 +1,23 @@
 extends layout
 
 block content
-  form#formAddListing(name="create",method="post",action="/create")
-    input#inputUserName(type="text", placeholder="Designer", name="designer")
-    input#inputUserEmail(type="text", placeholder="Title", name="title")
+  form(name="create", method="post", action="/create")
+    input(placeholder="Designer", name="designer")
+    br
+    input(placeholder="Title", name="title")
+    br
+    select(name="category")
+      option(selected disabled) Category
+      option(value="outerwear") Outerwear
+      option(value="tops") Tops
+      option(value="bottoms") Bottoms
+      option(value="footwear") Footwear
+      option(value="accessories") Accessories
+    br
+    //- select(name="size")
+    //- br
+    input(placeholder="Price", name="price")
+    br
+    textarea(placeholder="Description", name="description")
+    br
     button#btnSubmit(type="submit") Submit

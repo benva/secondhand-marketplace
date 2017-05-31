@@ -72,10 +72,10 @@ exports.createListing = function(req, res, next) {
     seller: req.user.username,
     designer: req.body.designer,
     title: req.body.title,
-    // category: req.body.category,
-    // price: req.body.price,
+    category: req.body.category,
     // size: req.body.size,
-    // description: req.body.description,
+    price: req.body.price,
+    description: req.body.description,
     sold: false
   });
 
