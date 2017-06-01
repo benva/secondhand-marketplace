@@ -30,7 +30,8 @@ router.post('/login', index.login);
 /* CREATE */
 router.get('/create', function(req, res, next) {
   if(req.user) {
-    return res.render('create', { title: 'New Listing' });
+    var error = 'You need to login before creating a listing';
+    return res.render('create', { title: 'New Listing', error: error });
   } 
   res.redirect('./login');
 });

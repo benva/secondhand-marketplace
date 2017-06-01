@@ -72,7 +72,7 @@ exports.createListing = function(req, res, next) {
     designer: req.body.designer,
     title: req.body.title,
     category: req.body.category,
-    // size: req.body.size,
+    size: req.body.size,
     price: req.body.price,
     description: req.body.description,
     lastBumped: new Date(),

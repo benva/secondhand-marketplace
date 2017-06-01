@@ -7,8 +7,8 @@ block content
     br
     input(value="#{listing.title}", name="title")
     br
-    //- This should be dynamic
-    select(name="category")
+    //- Right category and size should be selected automatically
+    select(name="category", id="category")
       option(disabled) Category
       option(value="outerwear") Outerwear
       option(value="tops") Tops
@@ -16,8 +16,9 @@ block content
       option(value="footwear") Footwear
       option(value="accessories") Accessories
     br
-    //- select(name="size")
-    //- br
+    select(name="size", id="size")
+      option(disabled) Size
+    br
     input(value="#{listing.price}", name="price")
     br
     textarea(name="description") #{listing.description}
@@ -31,3 +32,6 @@ block content
     p #{bump.hours} hours and #{bump.mins} minutes until next bump
   form(name="delete", method="post", action="/listings/#{listing._id}/delete")
     button(type="submit", name="delete") Delete listing
+
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+  script(src="/javascript/sizes.js")

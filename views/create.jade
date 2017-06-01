@@ -6,7 +6,7 @@ block content
     br
     input(placeholder="Title", name="title")
     br
-    select(name="category")
+    select(name="category", id="category")
       option(selected disabled) Category
       option(value="outerwear") Outerwear
       option(value="tops") Tops
@@ -14,10 +14,15 @@ block content
       option(value="footwear") Footwear
       option(value="accessories") Accessories
     br
-    //- select(name="size")
-    //- br
+    select(name="size", id="size")
+      option(selected disabled) Size
+    br
     input(placeholder="Price", name="price")
     br
     textarea(placeholder="Description", name="description")
     br
     button#btnSubmit(type="submit") Submit
+
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+  script(src="/javascript/sizes.js")
+    
