@@ -13,24 +13,12 @@ USE REACT
 Aim Finish Date: 2017/04/8
 
 ## Ben
-### 2017/03/24
-#### Work on backend database essentials
-1. Database
-* Users
-* User info (locations)
-* Listings
-* Feedback
-
-USE MONGO DB
-
-Aim Finish Date: 2017/04/8
-
-Work On Later
-•	Template
-	•	Login
-	•	Private messaging
-	•	Buy/Sell
-	⁃	Map dropper
-	⁃	PayPal
-	•	Price drops
-	•	Search engine
+To do (in no particular order)
+Listing edit page
+Listing size conversion
+Listing photos
+Listing buying
+Listing feedback
+User feedback page
+Private messaging
+Search
