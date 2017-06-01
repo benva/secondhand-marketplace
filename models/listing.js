@@ -13,7 +13,7 @@ var ListingSchema = new Schema({
   description : String,
   lastBumped : Date,
   photos : [String],
-  sold : Boolean,
+  sold : Date,
   feedback : {
     rating : Number,
     comment : String
