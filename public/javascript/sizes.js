@@ -75,12 +75,13 @@ $(document).ready(function() {
   var accessories = [{
     value: "OS",
     text: "OS"
-  }];
+  }];  
 
   $('#category').change(function() {
     var sizes = eval($(this).val());
 
     $('#size').find('option').remove();
+    $('#size').append($('<option selected disabled> Size </option>'));
     
     $.each(sizes, function(i, size) {
       $('#size').append($('<option>', {
