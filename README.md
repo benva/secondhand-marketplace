@@ -23,8 +23,6 @@ Aim Finish Date: 2017/04/8
 
 ## Ben
 ### To do (in no particular order)
-* Listing edit page
-* Listing size conversion
 * Listing photos
 * Listing buying
 * Listing sold page
