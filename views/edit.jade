@@ -1,3 +1,5 @@
+//- Talk to me before rewriting this page, there's some hacky shit going on
+
 extends layout
 
 block content
@@ -7,16 +9,18 @@ block content
     br
     input(value="#{listing.title}", name="title")
     br
-    //- Right category and size should be selected automatically
+    
+    input(type="hidden", id="correct_category", value="#{listing.category}")
     select(name="category", id="category")
-      option(disabled) Category
-      option(value="outerwear") Outerwear
-      option(value="tops") Tops
-      option(value="bottoms") Bottoms
-      option(value="footwear") Footwear
-      option(value="accessories") Accessories
+      option(disabled value="category") Category
+      option#outerwear(value="outerwear") Outerwear
+      option#tops(value="tops") Tops
+      option#bottoms(value="bottoms") Bottoms
+      option#footwear(value="footwear") Footwear
+      option#accessories(value="accessories") Accessories
     br
-    //- Talk to me about this before remaking this page (really hacky solution)
+    
+    input(type="hidden", id="correct_size", value="#{listing.size}")
     select(name="size", id="size" onchange="document.getElementById('conversion').value=this.options[this.selectedIndex].text")
       option(selected disabled) Size
     input(type="hidden", name="conversion", id="conversion", value="")
@@ -37,3 +41,10 @@ block content
 
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
   script(src="/javascript/sizes.js")
+  script.
+    $(document).ready(function() {
+      var category = $('#correct_category').val();
+      var size = $('#correct_size').val();
+      $('#category').val(category).trigger('change');
+      $('#size').val(size).trigger('change');
+    });
