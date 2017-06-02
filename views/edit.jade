@@ -4,7 +4,7 @@ extends layout
 
 block content
 
-  form(name="create", method="post", action="/listings/#{listing._id}/edit")
+  form(name="edit", method="post", action="/listings/#{listing._id}/edit")
     input(value="#{listing.designer}", name="designer")
     br
     input(value="#{listing.title}", name="title")

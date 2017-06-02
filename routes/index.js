@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var multer = require('multer');
+var upload = multer({ dest: 'public/images/' });
 
 var index = require('../controllers/index');
 
@@ -36,7 +38,7 @@ router.get('/create', function(req, res, next) {
   res.redirect('./login');
 });
 
-router.post('/create', index.createListing);
+router.post('/create', upload.array('photos', 2), index.createListing);
 
 
 /* LOGOUT */

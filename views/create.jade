@@ -3,7 +3,7 @@
 extends layout
 
 block content
-  form(name="create", method="post", action="/create")
+  form(name="create", method="post", action="/create" enctype="multipart/form-data")
     input(placeholder="Designer", name="designer")
     br
     input(placeholder="Title", name="title")
@@ -25,8 +25,9 @@ block content
     br
     textarea(placeholder="Description", name="description")
     br
+    input(type="file", name="photos" multiple)
+    br
     button#btnSubmit(type="submit") Submit
 
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
   script(src="/javascript/sizes.js") 
-   
