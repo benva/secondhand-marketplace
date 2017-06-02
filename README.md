@@ -23,7 +23,9 @@ Aim Finish Date: 2017/04/8
 
 ## Ben
 ### To do (in no particular order)
-* Listing photos
+* Edit/Delete photos
+* Check photo filetype
+* PUT/DELETE
 * Listing buying
 * Listing sold page
 * Listing feedback
