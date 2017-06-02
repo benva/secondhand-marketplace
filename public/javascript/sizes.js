@@ -78,7 +78,6 @@ $(document).ready(function() {
   }];
 
   $('#category').change(function() {
-    var category = $(this).val();
     var sizes = eval($(this).val());
 
     $('#size').find('option').remove();

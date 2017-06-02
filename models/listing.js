@@ -9,6 +9,7 @@ var ListingSchema = new Schema({
   title : String,
   category : String,
   size : Schema.Types.Mixed,
+  conversion : String,
   price : Number,
   description : String,
   lastBumped : Date,
