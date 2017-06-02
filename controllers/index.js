@@ -10,7 +10,7 @@ exports.home = function(req, res, next) {
   ListingModel.find({}).sort([['lastBumped' , 'desc']]).exec(function(err, listings) {
     if(err) {
       return next(err);
-    } 
+    }
 
     res.render('index', { title: 'Covenant', user: req.user, listings: listings });
   });
@@ -19,18 +19,18 @@ exports.home = function(req, res, next) {
 // Login post
 exports.login = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
-    if(err) { 
+    if(err) {
       return next(err);
     }
     // If login fails send error message
-    if(!user) { 
-      var error = 'Invalid username or password'; 
-      return res.render('login', { title: 'Login', error: error }); 
+    if(!user) {
+      var error = 'Invalid username or password';
+      return res.render('login', { title: 'Login', error: error });
     }
     // Login and redirect to home page
     req.logIn(user, function(err) {
-      if(err) { 
-        return next(err); 
+      if(err) {
+        return next(err);
       }
       res.redirect('/');
     });
@@ -75,8 +75,7 @@ exports.createListing = function(req, res, next) {
     size: req.body.size,
     price: req.body.price,
     description: req.body.description,
-    lastBumped: new Date(),
-    sold: false
+    lastBumped: new Date()
   });
 
   newListing.save(function(err) {
