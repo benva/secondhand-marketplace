@@ -72,6 +72,7 @@ exports.editPost = function(req, res, next) {
   var title = req.body.title;
   var category = req.body.category;
   var size = req.body.size;
+  var conversion = req.body.conversion;
   var price = req.body.price;
   var description = req.body.description;
 
@@ -81,6 +82,7 @@ exports.editPost = function(req, res, next) {
     title: title,
     category: category,
     size: size,
+    conversion: conversion,
     price: price,
     description: description
   }}, function(err, listing) {

@@ -14,6 +14,7 @@ block content
       option(value="footwear") Footwear
       option(value="accessories") Accessories
     br
+    //- Talk to me about this before remaking this page (really hacky solution)
     select(name="size", id="size" onchange="document.getElementById('conversion').value=this.options[this.selectedIndex].text")
       option(selected disabled) Size
     input(type="hidden", name="conversion", id="conversion", value="")

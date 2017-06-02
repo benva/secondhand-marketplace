@@ -16,8 +16,10 @@ block content
       option(value="footwear") Footwear
       option(value="accessories") Accessories
     br
-    select(name="size", id="size")
-      option(disabled) Size
+    //- Talk to me about this before remaking this page (really hacky solution)
+    select(name="size", id="size" onchange="document.getElementById('conversion').value=this.options[this.selectedIndex].text")
+      option(selected disabled) Size
+    input(type="hidden", name="conversion", id="conversion", value="")
     br
     input(value="#{listing.price}", name="price")
     br
