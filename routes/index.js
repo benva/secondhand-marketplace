@@ -38,7 +38,7 @@ router.get('/create', function(req, res, next) {
   res.redirect('./login');
 });
 
-router.post('/create', upload.array('photos', 2), index.createListing);
+router.post('/create', upload.array('photos', 7), index.createListing);
 
 
 /* LOGOUT */

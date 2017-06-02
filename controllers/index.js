@@ -48,8 +48,8 @@ exports.createUser = function(req, res, next) {
   var password = req.body.password;
 
   UserModel.register(newUser, password, function(err, account) {
+    // Send any errors to register page
     if(err) {
-      // Send any errors to register page
       if(err.name == 'MongoError') {
         // bad practice to change existing variable like this
         err.message = 'User already exists with email address ' + newUser.email;

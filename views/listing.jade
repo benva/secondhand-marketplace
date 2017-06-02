@@ -1,9 +1,10 @@
 extends layout
 
 block content
+  each photo, i in listing.photos
+    img(src="/images/#{photo}")
   h1 #{listing.designer}
   h2 #{listing.title}
-  //- Show size conversions
   p #{listing.category} 
   p #{listing.conversion}
   p $#{listing.price}
