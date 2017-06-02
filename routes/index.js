@@ -32,10 +32,10 @@ router.post('/login', index.login);
 /* CREATE */
 router.get('/create', function(req, res, next) {
   if(req.user) {
-    var error = 'You need to login before creating a listing';
-    return res.render('create', { title: 'New Listing', error: error });
+    return res.render('create', { title: 'New Listing' });
   } 
-  res.redirect('./login');
+  var error = 'You need to login before creating a listing';
+  res.render('login', { title: 'Login', error: error });
 });
 
 router.post('/create', upload.array('photos', 7), index.createListing);

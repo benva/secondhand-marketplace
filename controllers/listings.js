@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 var ListingModel = require('../models/listing');
 
 // Listing page
@@ -98,12 +100,29 @@ exports.editPost = function(req, res, next) {
 exports.delete = function(req, res, next) {
   var id = req.params.id;
 
-  // Remove listing
+  // Delete listing photos
+  ListingModel.findOne({ _id: id }, function(err, listing) {
+    if(err) {
+      throw next(err);
+    }
+    // This works but sometimes throws an error because JS is asynchronous
+    // Make this whole function synchronous in the future
+    try {
+      for(var i = 0; i < listing.photos.length; i++) {
+        fs.unlinkSync('public/images/' + listing.photos[i]);
+      }
+    } catch(TypeError) {
+      console.log('asynchronous');
+    }
+  });
+
+  // Remove listing from database
   ListingModel.remove({ _id: id }, function(err) {
     if(err) {
       return next(err);
     }
   });
+
 
   res.redirect('/');
 };
