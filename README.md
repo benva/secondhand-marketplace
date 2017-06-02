@@ -24,8 +24,8 @@ Aim Finish Date: 2017/04/8
 ## Ben
 ### To do (in no particular order)
 * Edit/Delete photos
-* Check photo filetype
 * PUT/DELETE
+* Verify all input server-side
 * Listing buying
 * Listing sold page
 * Listing feedback
