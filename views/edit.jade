@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  
+
   form(name="create", method="post", action="/listings/#{listing._id}/edit")
     input(value="#{listing.designer}", name="designer")
     br
@@ -23,7 +23,7 @@ block content
     br
     textarea(name="description") #{listing.description}
     br
-    button#btnSubmit(type="submit") Submit
+    button(type="submit") Submit
   br
   if(bump.flag)
     form(name="drop", method="post", action="/listings/#{listing._id}/bump")

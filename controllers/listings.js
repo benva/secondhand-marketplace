@@ -11,8 +11,8 @@ exports.listingPage = function(req, res, next) {
       return res.render('error', { error: '404 not found' });
     } else {
       // Set flag to true if user's own listing
-      if(req.user !== undefined && listing.seller.localeCompare(req.user.username) == 0) { 
-        ownListing = true; 
+      if(req.user !== undefined && listing.seller.localeCompare(req.user.username) == 0) {
+        ownListing = true;
       }
 
       res.render('listing', { title: listing.designer + ' ' + listing.title, listing: listing, own: ownListing });
@@ -28,7 +28,7 @@ exports.editListing = function(req, res, next) {
     hours: 0,
     mins: 0
   };
-   
+
   // Find listing to edit
   ListingModel.findOne({ _id: id }, function(err, listing) {
     if(listing === undefined || listing === null) {
@@ -45,7 +45,7 @@ exports.editListing = function(req, res, next) {
         var currentDate = new Date();
         var oldDate = listing.lastBumped;
         var timeSinceBump = currentDate - oldDate;
-        
+
         // Determine whether the listing can be bumped or not
         // 43200000 is 12 hours in milliseconds
         if(timeSinceBump >= 43200000) {
@@ -76,8 +76,8 @@ exports.editPost = function(req, res, next) {
   var description = req.body.description;
 
   // Update listing, redirect back to listing page
-  ListingModel.update({ _id: id }, { $set: { 
-    designer: designer, 
+  ListingModel.update({ _id: id }, { $set: {
+    designer: designer,
     title: title,
     category: category,
     size: size,
@@ -85,7 +85,7 @@ exports.editPost = function(req, res, next) {
     description: description
   }}, function(err, listing) {
     if(listing === undefined || listing === null) {
-      return res.render('error', { error: '404 not found' }); 
+      return res.render('error', { error: '404 not found' });
     }
   });
 
@@ -113,7 +113,7 @@ exports.bump = function(req, res, next) {
   // Update lastBumped to the current timestamp
   ListingModel.update({ _id: id }, { $currentDate: { lastBumped: true }}, function(err, listing) {
     if(listing === undefined || listing === null) {
-      return res.render('error', { error: '404 not found' }); 
+      return res.render('error', { error: '404 not found' });
     }
   });
 
