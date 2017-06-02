@@ -7,6 +7,7 @@ mongod --dbpath=<path>
 npm install
 npm start
 ```
+
 ## Clark
 ### 2017/03/24
 #### Work on frontend essentials to create a framework
@@ -21,7 +22,7 @@ USE REACT
 Aim Finish Date: 2017/04/8
 
 ## Ben
-To do (in no particular order)
+###To do (in no particular order)
 * Listing edit page
 * Listing size conversion
 * Listing photos
