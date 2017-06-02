@@ -1,7 +1,7 @@
 # Covenent
 
 ```
-git clone https://github.com/clarkyin/covenant
+git clone https://github.com/clarkyin/covenant.git
 cd covenant
 mongod --dbpath=<path>
 npm install
