@@ -11,7 +11,6 @@ exports.home = function(req, res, next) {
     if(err) {
       return next(err);
     }
-
     res.render('index', { title: 'Covenant', user: req.user, listings: listings });
   });
 };
@@ -83,7 +82,7 @@ exports.createListing = function(req, res, next) {
     lastBumped: new Date(),
     photos: photos
   });
-
+  console.log(req.body)
   newListing.save(function(err) {
     if(err) {
       return next(err);

@@ -13,7 +13,7 @@ router.get('/', index.home);
 router.get('/register', function(req, res, next) {
   if(req.user) {
     return res.redirect('/');
-  } 
+  }
   res.render('register', { title: 'Register' });
 });
 
@@ -33,7 +33,7 @@ router.post('/login', index.login);
 router.get('/create', function(req, res, next) {
   if(req.user) {
     return res.render('create', { title: 'New Listing' });
-  } 
+  }
   var error = 'You need to login before creating a listing';
   res.render('login', { title: 'Login', error: error });
 });

@@ -17,9 +17,9 @@ block content
       option(value="accessories") Accessories
     br
     //- Talk to me about this before remaking this page (really hacky solution)
-    select(name="size", id="size" onchange="document.getElementById('conversion').value=this.options[this.selectedIndex].text")
+    select(name="size", id="size")
       option(selected disabled) Size
-    input(type="hidden", name="conversion", id="conversion", value="")
+    input(name="conversion", id="conversion", type="hidden")
     br
     input(placeholder="Price", name="price")
     br

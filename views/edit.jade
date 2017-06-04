@@ -5,6 +5,7 @@ extends layout
 block content
 
   form(name="edit", method="post", action="/listings/#{listing._id}/edit")
+    input(type="hidden" name="_method" value="PUT")
     input(value="#{listing.designer}", name="designer")
     br
     input(value="#{listing.title}", name="title")
@@ -21,7 +22,7 @@ block content
     br
     
     input(type="hidden", id="correct_size", value="#{listing.size}")
-    select(name="size", id="size" onchange="document.getElementById('conversion').value=this.options[this.selectedIndex].text")
+    select(name="size", id="size")
       option(selected disabled) Size
     input(type="hidden", name="conversion", id="conversion", value="")
     br
@@ -37,6 +38,7 @@ block content
   if(!bump.flag)
     p #{bump.hours} hours and #{bump.mins} minutes until next bump
   form(name="delete", method="post", action="/listings/#{listing._id}/delete")
+    input(type="hidden" name="_method" value="DELETE")
     button(type="submit", name="delete") Delete listing
 
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")

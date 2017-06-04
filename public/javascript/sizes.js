@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var tops = [{ 
+  var tops = [{
     value: 'xs',
     text: 'XS (US) / 42 (EU) / 0 (JP)'
   },
@@ -10,7 +10,7 @@ $(document).ready(function() {
   {
     value: 'm',
     text: 'M (US) / 46 (EU) / 2 (JP)'
-  }, 
+  },
   {
     value: 'l',
     text: 'L (US) / 48-50 (EU) / 3 (JP)'
@@ -20,7 +20,7 @@ $(document).ready(function() {
     text: 'XL (US) / 52 (EU) / 4 (JP)'
   }];
   var outerwear = tops;
-  var bottoms = [{ 
+  var bottoms = [{
     value: 26,
     text: '26 (US) / 42 (EU) / 0 (JP)'
   },
@@ -31,7 +31,7 @@ $(document).ready(function() {
   {
     value: 30,
     text: '30 (US) / 46 (EU) / 2 (JP)'
-  }, 
+  },
   {
     value: 32,
     text: '32 (US) / 48 (EU) / 3 (JP)'
@@ -40,7 +40,7 @@ $(document).ready(function() {
     value: 34,
     text: '34 (US) / 50 (EU) / 4 (JP)'
   }];
-  var footwear = [{ 
+  var footwear = [{
     value: 6,
     text: '6 (US) / 39 (EU)'
   },
@@ -51,7 +51,7 @@ $(document).ready(function() {
   {
     value: 8,
     text: '8 (US) / 41 (EU)'
-  }, 
+  },
   {
     value: 9,
     text: '9 (US) / 42 (EU)'
@@ -75,19 +75,21 @@ $(document).ready(function() {
   var accessories = [{
     value: "OS",
     text: "OS"
-  }];  
+  }];
 
   $('#category').change(function() {
     var sizes = eval($(this).val());
 
-    $('#size').find('option').remove();
+    $('#size option').remove();
     $('#size').append($('<option selected disabled> Size </option>'));
-    
     $.each(sizes, function(i, size) {
       $('#size').append($('<option>', {
         value: size.value,
         text: size.text
       }));
+    });
+    $('#size').change(function(){
+      $('#conversion').val(this.options[this.selectedIndex].text);
     });
   });
 });
