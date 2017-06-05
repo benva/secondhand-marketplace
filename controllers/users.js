@@ -1,3 +1,5 @@
+var passport = require('passport');
+
 var UserModel = require('../models/user');
 var ListingModel = require('../models/listing');
 
@@ -15,9 +17,34 @@ exports.userPage = function(req, res, next) {
       if(err) {
         return next(err);
       }
-      
+
       res.render('user', { title: user.username, user: user, listings: listings });
     });
   });
 };
 
+// Create new user
+exports.createUser = function(req, res, next) {
+  var newUser = UserModel({
+    username: req.body.username,
+    email: req.body.email,
+    rating: 0.0,
+    sales: 0
+  });
+  var password = req.body.password;
+
+  UserModel.register(newUser, password, function(err, account) {
+    // Send any errors to register page
+    if(err) {
+      if(err.name == 'MongoError') {
+        // bad practice to change existing variable like this
+        err.message = 'User already exists with email address ' + newUser.email;
+      }
+      return res.render('register', { title: 'Register', error: err.message });
+    }
+    // Login newly created user
+    passport.authenticate('local')(req, res, function () {
+      res.redirect('/');
+    });
+  });
+};

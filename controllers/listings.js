@@ -6,7 +6,7 @@ var ListingModel = require('../models/listing');
 exports.listingPage = function(req, res, next) {
   var id = req.params.id;
   var ownListing = false;
-  console.log('im here');
+
   // If listing exists, show page
   ListingModel.findOne({ _id: id }, function(err, listing) {
     if (listing === undefined || listing === null) {
