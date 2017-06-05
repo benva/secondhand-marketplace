@@ -6,13 +6,11 @@ var ListingModel = require('../models/listing');
 exports.listingPage = function(req, res, next) {
   var id = req.params.id;
   var ownListing = false;
-
+  console.log('im here');
   // If listing exists, show page
   ListingModel.findOne({ _id: id }, function(err, listing) {
     if (listing === undefined || listing === null) {
-      return res.render('error', {
-        error: '404 not found'
-      });
+      return res.render('error', { error: '404 not found' });
     } else {
       // Set flag to true if user's own listing
       if (req.user !== undefined && listing.seller === req.user.username){
@@ -27,6 +25,37 @@ exports.listingPage = function(req, res, next) {
     }
   });
 };
+
+// Create new listing and redirect to listing page
+exports.createListing = function(req, res, next) {
+  // Add uploaded photos' filenames into array
+  var photos = [];
+  for(var i = 0; i < req.files.length; i++) {
+    photos[i] = req.files[i].filename;
+  }
+
+  var newListing = new ListingModel({
+    seller: req.user.username,
+    designer: req.body.designer,
+    title: req.body.title,
+    category: req.body.category,
+    size: req.body.size,
+    conversion: req.body.conversion,
+    price: req.body.price,
+    description: req.body.description,
+    lastBumped: new Date(),
+    photos: photos
+  });
+  console.log(req.body);
+  newListing.save(function(err) {
+    if(err) {
+      return next(err);
+    }
+
+    res.redirect('./' + newListing._id);
+  });
+};
+
 
 // Listing edit page
 exports.editListing = function(req, res, next) {

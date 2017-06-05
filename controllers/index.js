@@ -38,7 +38,7 @@ exports.login = function(req, res, next) {
 
 // Create new user
 exports.createUser = function(req, res, next) {
-  var newUser = new UserModel({
+  var newUser = newserModel({
     username: req.body.username,
     email: req.body.email,
     rating: 0.0,
@@ -59,35 +59,5 @@ exports.createUser = function(req, res, next) {
     passport.authenticate('local')(req, res, function () {
       res.redirect('/');
     });
-  });
-};
-
-// Create new listing and redirect to listing page
-exports.createListing = function(req, res, next) {
-  // Add uploaded photos' filenames into array
-  var photos = [];
-  for(var i = 0; i < req.files.length; i++) {
-    photos[i] = req.files[i].filename;
-  }
-
-  var newListing = new ListingModel({
-    seller: req.user.username,
-    designer: req.body.designer,
-    title: req.body.title,
-    category: req.body.category,
-    size: req.body.size,
-    conversion: req.body.conversion,
-    price: req.body.price,
-    description: req.body.description,
-    lastBumped: new Date(),
-    photos: photos
-  });
-  console.log(req.body)
-  newListing.save(function(err) {
-    if(err) {
-      return next(err);
-    }
-
-    res.redirect('./listings/' + newListing._id);
   });
 };
