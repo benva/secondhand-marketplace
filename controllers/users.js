@@ -36,11 +36,14 @@ exports.createUser = function(req, res, next) {
   UserModel.register(newUser, password, function(err, account) {
     // Send any errors to register page
     if(err) {
-      if(err.name == 'MongoError') {
-        // bad practice to change existing variable like this
-        err.message = 'User already exists with email address ' + newUser.email;
+      var msg;
+      // This might need to be changed when input is checked
+      if(err.name === 'MongoError') {
+        msg = 'User already exists with email address ' + newUser.email;
+      } else {
+        msg = err.message;
       }
-      return res.render('register', { title: 'Register', error: err.message });
+      return res.render('register', { title: 'Register', error: msg });
     }
     // Login newly created user
     passport.authenticate('local')(req, res, function () {
