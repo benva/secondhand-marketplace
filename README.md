@@ -1,4 +1,4 @@
-# Covenent
+# Covenant
 
 ```
 git clone https://github.com/clarkyin/covenant.git
