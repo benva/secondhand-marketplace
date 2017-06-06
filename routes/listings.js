@@ -8,10 +8,10 @@ var listings = require('../controllers/listings');
 /* CREATE */
 router.get('/create', function(req, res, next) {
   if(req.user) {
-    return res.render('create', { title: 'New Listing' });
+    return res.render('create', { title: 'New Listing', csrfToken: req.csrfToken() });
   }
   var error = 'You need to login before creating a listing';
-  res.render('login', { title: 'Login', error: error });
+  res.render('login', { title: 'Login', error: error, csrfToken: req.csrfToken() });
 });
 
 router.post('/create', upload.array('photos', 7), listings.createListing);

@@ -4,7 +4,7 @@ extends layout
 
 block content
 
-  form(name="edit", method="post", action="/listings/#{listing._id}/edit")
+  form(name="edit", method="post", action="/listings/#{listing._id}/edit?_csrf=#{csrfToken}")
     input(type="hidden" name="_method" value="PUT")
     input(value="#{listing.designer}", name="designer")
     br
@@ -37,7 +37,8 @@ block content
       button(type="submit", name="bump") Bump
   if(!bump.flag)
     p #{bump.hours} hours and #{bump.mins} minutes until next bump
-  form(name="delete", method="post", action="/listings/#{listing._id}/delete")
+  //- csrf also added to delete
+  form(name="delete", method="post", action="/listings/#{listing._id}/delete?_csrf=#{csrfToken}")
     input(type="hidden" name="_method" value="DELETE")
     button(type="submit", name="delete") Delete listing
 

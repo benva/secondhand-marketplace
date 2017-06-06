@@ -4,7 +4,7 @@ block content
   if(error)
     p #{error}
   br
-  form(name="login",method="post",action="/login")
+  form(name="login",method="post",action="/login?_csrf=#{csrfToken}")
     input(type="text", placeholder="Username", name="username")
     br
     input(type="text", placeholder="Password", name="password")

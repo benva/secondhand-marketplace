@@ -10,6 +10,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
+var csrf = require('csurf');
 var LocalStrategy = require('passport-local').Strategy;
 
 var UserModel = require('./models/user');
@@ -51,7 +52,8 @@ app.use(session({
  }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+ //csrf must be after pasrser and session
+app.use(csrf());
 // mongoose initilization
 mongoose.connect('mongodb://localhost:27017/covenant');
 

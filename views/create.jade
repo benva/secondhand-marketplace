@@ -3,7 +3,9 @@
 extends layout
 
 block content
-  form(name="create", method="post", action="/listings/create" enctype="multipart/form-data")
+
+  form(name="create", method="post", action="/listings/create?_csrf=#{csrfToken}" enctype="multipart/form-data")
+
     input(placeholder="Designer", name="designer")
     br
     input(placeholder="Title", name="title")
@@ -27,6 +29,7 @@ block content
     br
     input(type="file", name="photos" multiple)
     br
+    //- input(type="hidden", name="_csrf", value=csrfToken)
     button#btnSubmit(type="submit") Submit
 
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")

@@ -10,7 +10,7 @@ router.get('/login', function(req, res, next) {
   if(req.user) {
     return res.redirect('/');
   }
-  res.render('login', { title: 'Login' });
+  res.render('login', { title: 'Login', csrfToken: req.csrfToken()});
 });
 router.post('/login', index.login);
 

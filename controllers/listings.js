@@ -100,7 +100,8 @@ exports.editListing = function(req, res, next) {
         return res.render('edit', {
           title: 'Edit - ' + listing.designer + ' ' + listing.title,
           listing: listing,
-          bump: bump
+          bump: bump,
+          csrfToken: req.csrfToken()
         });
       });
       // Redirect if current user does not own listing

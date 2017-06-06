@@ -8,7 +8,7 @@ router.get('/register', function(req, res, next) {
   if(req.user) {
     return res.redirect('/');
   }
-  res.render('register', { title: 'Register' });
+  res.render('register', { title: 'Register', csrfToken: req.csrfToken()});
 });
 
 router.post('/register', users.createUser);
