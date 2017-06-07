@@ -10,6 +10,7 @@ function escapeRegex(text){
 // Home page
 exports.home = function(req, res, next) {
 
+  //search Query made on the index mage
   if (req.query.search) {
      var regex = new RegExp(escapeRegex(req.query.search), 'gi');
      ListingModel.find({ "title": regex }).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
@@ -17,7 +18,7 @@ exports.home = function(req, res, next) {
          if(err) {
             console.log(err);
          } else {
-            //will return empty array not undefined, if not found
+            //will return empty array not undefined, if not found, renders it in index
             console.log(listings)
             res.render("index", {title: "Listings for: " + req.query.search , listings: listings });
          }
