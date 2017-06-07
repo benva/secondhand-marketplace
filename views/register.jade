@@ -2,13 +2,19 @@ extends layout
 
 block content
   if(error)
-    p #{error}
+    p !{error.replace(/\n/g, "<br>")}
   br
   form(name="register",method="post",action="/users/register?_csrf=#{csrfToken}")
-    input(type="text", placeholder="Username", name="username")
+    if(username)
+      input(type="text", placeholder="Username", name="username", value="#{username}")
+    else    
+      input(type="text", placeholder="Username", name="username")
     br
     input(type="text", placeholder="Password", name="password")
     br
-    input(type="text", placeholder="E-mail", name="email")
+    if(email)
+      input(type="text", placeholder="E-mail", name="email", value="#{email}")
+    else
+      input(type="text", placeholder="E-mail", name="email")
     br
     button#btnSubmit(type="submit") Submit

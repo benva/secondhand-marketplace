@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "body-parser": "~1.17.1",
-    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "csurf": "^1.9.0",
     "debug": "~2.6.3",
@@ -25,6 +24,7 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^1.0.0",
     "serve-favicon": "~2.4.2",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "validator": "^7.0.0"
   }
 }

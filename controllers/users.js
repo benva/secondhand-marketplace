@@ -1,4 +1,5 @@
 var passport = require('passport');
+var validator = require('validator');
 
 var UserModel = require('../models/user');
 var ListingModel = require('../models/listing');
@@ -23,8 +24,49 @@ exports.userPage = function(req, res, next) {
   });
 };
 
+// Checks that data submitted by user is valid
+function validUser(req) {
+  var username = req.body.username;
+  var password = req.body.password;
+  var email = req.body.email;
+  var errors = '';
+  
+  if(validator.isEmpty(username)) {
+    errors += 'Username is empty\n';
+  }
+  else if(!validator.isAlphanumeric(username)) {
+    errors += 'Username can only contain letters and numbers\n';
+  }
+
+  if(validator.isEmpty(password)) {
+    errors += 'Password is empty\n';
+  }
+  else if(!validator.isLength(password, {min: 8, max: 32})) {
+    errors += 'Password must be between 8 and 32 characters long\n';
+  }
+  
+  if(validator.isEmpty(email)) {
+    errors += 'Email is empty\n';
+  }
+  else if(!validator.isEmail(email)) {
+    errors += 'Email must be a valid email address\n';
+  }
+
+  return errors;
+}
+
 // Create new user
 exports.createUser = function(req, res, next) {
+  var errors = validUser(req);
+  if(errors) {
+    return res.render('register', { 
+      title: 'Register', 
+      error: errors,
+      username: req.body.username,
+      email: req.body.email
+    });
+  }
+
   var newUser = UserModel({
     username: req.body.username,
     email: req.body.email,
@@ -43,7 +85,12 @@ exports.createUser = function(req, res, next) {
       } else {
         msg = err.message;
       }
-      return res.render('register', { title: 'Register', error: msg });
+      return res.render('register', { 
+        title: 'Register', 
+        error: msg,
+        username: req.body.username,
+        email: req.body.email
+      });
     }
     // Login newly created user
     passport.authenticate('local')(req, res, function () {
