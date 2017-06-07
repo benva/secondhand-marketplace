@@ -24,7 +24,7 @@ exports.userPage = function(req, res, next) {
   });
 };
 
-// Checks that data submitted by user is valid
+// Checks that data submitted by user is valid, returns what errors occured
 function validUser(req) {
   var username = req.body.username;
   var password = req.body.password;
@@ -57,6 +57,7 @@ function validUser(req) {
 
 // Create new user
 exports.createUser = function(req, res, next) {
+  // If user info is invalid, reload the page with given errors
   var errors = validUser(req);
   if(errors) {
     return res.render('register', {
@@ -89,8 +90,8 @@ exports.createUser = function(req, res, next) {
       return res.render('register', {
         title: 'Register',
         error: msg,
-        username: req.body.username,
-        email: req.body.email
+        username: newUser.username,
+        email: newUser.email
       });
     }
     // Login newly created user

@@ -1,4 +1,5 @@
 var fs = require('fs');
+var validator = require('validator');
 
 var ListingModel = require('../models/listing');
 
@@ -18,7 +19,7 @@ exports.listingPage = function(req, res, next) {
       }
 
       res.render('listing', {
-        title: listing.designer + ' ' + listing.title,
+        title: listing.designer + ' - ' + listing.title,
         listing: listing,
         own: ownListing
       });
@@ -26,8 +27,104 @@ exports.listingPage = function(req, res, next) {
   });
 };
 
+// Checks that data submitted by user is valid, returns what errors occured
+function validListing(req) {
+  // Valid values for category and size
+  var categories = ['outerwear', 'tops', 'bottoms', 'footwear', 'accessories'];
+  var sizes = [['xs', 's', 'm', 'l', 'xl'],
+    ['26', '28', '30', '32', '34'],
+    ['6', '7', '8', '9', '10', '11', '12', '13']];
+
+  var designer = req.body.designer;
+  var title = req.body.title;
+  var category = req.body.category;
+  var size = req.body.size;
+  var price = req.body.price;
+  var description = req.body.description;
+  var filenames = [];
+  var errors = '';
+
+  if(validator.isEmpty(designer)) {
+    errors += 'Choose a designer\n';
+  }
+
+  if(validator.isEmpty(title)) {
+    errors += 'Give your listing a title\n';
+  }
+
+  if(category === 'Category') {
+    errors += 'Choose a category\n';
+  }
+  // This would only happen if someone were editing the values
+  else if(!validator.isIn(category, categories)) {
+    errors += 'Choose a valid category\n';
+  }
+
+  if(size === 'Size') {
+    errors += 'Choose a size\n';
+  }
+  // This would only happen if someone were editing the values
+  else if((category === 'outerwear' || category === 'tops') && !validator.isIn(size, sizes[0])) {
+    errors += 'Choose a valid size for that category\n';
+  }
+  else if(category === 'bottoms' && !validator.isIn(size, sizes[1])) {
+    errors += 'Choose a valid size for that category\n';
+  }
+  else if(category === 'footwear' && !validator.isIn(size, sizes[2])) {
+    errors += 'Choose a valid size for that category\n';
+  }
+  else if(category === 'accessories' && size !== 'os') {
+    errors += 'Choose a valid size for that category\n';
+  }
+
+  if(validator.isEmpty(price)) {
+    errors += 'Choose a price\n';
+  }
+  else if(!validator.isNumeric(price)) {
+    errors += 'The price must be numeric\n';
+  }
+
+  if(validator.isEmpty(description)) {
+    errors += 'Give your listing a description\n';
+  }
+
+  if(req.files) {
+    for(var i = 0; i < req.files.length; i++) {
+      filenames[i] = req.files[i].originalname;
+    }
+    if(filenames.length === 0) {
+      errors += 'Include at least one photo for the listing\n';
+    }
+    var regex = /\.(jpg|jpeg|png|gif|bmp)$/;
+    for(i = 0; i < filenames.length; i++) {
+      if(!filenames[i].match(regex)) {
+        errors += 'Photos must be JPG, JPEG, PNG, GIF, or BMP\n';
+        break;
+      }
+    }
+  }
+
+  return errors;
+}
+
 // Create new listing and redirect to listing page
 exports.createListing = function(req, res, next) {
+  // If listing info is invalid, reload listing page with given errors
+  var errors = validListing(req);
+  if(errors) {
+    return res.render('create', {
+      title: 'Create Listing',
+      error: errors,
+      designer: req.body.designer,
+      listTitle: req.body.title,
+      category: req.body.category,
+      size: req.body.size,
+      price: req.body.price,
+      description: req.body.description,      
+      csrfToken: req.csrfToken()
+    });
+  }
+
   // Add uploaded photos' filenames into array
   var photos = [];
   for(var i = 0; i < req.files.length; i++) {
@@ -56,15 +153,35 @@ exports.createListing = function(req, res, next) {
   });
 };
 
-
-// Listing edit page
-exports.editListing = function(req, res, next) {
-  var id = req.params.id;
+function bumpTime(listing) {
   var bump = {
     flag: false,
     hours: 0,
     mins: 0
   };
+
+  // Find time in milliseconds since listing was bumped
+  var currentDate = new Date();
+  var oldDate = listing.lastBumped;
+  var timeSinceBump = currentDate - oldDate;
+
+  // Determine whether the listing can be bumped or not
+  // 43200000 is 12 hours in milliseconds
+  if (timeSinceBump >= 43200000) {
+    bump.flag = true;
+  } else {
+    var nextBump = 43200000 - timeSinceBump;
+    bump.hours = Math.floor(nextBump / (60 * 60 * 1000));
+    bump.mins = Math.floor(nextBump / (60 * 1000) % 60);
+  }
+
+  return bump;
+}
+
+// Listing edit page
+exports.editListing = function(req, res, next) {
+  var id = req.params.id;
+  
 
   // Find listing to edit
   ListingModel.findOne({ _id: id }, function(err, listing) {
@@ -82,25 +199,10 @@ exports.editListing = function(req, res, next) {
           });
         }
 
-        // Find time in milliseconds since listing was bumped
-        var currentDate = new Date();
-        var oldDate = listing.lastBumped;
-        var timeSinceBump = currentDate - oldDate;
-
-        // Determine whether the listing can be bumped or not
-        // 43200000 is 12 hours in milliseconds
-        if (timeSinceBump >= 43200000) {
-          bump.flag = true;
-        } else {
-          var nextBump = 43200000 - timeSinceBump;
-          bump.hours = Math.floor(nextBump / (60 * 60 * 1000));
-          bump.mins = Math.floor(nextBump / (60 * 1000) % 60);
-        }
-
         return res.render('edit', {
-          title: 'Edit - ' + listing.designer + ' ' + listing.title,
+          title: 'Edit Listing',
           listing: listing,
-          bump: bump,
+          bump: bumpTime(listing),
           csrfToken: req.csrfToken()
         });
       });

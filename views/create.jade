@@ -1,36 +1,74 @@
-//- Talk to me before rewriting this page, there's some hacky shit going on
-
 extends layout
 
 block content
+  if(error)
+    p !{error.replace(/\n/g, "<br>")}
+
+  br
 
   form(name="create", method="post", action="/listings/create?_csrf=#{csrfToken}" enctype="multipart/form-data")
 
-    input(placeholder="Designer", name="designer")
+    if(designer)
+      input(placeholder="Designer", name="designer", value="#{designer}")
+    else
+      input(placeholder="Designer", name="designer")
+    
     br
-    input(placeholder="Title", name="title")
+
+    if(listTitle)
+      input(placeholder="Title", name="title", value="#{listTitle}")
+    else
+      input(placeholder="Title", name="title")
+    
     br
+
+    input(type="hidden", id="correct_category", value="#{category}")
     select(name="category", id="category")
-      option(selected disabled) Category
+      option(selected) Category
       option(value="outerwear") Outerwear
       option(value="tops") Tops
       option(value="bottoms") Bottoms
       option(value="footwear") Footwear
       option(value="accessories") Accessories
+
     br
-    //- Talk to me about this before remaking this page (really hacky solution)
+
+    input(type="hidden", id="correct_size", value="#{size}")
     select(name="size", id="size")
-      option(selected disabled) Size
+      option(selected) Size
     input(name="conversion", id="conversion", type="hidden")
+
     br
-    input(placeholder="Price", name="price")
+
+    if(price)
+      input(placeholder="Price", name="price", value="#{price}")
+    else
+      input(placeholder="Price", name="price")
+    
     br
-    textarea(placeholder="Description", name="description")
+
+    if(description)
+      textarea(placeholder="Description", name="description") #{description}
+    else
+      textarea(placeholder="Description", name="description")
+    
     br
+
     input(type="file", name="photos" multiple)
     br
     //- input(type="hidden", name="_csrf", value=csrfToken)
-    button#btnSubmit(type="submit") Submit
+    button(type="submit") Submit
 
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
   script(src="/javascript/sizes.js")
+  script.
+    $(document).ready(function() {
+      var category = $('#correct_category').val();
+      var size = $('#correct_size').val();
+      if(category != "undefined") {
+        $('#category').val(category).trigger('change');
+      }
+      if(size != "undefined") {
+        $('#size').val(size).trigger('change');
+      }
+    });

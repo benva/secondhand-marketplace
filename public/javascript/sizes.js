@@ -81,7 +81,7 @@ $(document).ready(function() {
     var sizes = eval($(this).val());
 
     $('#size option').remove();
-    $('#size').append($('<option selected disabled> Size </option>'));
+    $('#size').append($('<option selected> Size </option>'));
     $.each(sizes, function(i, size) {
       $('#size').append($('<option>', {
         value: size.value,
