@@ -11,10 +11,13 @@ block content
     a(href="/listings/create") Create listing
     br
     a(href="/logout") Logout
-  form(name="search",method="get", action='#')
-    input(type="text", placeholder="Rick Owens", name="searchValue")
+  form(method="get" action="/")
+    input(type="text", placeholder="raf simons, rick owens, usually what im... ", name="search")
     button(type="submit") Submit
   ul
+    if (listings.length === 0)
+      h1 There are no results,  click here to return to 
+        a(href="/") home
     each listing, i in listings
       li
         a(href="/listings/#{listing._id}") #{listing.designer} #{listing.title}
