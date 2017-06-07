@@ -23,7 +23,12 @@ exports.login = function(req, res, next) {
     // If login fails send error message
     if(!user) {
       var error = 'Invalid username or password';
-      return res.render('login', { title: 'Login', error: error });
+      return res.render('login', { 
+        title: 'Login', 
+        error: error,
+        username: req.body.username,
+        csrfToken: req.csrfToken() 
+      });
     }
     // Login and redirect to home page
     req.logIn(user, function(err) {
