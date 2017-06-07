@@ -11,6 +11,9 @@ block content
     a(href="/listings/create") Create listing
     br
     a(href="/logout") Logout
+  form(name="search",method="get", action='#')
+    input(type="text", placeholder="Rick Owens", name="searchValue")
+    button(type="submit") Submit
   ul
     each listing, i in listings
       li
