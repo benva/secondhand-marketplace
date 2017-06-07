@@ -4,7 +4,8 @@ block content
   if(error)
     p !{error.replace(/\n/g, "<br>")}
   br
-  form(name="register",method="post",action="/users/register?_csrf=#{csrfToken}")
+  form(name="register",method="post",action="/users/register")
+    input(type="hidden", name="_csrf", value=csrfToken)
     if(username)
       input(type="text", placeholder="Username", name="username", value="#{username}")
     else    

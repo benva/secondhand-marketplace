@@ -30,7 +30,7 @@ function validUser(req) {
   var password = req.body.password;
   var email = req.body.email;
   var errors = '';
-  
+
   if(validator.isEmpty(username)) {
     errors += 'Username is empty\n';
   }
@@ -44,7 +44,7 @@ function validUser(req) {
   else if(!validator.isLength(password, {min: 8, max: 32})) {
     errors += 'Password must be between 8 and 32 characters long\n';
   }
-  
+
   if(validator.isEmpty(email)) {
     errors += 'Email is empty\n';
   }
@@ -59,11 +59,12 @@ function validUser(req) {
 exports.createUser = function(req, res, next) {
   var errors = validUser(req);
   if(errors) {
-    return res.render('register', { 
-      title: 'Register', 
+    return res.render('register', {
+      title: 'Register',
       error: errors,
       username: req.body.username,
-      email: req.body.email
+      email: req.body.email,
+      csrfToken: req.csrfToken()
     });
   }
 
@@ -85,8 +86,8 @@ exports.createUser = function(req, res, next) {
       } else {
         msg = err.message;
       }
-      return res.render('register', { 
-        title: 'Register', 
+      return res.render('register', {
+        title: 'Register',
         error: msg,
         username: req.body.username,
         email: req.body.email
