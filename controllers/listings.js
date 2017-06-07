@@ -153,7 +153,9 @@ exports.createListing = function(req, res, next) {
   });
 };
 
-function bumpTime(listing) {
+// Returns whether the listing can be bumped
+// If not, how many hours and minutes are left until next bump
+function canBump(listing) {
   var bump = {
     flag: false,
     hours: 0,
@@ -202,7 +204,7 @@ exports.editListing = function(req, res, next) {
         return res.render('edit', {
           title: 'Edit Listing',
           listing: listing,
-          bump: bumpTime(listing),
+          bump: canBump(listing),
           csrfToken: req.csrfToken()
         });
       });
