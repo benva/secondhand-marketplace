@@ -1,5 +1,6 @@
 var passport = require('passport');
 
+var SearchModel = require('../models/search');
 var ListingModel = require('../models/listing');
 
 // Search form
@@ -13,14 +14,28 @@ exports.home = function(req, res, next) {
   //search Query made on the index mage
   if (req.query.search) {
      var regex = new RegExp(escapeRegex(req.query.search), 'gi');
+
      ListingModel.find({ "title": regex }).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
          if(err) {
-            console.log(err);
+            return console.log(err);
          } else {
             //will return empty array not undefined, if not found, renders it in index
             res.render("index", {title: "Listings for: " + req.query.search , listings: listings });
+
          }
      });
+
+     //saving search Results
+     var searchSave = new SearchModel({
+       search: req.query.search
+     });
+     searchSave.save(function(err) {
+       if(err) {
+         return next(err);
+       }
+       console.log('search saved')
+     });
+
   }
 
   else{
