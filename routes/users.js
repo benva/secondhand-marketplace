@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var csrf = require('csurf');
+
 
 var users = require('../controllers/users');
 
 /* REGISTER */
-router.get('/register', function(req, res, next) {
+router.get('/register',csrf( {cookie: true }), function(req, res, next) {
   if(req.user) {
     return res.redirect('/');
   }

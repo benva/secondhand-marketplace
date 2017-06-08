@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var csrf = require('csurf');
 
 var index = require('../controllers/index');
 
 router.get('/', index.home);
 
 /* LOGIN */
-router.get('/login', function(req, res, next) {
+router.get('/login',csrf( {cookie: true }), function(req, res, next) {
   if(req.user) {
     return res.redirect('/');
   }

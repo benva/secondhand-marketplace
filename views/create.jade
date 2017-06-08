@@ -6,8 +6,8 @@ block content
 
   br
 
-  form(name="create", method="post", action="/listings/create?_csrf=#{csrfToken}" enctype="multipart/form-data")
-
+  form(name="create", method="post", action="/listings/create" enctype="multipart/form-data")
+    input(required, type="hidden", name="_csrf", value=csrfToken)
     if(designer)
       input(required, placeholder="Designer", name="designer", value="#{designer}")
     else

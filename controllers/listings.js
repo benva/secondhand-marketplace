@@ -34,7 +34,7 @@ function validListing(req) {
   var categories = ['outerwear', 'tops', 'bottoms', 'footwear', 'accessories'];
   var sizes = [['xs', 's', 'm', 'l', 'xl'],
     ['26', '28', '30', '32', '34'],
-    ['6', '7', '8', '9', '10', '11', '12', '13']];
+    ['6', '7', '8', '9', '10', '11', '12', '13'], 'os'];
 
   var designer = req.body.designer;
   var title = req.body.title;
@@ -74,7 +74,7 @@ function validListing(req) {
   else if(category === 'footwear' && !validator.isIn(size, sizes[2])) {
     errors += 'Choose a valid size for that category\n';
   }
-  else if(category === 'accessories' && size !== 'os') {
+  else if(category === 'accessories' && size !== "100") {  //quick fix, changed value of size to 100 in the jquery for consistency,
     errors += 'Choose a valid size for that category\n';
   }
 
@@ -111,6 +111,7 @@ function validListing(req) {
 
 // Create new listing and redirect to listing page
 exports.createListing = function(req, res, next) {
+  console.log(req.body.size)
   // If listing info is invalid, reload listing page with given errors
   var errors = validListing(req);
   if(errors) {
@@ -122,7 +123,7 @@ exports.createListing = function(req, res, next) {
       category: req.body.category,
       size: req.body.size,
       price: req.body.price,
-      description: req.body.description,      
+      description: req.body.description,
       csrfToken: req.csrfToken()
     });
   }
@@ -201,7 +202,7 @@ exports.editListing = function(req, res, next) {
             error: '404 not found'
           });
         }
-        
+
         return res.render('edit', {
           title: 'Edit Listing',
           id: listing._id,
@@ -237,7 +238,7 @@ exports.editPost = function(req, res, next) {
       category: req.body.category,
       size: req.body.size,
       price: req.body.price,
-      description: req.body.description,      
+      description: req.body.description,
       csrfToken: req.csrfToken()
     });
   }
