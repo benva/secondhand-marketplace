@@ -10,17 +10,23 @@ function escapeRegex(text){
 
 // Home page
 exports.home = function(req, res, next) {
-
+  console.log(req.query, " this is my query")
+  var searchQuery = {};
+  //input box text
+  if (req.query.textSearch){
+      var regex = new RegExp(escapeRegex(req.query.textSearch), 'gi');
+      searchQuery.title = regex;
+  }
   //search Query made on the index mage
-  if (req.query.search) {
-     var regex = new RegExp(escapeRegex(req.query.search), 'gi');
-
-     ListingModel.find({ "title": regex }).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
+  if (req.query) {
+     console.log(searchQuery)
+     ListingModel.find(searchQuery).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
          if(err) {
             return console.log(err);
          } else {
             //will return empty array not undefined, if not found, renders it in index
-            res.render("index", {title: "Listings for: " + req.query.search , listings: listings });
+           console.log(req.query)
+            res.render("index", {title: "Listings for: " + req.query.textSearch , listings: listings });
 
          }
      });
