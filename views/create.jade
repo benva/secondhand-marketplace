@@ -9,21 +9,21 @@ block content
   form(name="create", method="post", action="/listings/create?_csrf=#{csrfToken}" enctype="multipart/form-data")
 
     if(designer)
-      input(placeholder="Designer", name="designer", value="#{designer}")
+      input(required, placeholder="Designer", name="designer", value="#{designer}")
     else
-      input(placeholder="Designer", name="designer")
+      input(required, placeholder="Designer", name="designer")
     
     br
 
     if(listTitle)
-      input(placeholder="Title", name="title", value="#{listTitle}")
+      input(required, placeholder="Title", name="title", value="#{listTitle}")
     else
-      input(placeholder="Title", name="title")
+      input(required, placeholder="Title", name="title")
     
     br
 
-    input(type="hidden", id="correct_category", value="#{category}")
-    select(name="category", id="category")
+    input(required, type="hidden", id="correct_category", value="#{category}")
+    select(required, name="category", id="category")
       option(selected) Category
       option(value="outerwear") Outerwear
       option(value="tops") Tops
@@ -33,30 +33,30 @@ block content
 
     br
 
-    input(type="hidden", id="correct_size", value="#{size}")
+    input(required, type="hidden", id="correct_size", value="#{size}")
     select(name="size", id="size")
       option(selected) Size
-    input(name="conversion", id="conversion", type="hidden")
+    input(required, name="conversion", id="conversion", type="hidden")
 
     br
 
     if(price)
-      input(placeholder="Price", name="price", value="#{price}")
+      input(required, placeholder="Price", name="price", value="#{price}")
     else
-      input(placeholder="Price", name="price")
+      input(required, placeholder="Price", name="price")
     
     br
 
     if(description)
-      textarea(placeholder="Description", name="description") #{description}
+      textarea(required, placeholder="Description", name="description") #{description}
     else
-      textarea(placeholder="Description", name="description")
+      textarea(required, placeholder="Description", name="description")
     
     br
 
-    input(type="file", name="photos" multiple)
+    input(required, type="file", name="photos" multiple)
     br
-    //- input(type="hidden", name="_csrf", value=csrfToken)
+    //- input(required, type="hidden", name="_csrf", value=csrfToken)
     button(type="submit") Submit
 
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")

@@ -7,20 +7,20 @@ block content
   br
 
   form(name="edit", method="post", action="/listings/#{id}/edit")
-    input(type="hidden", name="_csrf", value=csrfToken)
+    input(required, type="hidden", name="_csrf", value=csrfToken)
 
-    input(type="hidden" name="_method" value="PUT")
+    input(required, type="hidden" name="_method" value="PUT")
 
-    input(value="#{designer}", name="designer")
+    input(required, value="#{designer}", name="designer")
 
     br
 
-    input(value="#{listTitle}", name="title")
+    input(required, value="#{listTitle}", name="title")
 
     br
     
-    input(type="hidden", id="correct_category", value="#{category}")
-    select(name="category", id="category")
+    input(required, type="hidden", id="correct_category", value="#{category}")
+    select(required, name="category", id="category")
       option(selected) Category
       option(value="outerwear") Outerwear
       option(value="tops") Tops
@@ -30,19 +30,19 @@ block content
 
     br
     
-    input(type="hidden", id="correct_size", value="#{size}")
-    select(name="size", id="size")
+    input(required, type="hidden", id="correct_size", value="#{size}")
+    select(required, name="size", id="size")
       option(selected) Size
 
-    input(type="hidden", name="conversion", id="conversion", value="")
+    input(required, type="hidden", name="conversion", id="conversion", value="")
 
     br
 
-    input(value="#{price}", name="price")
+    input(required, value="#{price}", name="price")
 
     br
 
-    textarea(name="description") #{description}
+    textarea(required, name="description") #{description}
 
     br
 
@@ -51,7 +51,7 @@ block content
   br
 
   form(name="delete", method="post", action="/listings/#{id}/delete?_csrf=#{csrfToken}")
-    input(type="hidden" name="_method" value="DELETE")
+    input(required, type="hidden" name="_method" value="DELETE")
     button(type="submit", name="delete") Delete listing
 
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")

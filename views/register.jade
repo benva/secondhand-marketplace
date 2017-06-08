@@ -5,17 +5,17 @@ block content
     p !{error.replace(/\n/g, "<br>")}
   br
   form(name="register",method="post",action="/users/register")
-    input(type="hidden", name="_csrf", value=csrfToken)
+    input(required, type="hidden", name="_csrf", value=csrfToken)
     if(username)
-      input(type="text", placeholder="Username", name="username", value="#{username}")
+      input(required, type="text", placeholder="Username", name="username", value="#{username}")
     else    
-      input(type="text", placeholder="Username", name="username")
+      input(required, type="text", placeholder="Username", name="username")
     br
-    input(type="text", placeholder="Password", name="password")
+    input(required, type="text", placeholder="Password", name="password")
     br
     if(email)
-      input(type="text", placeholder="E-mail", name="email", value="#{email}")
+      input(required, type="text", placeholder="E-mail", name="email", value="#{email}")
     else
-      input(type="text", placeholder="E-mail", name="email")
+      input(required, type="text", placeholder="E-mail", name="email")
     br
     button#btnSubmit(type="submit") Submit
