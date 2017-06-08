@@ -10,23 +10,47 @@ function escapeRegex(text){
 
 // Home page
 exports.home = function(req, res, next) {
-  console.log(req.query, " this is my query")
-  var searchQuery = {};
-  //input box text
-  if (req.query.textSearch){
-      var regex = new RegExp(escapeRegex(req.query.textSearch), 'gi');
-      searchQuery.title = regex;
-  }
+
+
   //search Query made on the index mage
-  if (req.query) {
-     console.log(searchQuery)
+  if (req.query.category || req.query.size || req.query.titleSearch || req.query.designerSearch) {
+
+
+    //req.query because it is a get request, and req.body is a post
+    var searchQuery = {};
+
+    //category search
+    if (req.query.category){
+      searchQuery.category = req.query.category;
+    }
+
+    //size search
+    if (req.query.size){
+      searchQuery.size = req.query.size;
+    }
+
+    //title search
+    if (req.query.titleSearch){
+        var regex = new RegExp(escapeRegex(req.query.titleSearch), 'gi');
+        searchQuery.title = regex;
+    }
+
+    //designer search
+    if (req.query.designerSearch){
+        var regex = new RegExp(escapeRegex(req.query.designerSearch), 'gi');
+        searchQuery.designer = regex;
+    }
+
+
+
+     console.log(searchQuery, " this is my query")
      ListingModel.find(searchQuery).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
          if(err) {
             return console.log(err);
          } else {
             //will return empty array not undefined, if not found, renders it in index
-           console.log(req.query)
-            res.render("index", {title: "Listings for: " + req.query.textSearch , listings: listings });
+
+            res.render("index", {title: "Listings for: " + searchQuery , listings: listings });
 
          }
      });

@@ -73,7 +73,7 @@ $(document).ready(function() {
     text: '13 (US) / 46 (EU)'
   }];
   var accessories = [{
-    value: "OS",
+    value: 100,
     text: "OS"
   }];
 

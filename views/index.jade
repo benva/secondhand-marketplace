@@ -18,12 +18,14 @@ block content
         a(href="/") home    
     each listing, i in listings
       li
-        a(href="/listings/#{listing._id}") Designer: #{listing.designer} - Title:  #{listing.title} - Size: #{listing.size}
+        a(href="/listings/#{listing._id}") Designer: #{listing.designer} - Title:  #{listing.title} - Size: #{listing.size} - Category: #{listing.category}
         
   br
   br
   //- search bar to be moved in the future  
   form(method="get" action="/")
+    br
+    input(type="text" placeholder="designer ", name="designerSearch")    
     br
     select(name="category", id="category")
       option(selected disabled) Category
@@ -38,7 +40,7 @@ block content
       option(selected disabled) Size
     br  
     input(name="conversion", id="conversion", type="hidden")
-    input(type="text" placeholder="raf simons, rick owens, usually what im... ", name="textSearch")  
+    input(type="text" placeholder="title", name="titleSearch")  
     br    
     button(type="submit") Submit
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
