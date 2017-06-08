@@ -39,7 +39,7 @@ Aim Finish Date: 2017/04/8
   * indexing search
   * refined search, match first letters of string instead of a fuzzy search
   * pricing search
-
+  * improved sorting algorithm
 
 * All around
 
