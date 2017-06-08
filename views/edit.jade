@@ -1,44 +1,61 @@
-//- Talk to me before rewriting this page, there's some hacky shit going on
-
 extends layout
 
 block content
+  if(error)
+    p !{error.replace(/\n/g, "<br>")}
 
-  form(name="edit", method="post", action="/listings/#{listing._id}/edit?_csrf=#{csrfToken}")
+  br
+
+  form(name="edit", method="post", action="/listings/#{id}/edit?_csrf=#{csrfToken}")
+
     input(type="hidden" name="_method" value="PUT")
-    input(value="#{listing.designer}", name="designer")
+
+    input(value="#{designer}", name="designer")
+
     br
-    input(value="#{listing.title}", name="title")
+
+    input(value="#{listTitle}", name="title")
+
     br
     
-    input(type="hidden", id="correct_category", value="#{listing.category}")
+    input(type="hidden", id="correct_category", value="#{category}")
     select(name="category", id="category")
-      option(disabled value="category") Category
-      option#outerwear(value="outerwear") Outerwear
-      option#tops(value="tops") Tops
-      option#bottoms(value="bottoms") Bottoms
-      option#footwear(value="footwear") Footwear
-      option#accessories(value="accessories") Accessories
+      option(selected) Category
+      option(value="outerwear") Outerwear
+      option(value="tops") Tops
+      option(value="bottoms") Bottoms
+      option(value="footwear") Footwear
+      option(value="accessories") Accessories
+
     br
     
-    input(type="hidden", id="correct_size", value="#{listing.size}")
+    input(type="hidden", id="correct_size", value="#{size}")
     select(name="size", id="size")
-      option(selected disabled) Size
+      option(selected) Size
+
     input(type="hidden", name="conversion", id="conversion", value="")
     br
-    input(value="#{listing.price}", name="price")
+
+    input(value="#{price}", name="price")
+
     br
-    textarea(name="description") #{listing.description}
+
+    textarea(name="description") #{description}
+
     br
+
     button(type="submit") Submit
+
   br
-  if(bump.flag)
-    form(name="drop", method="post", action="/listings/#{listing._id}/bump")
+
+  if(bump && bump.flag)
+    form(name="drop", method="post", action="/listings/#{id}/bump")
       button(type="submit", name="bump") Bump
-  if(!bump.flag)
+  if(bump && !bump.flag)
     p #{bump.hours} hours and #{bump.mins} minutes until next bump
+
   //- csrf also added to delete
-  form(name="delete", method="post", action="/listings/#{listing._id}/delete?_csrf=#{csrfToken}")
+  form(name="delete", method="post", action="/listings/#{id}/delete?_csrf=#{csrfToken}")
     input(type="hidden" name="_method" value="DELETE")
     button(type="submit", name="delete") Delete listing
 
@@ -49,5 +66,5 @@ block content
       var category = $('#correct_category').val();
       var size = $('#correct_size').val();
       $('#category').val(category).trigger('change');
-      $('#size').val(size);
+      $('#size').val(size).trigger('change');
     });

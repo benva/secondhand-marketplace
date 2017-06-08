@@ -183,7 +183,6 @@ function canBump(listing) {
 // Listing edit page
 exports.editListing = function(req, res, next) {
   var id = req.params.id;
-  
 
   // Find listing to edit
   ListingModel.findOne({ _id: id }, function(err, listing) {
@@ -203,7 +202,14 @@ exports.editListing = function(req, res, next) {
 
         return res.render('edit', {
           title: 'Edit Listing',
-          listing: listing,
+          id: listing._id,
+          designer: listing.designer,
+          listTitle: listing.title,
+          category: listing.category,
+          size: listing.size,
+          price: listing.price,
+          description: listing.description,
+          // listing: listing,
           bump: canBump(listing),
           csrfToken: req.csrfToken()
         });
@@ -218,24 +224,34 @@ exports.editListing = function(req, res, next) {
 // Listing edit post
 exports.editPost = function(req, res, next) {
   var id = req.params.id;
-  var designer = req.body.designer;
-  var title = req.body.title;
-  var category = req.body.category;
-  var size = req.body.size;
-  var conversion = req.body.conversion;
-  var price = req.body.price;
-  var description = req.body.description;
+
+  // If listing info is invalid, reload edit page with given errors
+  var errors = validListing(req);
+  if(errors) {
+    return res.render('edit', {
+      title: 'Edit Listing',
+      error: errors,
+      id: id,
+      designer: req.body.designer,
+      listTitle: req.body.title,
+      category: req.body.category,
+      size: req.body.size,
+      price: req.body.price,
+      description: req.body.description,      
+      csrfToken: req.csrfToken()
+    });
+  }
 
   // Update listing, redirect back to listing page
   ListingModel.update({ _id: id }, {
     $set: {
-      designer: designer,
-      title: title,
-      category: category,
-      size: size,
-      conversion: conversion,
-      price: price,
-      description: description
+      designer: req.body.designer,
+      title: req.body.title,
+      category: req.body.category,
+      size: req.body.size,
+      conversion: req.body.conversion,
+      price: req.body.price,
+      description: req.body.description
     }
   }, function(err, listing) {
     if (listing === undefined || listing === null) {
