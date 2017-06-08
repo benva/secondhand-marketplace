@@ -74,7 +74,7 @@ function validListing(req) {
   else if(category === 'footwear' && !validator.isIn(size, sizes[2])) {
     errors += 'Choose a valid size for that category\n';
   }
-  else if(category === 'accessories' && size !== "100") {  //quick fix, changed value of size to 100 in the jquery for consistency,
+  else if(category === 'accessories' && size !== '100') {  //quick fix, changed value of size to 100 in the jquery for consistency,
     errors += 'Choose a valid size for that category\n';
   }
 
