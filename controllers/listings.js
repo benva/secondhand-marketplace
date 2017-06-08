@@ -34,7 +34,7 @@ function validListing(req) {
   var categories = ['outerwear', 'tops', 'bottoms', 'footwear', 'accessories'];
   var sizes = [['xs', 's', 'm', 'l', 'xl'],
     ['26', '28', '30', '32', '34'],
-    ['6', '7', '8', '9', '10', '11', '12', '13'], 'os'];
+    ['6', '7', '8', '9', '10', '11', '12', '13']];
 
   var designer = req.body.designer;
   var title = req.body.title;
