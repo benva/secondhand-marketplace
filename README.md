@@ -32,3 +32,15 @@ Aim Finish Date: 2017/04/8
 * Message page
 * Filtering
 * Search
+
+
+## E
+* Search
+  * indexing search
+  * refined search, match first letters of string instead of a fuzzy search
+  * pricing search
+
+
+* All around
+
+  * swapping out ifs for Switch?
