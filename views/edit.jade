@@ -6,7 +6,8 @@ block content
 
   br
 
-  form(name="edit", method="post", action="/listings/#{id}/edit?_csrf=#{csrfToken}")
+  form(name="edit", method="post", action="/listings/#{id}/edit")
+    input(type="hidden", name="_csrf", value=csrfToken)
 
     input(type="hidden" name="_method" value="PUT")
 
@@ -34,6 +35,7 @@ block content
       option(selected) Size
 
     input(type="hidden", name="conversion", id="conversion", value="")
+
     br
 
     input(value="#{price}", name="price")
@@ -48,13 +50,6 @@ block content
 
   br
 
-  if(bump && bump.flag)
-    form(name="drop", method="post", action="/listings/#{id}/bump")
-      button(type="submit", name="bump") Bump
-  if(bump && !bump.flag)
-    p #{bump.hours} hours and #{bump.mins} minutes until next bump
-
-  //- csrf also added to delete
   form(name="delete", method="post", action="/listings/#{id}/delete?_csrf=#{csrfToken}")
     input(type="hidden" name="_method" value="DELETE")
     button(type="submit", name="delete") Delete listing

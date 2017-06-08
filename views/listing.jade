@@ -13,6 +13,12 @@ block content
 
   if(own)
     a(href="/listings/#{listing._id}/edit") Edit listing
-  if(!own)
+    
+    if(bump.flag)
+      form(name="bump", method="post", action="/listings/#{listing._id}/bump")
+        button(type="submit", name="bump") Bump
+    else
+      p #{bump.hours} hours and #{bump.mins} minutes until next bump
+  else
     a(href="/users/#{listing.seller}") #{listing.seller}
   //- add buying and messaging options

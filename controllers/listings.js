@@ -21,7 +21,8 @@ exports.listingPage = function(req, res, next) {
       res.render('listing', {
         title: listing.designer + ' - ' + listing.title,
         listing: listing,
-        own: ownListing
+        own: ownListing,
+        bump: canBump(listing)
       });
     }
   });
@@ -88,6 +89,7 @@ function validListing(req) {
     errors += 'Give your listing a description\n';
   }
 
+  // Make sure all photo files are valid
   if(req.files) {
     for(var i = 0; i < req.files.length; i++) {
       filenames[i] = req.files[i].originalname;
@@ -199,7 +201,7 @@ exports.editListing = function(req, res, next) {
             error: '404 not found'
           });
         }
-
+        
         return res.render('edit', {
           title: 'Edit Listing',
           id: listing._id,
@@ -209,8 +211,6 @@ exports.editListing = function(req, res, next) {
           size: listing.size,
           price: listing.price,
           description: listing.description,
-          // listing: listing,
-          bump: canBump(listing),
           csrfToken: req.csrfToken()
         });
       });
