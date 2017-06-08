@@ -2,69 +2,21 @@ var passport = require('passport');
 
 var SearchModel = require('../models/search');
 var ListingModel = require('../models/listing');
+var search = require('./parts/search');
 
 // Search form
 function escapeRegex(text){
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+}
 
 // Home page
 exports.home = function(req, res, next) {
 
-
   //search Query made on the index mage
   if (req.query.category || req.query.size || req.query.titleSearch || req.query.designerSearch) {
 
-
-    //req.query because it is a get request, and req.body is a post
-    var searchQuery = {};
-
-    //category search
-    if (req.query.category){
-      searchQuery.category = req.query.category;
-    }
-
-    //size search
-    if (req.query.size){
-      searchQuery.size = req.query.size;
-    }
-
-    //title search
-    if (req.query.titleSearch){
-        var regex = new RegExp(escapeRegex(req.query.titleSearch), 'gi');
-        searchQuery.title = regex;
-    }
-
-    //designer search
-    if (req.query.designerSearch){
-        var regex = new RegExp(escapeRegex(req.query.designerSearch), 'gi');
-        searchQuery.designer = regex;
-    }
-
-
-
-     console.log(searchQuery, " this is my query")
-     ListingModel.find(searchQuery).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
-         if(err) {
-            return console.log(err);
-         } else {
-            //will return empty array not undefined, if not found, renders it in index
-
-            res.render("index", {title: "Listings for: " + searchQuery , listings: listings });
-
-         }
-     });
-
-     //saving search Results
-     var searchSave = new SearchModel({
-       search: req.query.search
-     });
-     searchSave.save(function(err) {
-       if(err) {
-         return next(err);
-       }
-       console.log('search saved')
-     });
+    //from the parts folder
+    search.search(req,res,next);
 
   }
 
