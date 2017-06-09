@@ -2,7 +2,7 @@ var SearchModel = require('../../models/search');
 var ListingModel = require('../../models/listing');
 
 function escapeRegex(text) {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '');
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g);
 }
 
 exports.search = function(req,res,next){
