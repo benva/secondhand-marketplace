@@ -3,9 +3,6 @@ var ListingModel = require('../../models/listing');
 
 exports.search = function(req,res,next){
 
-  function escapeRegex(text){
-      return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-  }
   //req.query because it is a get request, and req.body is a post
   var searchQuery = {
     price: {$gte:0}
@@ -21,17 +18,18 @@ exports.search = function(req,res,next){
     searchQuery.size = req.query.size;
   }
 
+  //designer search
+  if (req.query.designerSearch){
+      var designerSearch = new RegExp("\\b" + req.query.designerSearch, 'gi'); //a little less fuzzy, only matches first letters, Ow in Owens
+      searchQuery.designer = designerSearch;
+  }
+
   //title search
   if (req.query.titleSearch){
-      var titleSearch = new RegExp(escapeRegex(req.query.titleSearch), 'gi');
+      var titleSearch = new RegExp(req.query.titleSearch, 'gi'); // still fuzzy
       searchQuery.title = titleSearch;
   }
 
-  //designer search
-  if (req.query.designerSearch){
-      var designerSearch = new RegExp(escapeRegex(req.query.designerSearch), 'gi');
-      searchQuery.designer = designerSearch;
-  }
   // min price
   if (req.query.minPrice){
       searchQuery.price.$gte = parseInt(req.query.minPrice);
@@ -49,7 +47,7 @@ exports.search = function(req,res,next){
           return console.log(err);
        } else {
           //will return empty array not undefined, if not found, renders it in index
-          res.render("index", {title: "Listings for: " + searchQuery , listings: listings });
+          res.render("index", {title: "Listings" , listings: listings });
        }
    });
 
