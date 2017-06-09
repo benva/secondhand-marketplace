@@ -10,7 +10,7 @@ var ListingSchema = new Schema({
     'default' : shortid.generate
   },
   seller : String,
-  designer : {type: String, index: true}, //indexing for designer names, because people will query this the most
+  designer : String,
   title : String,
   category : String,
   size : Schema.Types.Mixed,
