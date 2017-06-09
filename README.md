@@ -30,8 +30,8 @@ Aim Finish Date: 2017/04/8
 * User feedback page
 * Private messaging
 * Message page
-* Filtering
-* Search
+* ~~Filtering~~
+* ~~Search~~
 
 
 ## E
@@ -43,4 +43,5 @@ Aim Finish Date: 2017/04/8
 
 * All around
 
-  * swapping out ifs for Switch?
+  * swapping out ifs for Switch? 
+  * make it so Multer can only upload photos, I can currently upload zip folders
