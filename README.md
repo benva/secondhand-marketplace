@@ -14,7 +14,7 @@ npm start
 
 1. Login
 * Pages
-* Tabsq
+* Tabs
 * etc
 
 USE REACT
