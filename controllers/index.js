@@ -13,7 +13,7 @@ function escapeRegex(text){
 exports.home = function(req, res, next) {
 
   //search Query made on the index mage
-  if (req.query.category || req.query.size || req.query.titleSearch || req.query.designerSearch) {
+  if (req.query.category || req.query.size || req.query.titleSearch || req.query.designerSearch || req.query.minPrice || req.query.maxPrice) {
 
     //from the parts folder
     search.search(req,res,next);

@@ -11,14 +11,29 @@ block content
     a(href="/listings/create") Create listing
     br
     a(href="/logout") Logout
-  //- making this list into a table in the future, just to lazy
-  ul
+
+  br
+  br
+  table
+    tr
+      th Title
+      th Designer
+      th Category
+      th Size
+      th Conversion
+      th Price
     if (listings.length === 0)
       h1 There are no results,  click here to return to 
         a(href="/") home    
     each listing, i in listings
-      li
-        a(href="/listings/#{listing._id}") Designer: #{listing.designer} - Title:  #{listing.title} - Size: #{listing.size} - Category: #{listing.category}
+      tr
+        td 
+          a(href="/listings/#{listing._id}") #{listing.title}
+        td  #{listing.designer} 
+        td  #{listing.category}
+        td  #{listing.size}
+        td  #{listing.conversion}
+        td  #{listing.price}
         
   br
   br
@@ -40,7 +55,10 @@ block content
       option(selected disabled) Size
     br  
     input(name="conversion", id="conversion", type="hidden")
-    input(type="text" placeholder="title", name="titleSearch")  
+    input(type="text" placeholder="title", name="titleSearch")
+    br
+    input(type="text" placeholder="min", name="minPrice")
+    input(type="text" placeholder="max", name="maxPrice")  
     br    
     button(type="submit") Submit
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")

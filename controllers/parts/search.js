@@ -7,7 +7,9 @@ exports.search = function(req,res,next){
       return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
   }
   //req.query because it is a get request, and req.body is a post
-  var searchQuery = {};
+  var searchQuery = {
+    price: {}
+  };
 
   //category search
   if (req.query.category){
@@ -30,6 +32,16 @@ exports.search = function(req,res,next){
       var designerSearch = new RegExp(escapeRegex(req.query.designerSearch), 'gi');
       searchQuery.designer = designerSearch;
   }
+  // min price
+  if (req.query.minPrice){
+      searchQuery.price.$gte = parseInt(req.query.minPrice);
+  }
+
+  // max price
+  if (req.query.maxPrice){
+      searchQuery.price.$lte = parseInt(req.query.maxPrice);
+  }
+
 
    console.log(searchQuery, " this is my query");
    ListingModel.find(searchQuery).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
