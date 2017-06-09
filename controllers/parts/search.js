@@ -18,6 +18,10 @@ exports.search = function(req,res,next){
   //size search
   if (req.query.size){
     searchQuery.size = req.query.size;
+    //works around jquery, regex will match it all
+    if(req.query.size === 'Size'){
+        searchQuery.size = new RegExp("[\s\S]*",'gi');
+    }
   }
 
   //designer search
