@@ -45,3 +45,4 @@ Aim Finish Date: 2017/04/8
 
   * swapping out ifs for Switch?
   * backspace/return page should give empty inputs?
+  * Less punishing search, look into regex for spaces. Geobroskets should  return geobaskets, geo baskets should also return geobaskets.
