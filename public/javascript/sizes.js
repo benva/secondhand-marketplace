@@ -77,10 +77,18 @@ $(document).ready(function() {
     text: "OS"
   }];
 
+//categories object for the sizes
+var categories = {
+  tops: tops,
+  outerwear: outerwear,
+  bottoms: bottoms,
+  footwear: footwear,
+  accessories: accessories
+};
+
   $('#category').change(function() {
 
-    // this usage of eval is acceptable due to the fact that the variable comes from a trusted source.
-    var sizes = eval($(this).val());
+    var sizes = categories[($(this).val())];
 
     $('#size option').remove();
     $('#size').append($('<option selected disabled> Size </option>'));
