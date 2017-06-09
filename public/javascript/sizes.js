@@ -78,6 +78,8 @@ $(document).ready(function() {
   }];
 
   $('#category').change(function() {
+
+    // this usage of eval is acceptable due to the fact that the variable comes from a trusted source.
     var sizes = eval($(this).val());
 
     $('#size option').remove();

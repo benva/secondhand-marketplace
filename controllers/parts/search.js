@@ -52,4 +52,4 @@ exports.search = function(req,res,next){
      console.log('search saved');
    });
 
-}
+};
