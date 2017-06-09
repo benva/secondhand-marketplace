@@ -33,7 +33,6 @@ Aim Finish Date: 2017/04/8
 * ~~Filtering~~
 * ~~Search~~
 
-
 ## E
 * Search
   * indexing search
@@ -41,7 +40,8 @@ Aim Finish Date: 2017/04/8
   * pricing search
   * improved sorting algorithm
 
+
 * All around
 
-  * swapping out ifs for Switch? 
-  * make it so Multer can only upload photos, I can currently upload zip folders
+  * swapping out ifs for Switch?
+  * backspace/return page should give empty inputs?

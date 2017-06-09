@@ -6,6 +6,9 @@ var index = require('../controllers/index');
 
 router.get('/', index.home);
 
+// Finder
+router.get('/finder', index.home);
+
 /* LOGIN */
 router.get('/login',csrf( {cookie: true }), function(req, res, next) {
   if(req.user) {

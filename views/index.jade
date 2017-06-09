@@ -11,7 +11,56 @@ block content
     a(href="/listings/create") Create listing
     br
     a(href="/logout") Logout
-  ul
+
+  br
+  br
+  table
+    tr
+      th Title
+      th Designer
+      th Category
+      th Size
+      th Conversion
+      th Price
+    if (listings.length === 0)
+      h1 There are no results,  click here to return to 
+        a(href="/") home    
     each listing, i in listings
-      li
-        a(href="/listings/#{listing._id}") #{listing.designer} #{listing.title}
+      tr
+        td 
+          a(href="/listings/#{listing._id}") #{listing.title}
+        td  #{listing.designer} 
+        td  #{listing.category}
+        td  #{listing.size}
+        td  #{listing.conversion}
+        td  #{listing.price}
+        
+  br
+  br
+  //- search bar to be moved in the future  
+  form(method="get" action="/finder")
+    br
+    input(type="text" placeholder="designer ", name="designerSearch")    
+    br
+    select(name="category", id="category")
+      option(selected disabled) Category
+      option(value="outerwear") Outerwear
+      option(value="tops") Tops
+      option(value="bottoms") Bottoms
+      option(value="footwear") Footwear
+      option(value="accessories") Accessories
+    br
+    //- Talk to me about this before remaking this page (really hacky solution)
+    select(name="size", id="size")
+      option(selected disabled) Size
+    br  
+    input(name="conversion", id="conversion", type="hidden")
+    input(type="text" placeholder="title", name="titleSearch")
+    br
+    input(type="text" placeholder="min", name="minPrice")
+    input(type="text" placeholder="max", name="maxPrice")  
+    br    
+    button(type="submit") Submit
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+  script(src="/javascript/sizes.js")  
+    

@@ -1,17 +1,30 @@
 var passport = require('passport');
 
+var SearchModel = require('../models/search');
 var ListingModel = require('../models/listing');
+var search = require('./parts/search');
+
 
 // Home page
 exports.home = function(req, res, next) {
-  // Find all listings
-  // Change query to more reasonable values
-  ListingModel.find({}).sort([['lastBumped' , 'desc']]).exec(function(err, listings) {
-    if(err) {
-      return next(err);
-    }
-    res.render('index', { title: 'Covenant', user: req.user, listings: listings });
-  });
+
+  //search Query made on the index mage
+  if (req.query.category || req.query.size || req.query.titleSearch || req.query.designerSearch || req.query.minPrice || req.query.maxPrice) {
+
+    //from the parts folder
+    search.search(req,res,next);
+  }
+
+  else{
+    // Find all listings
+    // Change query to more reasonable values
+    ListingModel.find({}).sort([['lastBumped' , 'desc']]).exec(function(err, listings) {
+      if(err) {
+        return next(err);
+      }
+      res.render('index', { title: 'Covenant', user: req.user, listings: listings });
+    });
+  }
 };
 
 // Login post

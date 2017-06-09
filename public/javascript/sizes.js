@@ -77,8 +77,18 @@ $(document).ready(function() {
     text: "OS"
   }];
 
+//categories object for the sizes
+var categories = {
+  tops: tops,
+  outerwear: outerwear,
+  bottoms: bottoms,
+  footwear: footwear,
+  accessories: accessories
+};
+
   $('#category').change(function() {
-    var sizes = eval($(this).val());
+
+    var sizes = categories[($(this).val())];
 
     $('#size option').remove();
     $('#size').append($('<option selected> Size </option>'));

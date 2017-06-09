@@ -26,7 +26,13 @@ router.delete('/:id/delete', listings.delete);
 /* BUMP */
 router.post('/:id/bump', listings.bump);
 
-/* LISTING PAGE */
+// SEARCH RESULTS
+// router.get('/', listings.search)
+
+
+
+/* LISTING PAGE MUST BE THE LAST ROUTE */
 router.get('/:id', listings.listingPage);
+
 
 module.exports = router;
