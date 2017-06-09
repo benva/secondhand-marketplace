@@ -1,6 +1,9 @@
 var SearchModel = require('../../models/search');
 var ListingModel = require('../../models/listing');
 
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '');
+}
 
 exports.search = function(req,res,next){
 
@@ -19,13 +22,13 @@ exports.search = function(req,res,next){
 
   //designer search
   if (req.query.designerSearch){
-      var designerSearch = new RegExp("\\b" + req.query.designerSearch, 'gi'); //a little less fuzzy, only matches first letters, Ow in Owens
+      var designerSearch = new RegExp("\\b" + escapeRegex(req.query.designerSearch), 'gi'); //a little less fuzzy, only matches first letters, Ow in Owens
       searchQuery.designer = designerSearch;
   }
 
   //title search
   if (req.query.titleSearch){
-      var titleSearch = new RegExp(req.query.titleSearch, 'gi'); // still fuzzy
+      var titleSearch = new RegExp("\\b" + escapeRegex(req.query.titleSearch), 'gi'); // still fuzzy
       searchQuery.title = titleSearch;
   }
 
