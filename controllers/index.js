@@ -4,10 +4,6 @@ var SearchModel = require('../models/search');
 var ListingModel = require('../models/listing');
 var search = require('./parts/search');
 
-// Search form
-function escapeRegex(text){
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-}
 
 // Home page
 exports.home = function(req, res, next) {
@@ -17,7 +13,6 @@ exports.home = function(req, res, next) {
 
     //from the parts folder
     search.search(req,res,next);
-
   }
 
   else{

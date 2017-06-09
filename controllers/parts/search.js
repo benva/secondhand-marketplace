@@ -1,6 +1,7 @@
 var SearchModel = require('../../models/search');
 var ListingModel = require('../../models/listing');
 
+
 exports.search = function(req,res,next){
 
   //req.query because it is a get request, and req.body is a post
