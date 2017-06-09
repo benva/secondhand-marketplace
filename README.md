@@ -45,3 +45,4 @@ Aim Finish Date: 2017/04/8
 * All around
 
   * swapping out ifs for Switch?
+  * backspace/return page should give empty inputs?
