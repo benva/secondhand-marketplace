@@ -8,7 +8,7 @@ exports.search = function(req,res,next){
   }
   //req.query because it is a get request, and req.body is a post
   var searchQuery = {
-    price: {}
+    price: {$gte:0}
   };
 
   //category search
