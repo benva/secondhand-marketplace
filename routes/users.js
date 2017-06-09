@@ -13,7 +13,7 @@ router.get('/register',csrf( {cookie: true }), function(req, res, next) {
   res.render('register', { title: 'Register', csrfToken: req.csrfToken()});
 });
 
-router.post('/register', users.createUser);
+router.post('/register', csrf( {cookie: true }), users.createUser);
 
 /* USER PAGE */
 router.get('/:username', users.userPage);
