@@ -8,7 +8,9 @@ function escapeRegex(text) {
 exports.search = function(req,res,next){
 
   //req.query because it is a get request, and req.body is a post
-  var searchQuery = {};
+  var searchQuery = {
+    price: {$gte: 0}
+  };
 
   //category search
   if (req.query.category){
@@ -38,13 +40,11 @@ exports.search = function(req,res,next){
 
   // min price
   if (req.query.minPrice){
-      searchQuery.price = {$gte:0};
       searchQuery.price.$gte = parseInt(req.query.minPrice);
   }
 
   // max price
   if (req.query.maxPrice){
-      searchQuery.price = {$gte:0};
       searchQuery.price.$lte = parseInt(req.query.maxPrice);
   }
 
