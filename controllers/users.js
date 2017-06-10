@@ -91,7 +91,8 @@ exports.createUser = function(req, res, next) {
         title: 'Register',
         error: msg,
         username: newUser.username,
-        email: newUser.email
+        email: newUser.email,
+        csrfToken: req.csrfToken()
       });
     }
     // Login newly created user
