@@ -4,9 +4,9 @@ var lev = require('./levenshtein.js');
 
 function escapeRegex(text) {
 
-  return    text.replace(/^\W*/, '') //removes trailing !@#$ from start
+  return  "\\b" +  text.replace(/^\W*/, '') //removes trailing !@#$ from start
            .replace(/\W*$/, '') //removes trailing !@#$ from end
-           .replace(/\W+/g, '|'); //replaces all misc characters with an Or
+           .replace(/\W+/g, '|\\b'); //replaces all misc characters with an Or
 }
 
 //used to compare for lev function
@@ -56,7 +56,12 @@ exports.search = function(req,res,next){
 
    console.log(levCompare(req.query.finderSearch),  " back to string");
    console.log(searchQuery, " this is my query");
-   ListingModel.find(searchQuery).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
+   ListingModel.find(searchQuery).sort([['lastBumped', 'desc']])
+
+
+
+
+   .exec(function(err, listings) {
        if(err) {
           return console.log(err);
        } else {
