@@ -1,9 +1,21 @@
 var SearchModel = require('../../models/search');
 var ListingModel = require('../../models/listing');
+var lev = require('./levenshtein.js');
 
 function escapeRegex(text) {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g);
+
+  return    text.replace(/^\W*/, '') //removes trailing !@#$ from start
+           .replace(/\W*$/, '') //removes trailing !@#$ from end
+           .replace(/\W+/g, '|'); //replaces all misc characters with an Or
 }
+
+//used to compare for lev function
+function levCompare(text){
+  return    text.replace(/^\W*/, '') //removes trailing !@#$ from start
+           .replace(/\W*$/, '') //removes trailing !@#$ from end
+           .replace(/\W+/g, ' '); //replaces all misc characters with an Or
+}
+
 
 exports.search = function(req,res,next){
 
@@ -26,15 +38,15 @@ exports.search = function(req,res,next){
     }
   }
 
-  //designer search
-  if (req.query.designerSearch){
-      var designerSearch = new RegExp("\\b" + escapeRegex(req.query.designerSearch), 'gi'); //a little less fuzzy, only matches first letters, Ow in Owens
-      searchQuery.designer = designerSearch;
-  }
+  // //designer search
+  // if (req.query.designerSearch){
+  //     var designerSearch = new RegExp(escapeRegex(req.query.designerSearch), 'gi');
+  //     searchQuery.designer = designerSearch;
+  // }
 
   //title search
   if (req.query.titleSearch){
-      var titleSearch = new RegExp("\\b" + escapeRegex(req.query.titleSearch), 'gi'); // still fuzzy
+      var titleSearch = new RegExp(escapeRegex(req.query.titleSearch), 'gi');
       searchQuery.title = titleSearch;
   }
 
@@ -48,7 +60,7 @@ exports.search = function(req,res,next){
       searchQuery.price.$lte = parseInt(req.query.maxPrice);
   }
 
-
+   console.log(levCompare(req.query.titleSearch),  " back to string");
    console.log(searchQuery, " this is my query");
    ListingModel.find(searchQuery).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
        if(err) {

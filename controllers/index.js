@@ -9,7 +9,7 @@ var search = require('./parts/search');
 exports.home = function(req, res, next) {
 
   //search Query made on the index mage
-  if (req.query.category || req.query.size || req.query.titleSearch || req.query.designerSearch || req.query.minPrice || req.query.maxPrice) {
+  if (req.query.category || req.query.size || req.query.titleSearch || req.query.minPrice || req.query.maxPrice) {
 
     //from the parts folder
     search.search(req,res,next);
@@ -36,11 +36,11 @@ exports.login = function(req, res, next) {
     // If login fails send error message
     if(!user) {
       var error = 'Invalid username or password';
-      return res.render('login', { 
-        title: 'Login', 
+      return res.render('login', {
+        title: 'Login',
         error: error,
         username: req.body.username,
-        csrfToken: req.csrfToken() 
+        csrfToken: req.csrfToken()
       });
     }
     // Login and redirect to home page
