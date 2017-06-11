@@ -17,6 +17,7 @@ function levCompare(text){
 }
 
 
+
 exports.search = function(req,res,next){
 
   //req.query because it is a get request, and req.body is a post
@@ -54,22 +55,27 @@ exports.search = function(req,res,next){
       searchQuery.price.$lte = parseInt(req.query.maxPrice);
   }
 
-   console.log(levCompare(req.query.finderSearch),  " back to string");
+  //  console.log(lev.distance(levCompare(req.query.finderSearch),"RIck"),  " lev distance");
    console.log(searchQuery, " this is my query");
-   ListingModel.find(searchQuery).sort([['lastBumped', 'desc']])
 
-
-
-
-   .exec(function(err, listings) {
+   ListingModel.find(searchQuery, function(err, listings) {
+       var levString= levCompare(req.query.finderSearch);
        if(err) {
           return console.log(err);
        } else {
-          //will return empty array not undefined, if not found, renders it in index
-          res.render("index", {title: searchQuery.search, listings: listings });
+         console.log(listings);
+         listings.forEach(function(x){
+            ListingModel.update({_id: x.id},
+              {$set: {lev: lev.distance(x.search, levString)}})
+                .sort({lev: 1}).exec(function(err, updatedSort){
+                  if (err){
+                    console.log(err);
+                  }
+                });
+         });
+            res.render("index", {title: searchQuery.search, listings: listings });
        }
-   });
-
+});
    //saving search Results
    var searchSave = new SearchModel({
      search: req.query.finderSearch

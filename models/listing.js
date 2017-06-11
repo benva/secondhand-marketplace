@@ -10,9 +10,12 @@ var ListingSchema = new Schema({
     'default' : shortid.generate
   },
   seller : String,
-  designer : String, //indexing for designer names, because people will query this the most
+  designer : String,
   title : String,
+
   search : {type: String, index: true},
+  lev: {type: Number, default: 10},
+
   category : String,
   size : Schema.Types.Mixed,
   conversion : String,
