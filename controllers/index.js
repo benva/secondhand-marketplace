@@ -9,7 +9,7 @@ var search = require('./parts/search');
 exports.home = function(req, res, next) {
 
   //search Query made on the index mage
-  if (req.query.category || req.query.size || req.query.titleSearch || req.query.minPrice || req.query.maxPrice) {
+  if (req.query.category || req.query.size || req.query.titleSearch || req.query.minPrice || req.query.maxPrice ||req.query.finderSearch) {
 
     //from the parts folder
     search.search(req,res,next);

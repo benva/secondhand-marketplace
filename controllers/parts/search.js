@@ -38,19 +38,13 @@ exports.search = function(req,res,next){
     }
   }
 
-  // //designer search
-  // if (req.query.designerSearch){
-  //     var designerSearch = new RegExp(escapeRegex(req.query.designerSearch), 'gi');
-  //     searchQuery.designer = designerSearch;
-  // }
-
-  //title search
-  if (req.query.titleSearch){
-      var titleSearch = new RegExp(escapeRegex(req.query.titleSearch), 'gi');
-      searchQuery.title = titleSearch;
+  //search
+  if (req.query.finderSearch){
+      var finderSearch = new RegExp(escapeRegex(req.query.finderSearch), 'gi');
+      searchQuery.search = finderSearch;
   }
 
-  // min price
+  // min price2
   if (req.query.minPrice){
       searchQuery.price.$gte = parseInt(req.query.minPrice);
   }
@@ -60,20 +54,20 @@ exports.search = function(req,res,next){
       searchQuery.price.$lte = parseInt(req.query.maxPrice);
   }
 
-   console.log(levCompare(req.query.titleSearch),  " back to string");
+   console.log(levCompare(req.query.finderSearch),  " back to string");
    console.log(searchQuery, " this is my query");
    ListingModel.find(searchQuery).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
        if(err) {
           return console.log(err);
        } else {
           //will return empty array not undefined, if not found, renders it in index
-          res.render("index", {title: "Listings" , listings: listings });
+          res.render("index", {title: searchQuery.search, listings: listings });
        }
    });
 
    //saving search Results
    var searchSave = new SearchModel({
-     search: req.query.search
+     search: req.query.finderSearch
    });
    searchSave.save(function(err) {
      if(err) {
