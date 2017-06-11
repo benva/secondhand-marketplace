@@ -38,7 +38,7 @@ function validListing(req) {
 
   var designer = req.body.designer;
   var title = req.body.title;
-  var search = req.body.designer + " " + req.body.title;
+  
   var category = req.body.category;
   var size = req.body.size;
   var price = req.body.price;
@@ -136,7 +136,7 @@ exports.createListing = function(req, res, next) {
   }
 
   var newListing = new ListingModel({
-    
+
     search: req.body.designer + " " + req.body.title,
 
     seller: req.user.username,
