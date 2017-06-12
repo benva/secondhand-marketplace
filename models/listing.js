@@ -14,7 +14,7 @@ var ListingSchema = new Schema({
   title : String,
 
   search : {type: String, index: true},
-  lev: {type: Number, default: 10},
+  lev: {type: Number, default: 0},
 
   category : String,
   size : Schema.Types.Mixed,

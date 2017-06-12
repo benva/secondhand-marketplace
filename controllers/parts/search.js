@@ -59,23 +59,32 @@ exports.search = function(req,res,next){
    console.log(searchQuery, " this is my query");
 
    ListingModel.find(searchQuery, function(err, listings) {
-       var levString= levCompare(req.query.finderSearch);
-       if(err) {
+        var levString= levCompare(req.query.finderSearch);
+        if(err) {
           return console.log(err);
-       } else {
+        } else {
          console.log(listings);
          listings.forEach(function(x){
-            ListingModel.update({_id: x.id},
-              {$set: {lev: lev.distance(x.search, levString)}})
-                .sort({lev: 1}).exec(function(err, updatedSort){
-                  if (err){
-                    console.log(err);
-                  }
-                });
+              ListingModel.update({_id: x.id},
+              {$set: {lev: lev.distance(x.search, levString) + ""}}, function(err){
+                if (err){
+                  console.log(err);
+                }
+              });
          });
-            res.render("index", {title: searchQuery.search, listings: listings });
        }
-});
+      })
+      //sorts after finding the search terms.
+      .sort({lev:'asc'}).exec(function(err, sortedlist){
+      if(err){
+        console.log(err);
+      }else{
+        res.render("index", {title: searchQuery.search, listings: sortedlist });
+      }
+
+    });
+
+
    //saving search Results
    var searchSave = new SearchModel({
      search: req.query.finderSearch

@@ -22,6 +22,7 @@ block content
       th Size
       th Conversion
       th Price
+      th lev
     if (listings.length === 0)
       h1 There are no results,  click here to return to 
         a(href="/") home    
@@ -34,6 +35,8 @@ block content
         td  #{listing.size}
         td  #{listing.conversion}
         td  #{listing.price}
+        td  #{listing.lev}
+        td  #{listing.createdAt}
         
   br
   br
