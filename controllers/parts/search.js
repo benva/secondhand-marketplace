@@ -1,6 +1,8 @@
 var SearchModel = require('../../models/search');
 var ListingModel = require('../../models/listing');
-var lev = require('./levenshtein.js');
+
+
+
 
 function escapeRegex(text) {
 
@@ -58,31 +60,17 @@ exports.search = function(req,res,next){
   //  console.log(lev.distance(levCompare(req.query.finderSearch),"RIck"),  " lev distance");
    console.log(searchQuery, " this is my query");
 
-   ListingModel.find(searchQuery, function(err, listings) {
-        var levString= levCompare(req.query.finderSearch);
+   ListingModel.find(searchQuery).sort([['lastBumped' , 'desc']]).exec(function(err, listings) {
+
         if(err) {
           return console.log(err);
         } else {
-         console.log(listings);
-         listings.forEach(function(x){
-              ListingModel.update({_id: x.id},
-              {$set: {lev: lev.distance(x.search, levString) + ""}}, function(err){
-                if (err){
-                  console.log(err);
-                }
-              });
-         });
-       }
-      })
-      //sorts after finding the search terms.
-      .sort({lev:'asc'}).exec(function(err, sortedlist){
-      if(err){
-        console.log(err);
-      }else{
-        res.render("index", {title: searchQuery.search, listings: sortedlist });
-      }
 
+          res.render("index", {title: searchQuery.search, listings: listings});
+          //should be updated through the dom?
+      }
     });
+
 
 
    //saving search Results

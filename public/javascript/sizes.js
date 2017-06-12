@@ -102,4 +102,5 @@ var categories = {
       $('#conversion').val(this.options[this.selectedIndex].text);
     });
   });
+
 });
