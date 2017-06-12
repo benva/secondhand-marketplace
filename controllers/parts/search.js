@@ -11,14 +11,6 @@ function escapeRegex(text) {
            .replace(/\W+/g, '|\\b'); //replaces all misc characters with an Or
 }
 
-//used to compare for lev function
-function levCompare(text){
-  return    text.replace(/^\W*/, '') //removes trailing !@#$ from start
-           .replace(/\W*$/, '') //removes trailing !@#$ from end
-           .replace(/\W+/g, ' '); //replaces all misc characters with an Or
-}
-
-
 
 exports.search = function(req,res,next){
 
@@ -57,7 +49,6 @@ exports.search = function(req,res,next){
       searchQuery.price.$lte = parseInt(req.query.maxPrice);
   }
 
-  //  console.log(lev.distance(levCompare(req.query.finderSearch),"RIck"),  " lev distance");
    console.log(searchQuery, " this is my query");
 
    ListingModel.find(searchQuery).sort([['lastBumped' , 'desc']]).exec(function(err, listings) {
