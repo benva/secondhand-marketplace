@@ -15,6 +15,7 @@ var ListingSchema = new Schema({
 
   search : {type: String, index: true},
 
+
   category : String,
   size : Schema.Types.Mixed,
   conversion : String,

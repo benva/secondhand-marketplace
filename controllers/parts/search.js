@@ -8,7 +8,8 @@ function escapeRegex(text) {
 
   return  "\\b" +  text.replace(/^\W*/, '') //removes trailing !@#$ from start
            .replace(/\W*$/, '') //removes trailing !@#$ from end
-           .replace(/\W+/g, '|\\b'); //replaces all misc characters with an Or
+           .replace(/\W+/g, '|\\b')
+; //replaces all misc characters with an Or
 }
 
 
@@ -61,8 +62,6 @@ exports.search = function(req,res,next){
           //should be updated through the dom?
       }
     });
-
-
 
    //saving search Results
    var searchSave = new SearchModel({
