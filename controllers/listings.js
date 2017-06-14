@@ -21,6 +21,7 @@ exports.listingPage = function(req, res, next) {
       res.render('listing', {
         title: listing.designer + ' - ' + listing.title,
         listing: listing,
+        loggedIn: req.user,
         own: ownListing,
         bump: canBump(listing)
       });

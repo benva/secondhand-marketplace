@@ -1,13 +1,14 @@
 var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
 var Schema = mongoose.Schema;
+var ListingModel = require('./listing');
 var MessageModel = require('./message');
 
-var CoversationSchema = new Schema({
+var ConversationSchema = new Schema({
   seller : String,
   buyer : String,
-  listing : ObjectID,
-  messages : [MessageModel],
+  listing : { type : String, ref : 'listing' },
+  messages : [{ type : Schema.Types.ObjectId, ref : 'message' }],
   unread : Boolean
 });
 
