@@ -8,8 +8,7 @@ function escapeRegex(text) {
 
   return  "\\b" +  text.replace(/^\W*/, '') //removes trailing !@#$ from start
            .replace(/\W*$/, '') //removes trailing !@#$ from end
-           .replace(/\W+/g, '|\\b')
-; //replaces all misc characters with an Or
+           .replace(/\W+/g, '|\\b'); //replaces all misc characters with an Or
 }
 
 
