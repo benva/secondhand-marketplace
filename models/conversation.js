@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
 var Schema = mongoose.Schema;
+var Listing = mongoose.model('listing').schema;
 var Message = mongoose.model('message').schema;
 
 var ConversationSchema = new Schema({
-  _id : String,
+  listing : Listing,
   seller : String,
   buyer : String,
   messages : [Message],

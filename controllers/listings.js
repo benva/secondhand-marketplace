@@ -353,7 +353,7 @@ exports.message = function(req, res, next) {
   // Else, create a new conversation and add it to buyer's and seller's inbox
   ListingModel.findOne({ _id: id }, function(err, listing) {
     var newConversation = new ConversationModel({
-      _id: listing._id,
+      listing: listing,
       seller: listing.seller,
       buyer: sender,
       messages: [new MessageModel({
