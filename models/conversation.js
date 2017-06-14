@@ -5,9 +5,9 @@ var ListingModel = require('./listing');
 var MessageModel = require('./message');
 
 var ConversationSchema = new Schema({
+  _id : { type : String, ref : 'listing' },
   seller : String,
   buyer : String,
-  listing : { type : String, ref : 'listing' },
   messages : [{ type : Schema.Types.ObjectId, ref : 'message' }],
   unread : Boolean
 });

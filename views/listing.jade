@@ -21,4 +21,21 @@ block content
       p #{bump.hours} hours and #{bump.mins} minutes until next bump
   else
     a(href="/users/#{listing.seller}") #{listing.seller}
-  //- add buying and messaging options
+
+    if(loggedIn)
+      br
+      a#message(href="#") Message Seller
+      div#messageBox(style="display:none")
+        form(name="message", method="post", action="/listings/#{listind._id}/message")
+          textarea(name="message")
+          br
+          button(type="submit", name="message") Send Message
+
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+  script.
+    $(document).ready(function() {
+      $('#message').click(function(event) {
+        event.preventDefault();
+        $('#messageBox').css('display', 'inline');
+      });
+    });

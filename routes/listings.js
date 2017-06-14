@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var multer = require('multer');
 var upload = multer({ dest: 'public/images/' });
-var csrf = require('csurf')
+var csrf = require('csurf');
 var listings = require('../controllers/listings');
 
 /* CREATE */
@@ -25,6 +25,9 @@ router.delete('/:id/delete', listings.delete);
 
 /* BUMP */
 router.post('/:id/bump', listings.bump);
+
+/* MESSAGE */
+router.post('/:id/message', listings.message);
 
 // SEARCH RESULTS
 // router.get('/', listings.search)

@@ -2,6 +2,8 @@ var fs = require('fs');
 var validator = require('validator');
 
 var ListingModel = require('../models/listing');
+var MessageModel = require('../models/message');
+var ConversationModel = require('../models/conversation');
 
 // Listing page
 exports.listingPage = function(req, res, next) {
@@ -112,7 +114,7 @@ function validListing(req) {
 
 // Create new listing and redirect to listing page
 exports.createListing = function(req, res, next) {
-  console.log(req.body.size)
+  // console.log(req.body.size);
   // If listing info is invalid, reload listing page with given errors
   var errors = validListing(req);
   if(errors) {
@@ -316,7 +318,6 @@ exports.delete = function(req, res, next) {
   });
 };
 
-
 // Bump listing to the top of the list
 exports.bump = function(req, res, next) {
   var id = req.params.id;
@@ -331,4 +332,11 @@ exports.bump = function(req, res, next) {
   });
 
   res.redirect('/listings/' + id);
+};
+
+// Send a new message to the seller of the listing
+exports.message = function(req, res, next) {
+  var sender = req.user;
+
+  
 };
