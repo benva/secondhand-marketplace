@@ -32,6 +32,7 @@ Aim Finish Date: 2017/04/8
 * Message page
 * ~~Filtering~~
 * ~~Search~~
+* _id are automatically indexed, should change username queries to _id
 
 ## E
 * Search
