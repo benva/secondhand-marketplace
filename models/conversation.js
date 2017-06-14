@@ -1,15 +1,15 @@
 var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
 var Schema = mongoose.Schema;
-var ListingModel = require('./listing');
-var MessageModel = require('./message');
+var Message = mongoose.model('message').schema;
 
 var ConversationSchema = new Schema({
-  _id : { type : String, ref : 'listing' },
+  _id : String,
   seller : String,
   buyer : String,
-  messages : [{ type : Schema.Types.ObjectId, ref : 'message' }],
-  unread : Boolean
+  messages : [Message],
+  sellerUnread : { type : Boolean, default : true },
+  buyerUnread : { type : Boolean, default : false }
 });
 
 ConversationSchema.plugin(timestamps);

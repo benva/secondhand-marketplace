@@ -2,6 +2,7 @@ var fs = require('fs');
 var validator = require('validator');
 
 var ListingModel = require('../models/listing');
+var UserModel = require('../models/user');
 var MessageModel = require('../models/message');
 var ConversationModel = require('../models/conversation');
 
@@ -149,7 +150,7 @@ exports.createListing = function(req, res, next) {
     lastBumped: new Date(),
     photos: photos
   });
-  console.log(req.body);
+  // console.log(req.body);
   newListing.save(function(err) {
     if(err) {
       return next(err);
@@ -334,9 +335,36 @@ exports.bump = function(req, res, next) {
   res.redirect('/listings/' + id);
 };
 
+// Add the conversation to the user's inbox
+function updateInbox(username, conversation) {
+  UserModel.findOne({ username: username }, function(err, user) {
+    user.inbox.push(conversation);
+    user.save();
+  });
+}
+
 // Send a new message to the seller of the listing
 exports.message = function(req, res, next) {
-  var sender = req.user;
+  var sender = req.user.username;
+  var id = req.params.id;
 
+  // If conversation already exists, add new message to existing conversation
+
+  // Else, create a new conversation and add it to buyer's and seller's inbox
+  ListingModel.findOne({ _id: id }, function(err, listing) {
+    var newConversation = new ConversationModel({
+      _id: listing._id,
+      seller: listing.seller,
+      buyer: sender,
+      messages: [new MessageModel({
+        sender: sender,
+        recipient: listing.seller,
+        body: req.body.message
+      })]
+    });
+    updateInbox(listing.seller, newConversation);
+    updateInbox(sender, newConversation);
+  });
   
+  console.log('done');
 };
