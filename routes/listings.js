@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var multer = require('multer');
 var upload = multer({ dest: 'public/images/' });
-var csrf = require('csurf')
+var csrf = require('csurf');
 var listings = require('../controllers/listings');
 
 /* CREATE */
