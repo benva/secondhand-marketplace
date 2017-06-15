@@ -29,7 +29,7 @@
          <option  v-for='option in options' :value='option.value'> {{ option.text }} </option>
     </select>
 
-    <input name='conversion' type='hidden' id='conversion' :value='converted'/>
+    <input name='conversion' type='hidden' :value='converted'/>
 
     <br />
     <br />

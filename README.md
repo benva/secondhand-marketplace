@@ -50,8 +50,10 @@ Aim Finish Date: 2017/04/8
 
   * Change It So Every Designer And Title Are Capitalized At The First Letter
 
-*Vue
-  *Change spacing in error
-  *fix user error in index
-  *sensitive information showing in script?
-  *make it look nicer, pretty sure not using Vue js to its full potential.
+* Vue
+
+   * Change spacing in error
+   * fix user error in index
+   * sensitive information showing in script?
+   * make it look nicer, pretty sure not using Vue js to its full potential.
+   * Computed properties for lists?
