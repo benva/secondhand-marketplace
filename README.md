@@ -49,3 +49,8 @@ Aim Finish Date: 2017/04/8
   * Less punishing search, look into regex for spaces. Geobroskets should  return geobaskets, geo baskets should also return geobaskets.
 
   * Change It So Every Designer And Title Are Capitalized At The First Letter
+
+*Vue
+  *Change spacing in error
+  *fix user error in index
+  *sensitive information showing in script?

@@ -4,6 +4,7 @@
 
   <div v-if='user'>
     <a :href=" '/users/' + user.username">{{user.username}}</a>
+    <a href="/listings/create/">Create Listing</a>
     <a href="/logout">Log Out</a>
   </div>
   <div v-else>

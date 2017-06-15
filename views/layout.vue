@@ -10,8 +10,6 @@
         <body>
             {{{app}}}
             {{{script}}}
-            <div id="app"></div>
-            <script>app.$mount('#app')</script>
         </body>
     </html>
 </template>
