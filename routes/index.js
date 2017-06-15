@@ -14,7 +14,15 @@ router.get('/login',csrf( {cookie: true }), function(req, res, next) {
   if(req.user) {
     return res.redirect('/');
   }
-  res.render('login', { title: 'Login', csrfToken: req.csrfToken()});
+  res.render('components/login', {data: {csrfToken: req.csrfToken()},
+  vue: {
+    head: {
+      title: 'Login'
+    }
+  }
+
+
+});
 });
 router.post('/login', index.login);
 

@@ -22,7 +22,12 @@ exports.home = function(req, res, next) {
       if(err) {
         return next(err);
       }
-      res.render('index', { title: 'Covenant', user: req.user, listings: listings });
+      res.render('index', {data: {user: req.user, listings: listings },
+      vue: {
+              head: {
+                  title: 'Covenant',
+              }
+           }});
     });
   }
 };
@@ -36,11 +41,12 @@ exports.login = function(req, res, next) {
     // If login fails send error message
     if(!user) {
       var error = 'Invalid username or password';
-      return res.render('login', {
-        title: 'Login',
-        error: error,
-        username: req.body.username,
-        csrfToken: req.csrfToken()
+      return res.render('components/login', {
+        data: {
+          title: 'Login',
+          error: error,
+          username: req.body.username,
+          csrfToken: req.csrfToken()}
       });
     }
     // Login and redirect to home page
