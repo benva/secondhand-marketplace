@@ -18,11 +18,17 @@ exports.listingPage = function(req, res, next) {
         ownListing = true;
       }
 
-      res.render('listing', {
-        title: listing.designer + ' - ' + listing.title,
-        listing: listing,
-        own: ownListing,
-        bump: canBump(listing)
+      res.render('components/listing', {
+        data: {
+          listing: listing,
+          own: ownListing,
+          bump: canBump(listing)
+        },
+        vue:{
+          head:{
+            title: listing.designer + ' - ' + listing.title
+          }
+        }
       });
     }
   });
@@ -112,7 +118,7 @@ function validListing(req) {
 
 // Create new listing and redirect to listing page
 exports.createListing = function(req, res, next) {
-  console.log(req.body.size)
+  console.log(req.body.size);
   // If listing info is invalid, reload listing page with given errors
   var errors = validListing(req);
   if(errors) {

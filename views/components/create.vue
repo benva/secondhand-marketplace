@@ -24,10 +24,13 @@
          <option value='accessories'>Accessories</option>
     </select>
     <br />
-    <select v-model='list' name='size' required>
+    <select id="size-select" v-model='list' name='size' @change='sizeChange' required>
          <option selected hidden>Size</option>
          <option  v-for='option in options' :value='option.value'> {{ option.text }} </option>
     </select>
+
+    <input name='conversion' type='hidden' id='conversion' :value='converted'/>
+
     <br />
     <br />
 
@@ -118,6 +121,7 @@ export default {
       error: false,
       category: 'Categories', //sets default values
       list: 'Size', //this sets default values
+      converted: '',
       optionsData: {
         tops: tops,
         outerwear: tops,
@@ -159,6 +163,12 @@ export default {
     onChange: function() {
       this.options = this.options
       console.log(this.options)
+    },
+    sizeChange: function(){
+      let selected = document.getElementById("size-select").selectedIndex
+      let converted = this.options[selected].text
+      this.converted = converted
+      console.log(this.converted)
     }
   }
 }

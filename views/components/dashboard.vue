@@ -2,6 +2,13 @@
 <div class="dashboard">
   <h1>Welcome to your dashboard, {{user.username}}</h1>
       <a href="/logout">Log Out</a>
+  <ul class='listings'>
+    <li v-for='listing in listings'>
+      <a :href="'/listings/' + listing._id">{{listing.designer}}:  {{listing.title}}</a>
+
+    </li>
+  </ul>
+
 </div>
 </template>
 
@@ -9,6 +16,7 @@
 export default {
     data: function() {
         return {
+          listings: {}
         }
     }
 }
