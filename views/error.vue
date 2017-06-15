@@ -6,8 +6,6 @@
     <h3>{{error}}</h3>
     <div>
       <img src="/error/notfound.png" style="width:619px;height:619px;"/>
-
-
     </div>
 </template>
 
@@ -21,7 +19,5 @@ export default {
 
 
 <style lang="css">
-  .error{
-    color: red;
-  }
+
 </style>

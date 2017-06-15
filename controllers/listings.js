@@ -211,16 +211,22 @@ exports.editListing = function(req, res, next) {
           });
         }
 
-        return res.render('edit', {
-          title: 'Edit Listing',
-          id: listing._id,
-          designer: listing.designer,
-          listTitle: listing.title,
-          category: listing.category,
-          size: listing.size,
-          price: listing.price,
-          description: listing.description,
-          csrfToken: req.csrfToken()
+        return res.render('components/edit', {
+          data: {
+            id: listing._id,
+            designer: listing.designer,
+            listTitle: listing.title,
+            category: listing.category,
+            size: listing.size,
+            price: listing.price,
+            description: listing.description,
+            csrfToken: req.csrfToken()
+          },
+          vue:{
+            head:{
+              title: 'Editing: ' + listing.designer + ' | ' + listing.title
+            }
+          }
         });
       });
       // Redirect if current user does not own listing

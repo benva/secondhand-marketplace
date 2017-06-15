@@ -16,7 +16,7 @@
 
   <!-- if own -->
   <div v-if='own'>
-    <a :href=" '/listings/' + listing.id + 'edit' ">Edit</a>
+    <a :href=" '/listings/' + listing._id + '/edit' ">Edit</a>
   </div>
 
 
@@ -35,5 +35,6 @@ export default {
 </script>
 
 <style lang="css">
+
 
 </style>
