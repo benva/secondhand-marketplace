@@ -11,8 +11,16 @@
     <br />
     <input type='text' placeholder='Price' name='price' required/>
     <br />
-
-
+    <select v-model="selected">
+         <option selected hidden>Categories</option>
+         <option value="outerwear">Outerwear</option>
+         <option value="tops">Tops</option>
+         <option value="bottoms">Bottoms</option>
+         <option value="footwear">Footwear</option>
+         <option value="Accessories">Accessories</option>
+    </select>
+    <br />
+    <br />
 
 
     <input type='submit' />
@@ -24,7 +32,8 @@
 export default {
     data: function() {
         return {
-          error: false
+          error: false,
+          selected: "Categories"
         }
     }
 }
