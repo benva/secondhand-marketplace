@@ -24,7 +24,7 @@ router.get('/login',csrf( {cookie: true }), function(req, res, next) {
 
 });
 });
-router.post('/login', index.login);
+router.post('/login',csrf( {cookie: true }), index.login);
 
 /* LOGOUT */
 router.get('/logout', function(req, res, next) {

@@ -1,6 +1,7 @@
 <template>
 <div class='login'>
   <h1>Login</h1>
+  <h5 v-if='error'>{{error}}</h5>
   <form method='post' action='/login'>
     <input type='hidden' name='_csrf' :value='csrfToken' required/>
     <input type='text' placeholder='User Name' name='username' required/>
