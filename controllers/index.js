@@ -52,3 +52,21 @@ exports.login = function(req, res, next) {
     });
   })(req, res, next);
 };
+
+exports.messages = function(req, res, next) {
+  if(!req.user) {
+    var error = 'You need to login before creating a listing';
+    return res.render('login', { 
+      title: 'Login', 
+      error: error, 
+      csrfToken: req.csrfToken()
+    });
+  }
+
+  conversations = req.user.inbox;
+
+  res.render('messages', {
+    title: 'Messages',
+    conversations: conversations
+  });
+};

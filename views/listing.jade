@@ -27,7 +27,7 @@ block content
       a#message(href="#") Message Seller
       div#messageBox(style="display:none")
         form(name="message", method="post", action="/listings/#{listing._id}/message")
-          textarea(name="message")
+          textarea(name="text")
           br
           button(type="submit", name="message") Send Message
 

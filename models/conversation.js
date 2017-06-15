@@ -9,8 +9,7 @@ var ConversationSchema = new Schema({
   seller : String,
   buyer : String,
   messages : [Message],
-  sellerUnread : { type : Boolean, default : true },
-  buyerUnread : { type : Boolean, default : false }
+  unread : Boolean
 });
 
 ConversationSchema.plugin(timestamps);

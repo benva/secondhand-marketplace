@@ -1,0 +1,6 @@
+extends layout
+
+block content
+  ul
+    each conversation, i in conversations
+      li #{conversation.messages}
