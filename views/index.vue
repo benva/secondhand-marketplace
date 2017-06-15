@@ -2,12 +2,12 @@
 <div class="index">
   <h1>Welcome to Covenant</h1>
 
-  <div v-if="!user">
-    <a href="/login">Login</a>
-    <a href="/signup">Sign Up</a>
+  <div v-if='user'>
+    <a href="/logout">Log Out</a>
   </div>
   <div v-else>
-    <a href="/logout">Log Out</a>
+    <a href="/login">Login</a>
+    <a href="/users/register">Register</a>
   </div>
 
 </div>
@@ -16,7 +16,9 @@
 <script>
 export default {
     data: function() {
-        return {}
+        return {
+          user: false
+        }
     }
 }
 </script>

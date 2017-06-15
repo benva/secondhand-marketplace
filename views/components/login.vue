@@ -16,7 +16,9 @@
 <script>
 export default {
     data: function() {
-        return {}
+        return {
+          error: false //for error messages
+        }
     }
 }
 </script>

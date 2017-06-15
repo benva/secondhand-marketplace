@@ -1,7 +1,11 @@
 <template>
-    <p>
-        Error
-    </p>
+  <div class="error">
+    <h3>Error Page</h3>
+<ul class='status'>
+  <li>{{status}}</li>
+  <li>{{error}}</li>
+</ul>
+  </div>
 </template>
 
 <script>
@@ -12,5 +16,9 @@ export default {
 }
 </script>
 
-<style>
+
+<style lang="css">
+  .error{
+    color: red;
+  }
 </style>

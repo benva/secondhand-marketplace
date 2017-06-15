@@ -10,7 +10,12 @@ router.get('/register',csrf( {cookie: true }), function(req, res, next) {
   if(req.user) {
     return res.redirect('/');
   }
-  res.render('register', { title: 'Register', csrfToken: req.csrfToken()});
+  res.render('components/register', { data: { csrfToken: req.csrfToken() },
+      vue:{
+        head:{
+          title: 'Registration'
+        }
+      }});
 });
 
 router.post('/register', csrf( {cookie: true }), users.createUser);
