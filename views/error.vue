@@ -1,18 +1,21 @@
 <template>
-  <div class="error">
-    <h3>Error Page</h3>
-<ul class='status'>
-  <li>{{status}}</li>
-  <li>{{error}}</li>
-</ul>
-  </div>
+<div class="error">
+  <h1>Error Page</h1>
+  <div class='status'>
+    <h3>{{status}}</h3>
+    <h3>{{error}}</h3>
+    <div>
+      <img src="/error/notfound.png" style="width:619px;height:619px;"/>
+
+
+    </div>
 </template>
 
 <script>
 export default {
-    data () {
-        return {}
-    }
+  data() {
+    return {}
+  }
 }
 </script>
 
