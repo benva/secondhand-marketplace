@@ -38,7 +38,7 @@ function validListing(req) {
 
   var designer = req.body.designer;
   var title = req.body.title;
-  
+
   var category = req.body.category;
   var size = req.body.size;
   var price = req.body.price;
@@ -116,16 +116,17 @@ exports.createListing = function(req, res, next) {
   // If listing info is invalid, reload listing page with given errors
   var errors = validListing(req);
   if(errors) {
-    return res.render('create', {
-      title: 'Create Listing',
-      error: errors,
-      designer: req.body.designer,
-      listTitle: req.body.title,
-      category: req.body.category,
-      size: req.body.size,
-      price: req.body.price,
-      description: req.body.description,
-      csrfToken: req.csrfToken()
+    return res.render('components/create', {
+      data:{
+        error: errors,
+        designer: req.body.designer,
+        listTitle: req.body.title,
+        category: req.body.category,
+        size: req.body.size,
+        price: req.body.price,
+        description: req.body.description,
+        csrfToken: req.csrfToken()
+      }
     });
   }
 
@@ -136,9 +137,7 @@ exports.createListing = function(req, res, next) {
   }
 
   var newListing = new ListingModel({
-
     search: req.body.designer + " " + req.body.title,
-
     seller: req.user.username,
     designer: req.body.designer,
     title: req.body.title,
@@ -155,7 +154,6 @@ exports.createListing = function(req, res, next) {
     if(err) {
       return next(err);
     }
-
     res.redirect('./' + newListing._id);
   });
 };
