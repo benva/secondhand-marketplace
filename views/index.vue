@@ -3,6 +3,7 @@
   <h1>Welcome to Covenant</h1>
 
   <div v-if='user'>
+    <a :href=" '/users/' + user.username">{{user.username}}</a>
     <a href="/logout">Log Out</a>
   </div>
   <div v-else>
