@@ -166,7 +166,7 @@ export default {
     },
     sizeChange: function(){
       let selected = document.getElementById("size-select").selectedIndex
-      let converted = this.options[selected].text
+      let converted = this.options[selected - 1].text
       this.converted = converted
       console.log(this.converted)
     }

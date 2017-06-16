@@ -37,6 +37,12 @@
 
     <input type='submit' />
   </form>
+    <br />
+  <form method='post' :action="'/listings/' + id + '/delete' ">
+    <input type='hidden' name='_csrf' :value='csrfToken'/>
+    <input type='hidden' name='_method' value='delete'/>
+    <input type='submit' value='delete'/>
+  </form>
 
 </div>
 </template>

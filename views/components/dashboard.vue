@@ -1,7 +1,7 @@
 <template>
 <div class="dashboard">
   <h1>Welcome to your dashboard, {{user.username}}</h1>
-      <a href="/logout">Log Out</a>
+      <a id='error-styles' href="/logout">Log Out</a>
   <ul class='listings'>
     <li v-for='listing in listings'>
       <a :href="'/listings/' + listing._id">{{listing.designer}}:  {{listing.title}}</a>

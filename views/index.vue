@@ -6,11 +6,10 @@
     <a :href=" '/users/' + user.username">{{user.username}}</a>
     |
     <a href="/listings/create/">Create Listing</a>
-    |
-    <a href="/logout">Log Out</a>
   </div>
   <div v-else>
     <a href="/login">Login</a>
+    |
     <a href="/users/register">Register</a>
   </div>
 
