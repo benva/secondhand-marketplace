@@ -243,17 +243,24 @@ exports.editPost = function(req, res, next) {
   // If listing info is invalid, reload edit page with given errors
   var errors = validListing(req);
   if(errors) {
-    return res.render('edit', {
-      title: 'Edit Listing',
-      error: errors,
-      id: id,
-      designer: req.body.designer,
-      listTitle: req.body.title,
-      category: req.body.category,
-      size: req.body.size,
-      price: req.body.price,
-      description: req.body.description,
-      csrfToken: req.csrfToken()
+    return res.render('components/edit', {
+      data: {
+        title: 'Edit Listing',
+        error: errors,
+        id: id,
+        designer: req.body.designer,
+        listTitle: req.body.title,
+        category: req.body.category,
+        size: req.body.size,
+        price: req.body.price,
+        description: req.body.description,
+        csrfToken: req.csrfToken()
+      },
+      vue:{
+        head:{
+          title: 'Editing: ' + listing.designer + ' | ' + listing.title
+        }
+      }
     });
   }
 

@@ -10,6 +10,7 @@
     <h1>{{listing.designer}}</h1>
     <h2>{{listing.title}}</h2>
     <p>{{listing.description}}</p>
+    <p>{{listing.category}}</p>
     <p>{{listing.conversion}}</p>
     <p>{{listing.price}}</p>
   </div>
