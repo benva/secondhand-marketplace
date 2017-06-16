@@ -1,7 +1,7 @@
 <template>
 <div class='register'>
   <h1>Registration</h1>
-  <h5 v-if='error'>{{error}}</h5>
+  <h5 v-if='error' id='error-styles'>{{error}}</h5>
 
   <form method='post' action='/users/register'>
     <input type='hidden' name='_csrf' :value='csrfToken' required/>
@@ -23,7 +23,7 @@ export default {
           error: false
         }
     }
-}
+  }
 </script>
 
 <style lang='css'>

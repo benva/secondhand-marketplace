@@ -15,3 +15,7 @@ ul{
 a{
   text-decoration: none;
 }
+#error-styles{
+  white-space: pre-wrap;
+  color: #8A0707;
+}

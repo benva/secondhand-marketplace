@@ -1,5 +1,5 @@
 <template>
-<div class="error">
+<div id='error-styles'>
   <h1>Error Page</h1>
   <div class='status'>
     <h3>{{status}}</h3>
