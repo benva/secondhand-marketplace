@@ -62,6 +62,7 @@ exports.search = function(req,res,next){
 
           res.render("index", {
             data:{
+              user: req.user,
               listings: listings
             },
             vue:{

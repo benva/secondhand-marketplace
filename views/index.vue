@@ -11,35 +11,41 @@
     <a href="/login">Login</a>
     |
     <a href="/users/register">Register</a>
+
   </div>
 <br />
+
 <!-- search mechanism-->
-<form method='get' action='/finder'>
-  <select v-model='category' @change='onChange' name='category' required>
-       <option selected hidden>Categories</option>
-       <option value='outerwear'>Outerwear</option>
-       <option value='tops'>Tops</option>
-       <option value='bottoms'>Bottoms</option>
-       <option value='footwear'>Footwear</option>
-       <option value='accessories'>Accessories</option>
-  </select>
+<div id='finder'>
 
-  <br />
-  <select id="size-select" v-model='size' name='size' @change='sizeChange' required>
-       <option selected hidden>Size</option>
-       <option  v-for='option in options' :value='option.value'> {{ option.text }} </option>
-  </select>
+  <form method='get' action='/finder'>
+    <select v-model='category' @change='onChange' name='category' required>
+         <option selected hidden>Categories</option>
+         <option value='outerwear'>Outerwear</option>
+         <option value='tops'>Tops</option>
+         <option value='bottoms'>Bottoms</option>
+         <option value='footwear'>Footwear</option>
+         <option value='accessories'>Accessories</option>
+    </select>
 
-  <br />
-  <input type='text' name='finderSearch' placeholder='Enter designer, item name...'/>
-  <br />
-  <input type='text' name='minPrice' placeholder='Min Price'>
-  <br />
-  <input type='text' name='maxPrice' placeholder='Max Price'/>
-  <br />
-  <input type='submit' value='find' />
+    <br />
+    <select id="size-select" v-model='size' name='size' required>
+         <option selected hidden>Size</option>
+         <option  v-for='option in options' :value='option.value'> {{ option.text }} </option>
+    </select>
 
-</form>
+    <br />
+    <input type='text' name='finderSearch' placeholder='Enter designer, item name...'/>
+    <br />
+    <input type='text' name='minPrice' placeholder='Min Price'>
+    <br />
+    <input type='text' name='maxPrice' placeholder='Max Price'/>
+    <br />
+    <input type='submit' value='find' />
+
+  </form>
+
+</div>
 
 
   <div class='home-listings'>
@@ -49,6 +55,7 @@
         <th>Title</th>
         <th>Designer</th>
         <th>Price</th>
+        <th>Category</th>
         <th>Size</th>
         <th>Created At</th>
       </tr>
@@ -56,6 +63,7 @@
         <td><a :href="'/listings/' + listing._id">{{listing.title}}</a></td>
         <td>{{listing.designer}}</td>
         <td>{{listing.price}}</td>
+        <td>{{listing.category}}</td>
         <td>{{listing.conversion}}</td>
         <td>{{listing.createdAt}}</td>
       </tr>
@@ -145,7 +153,6 @@ export default {
       }
     ]
     return {
-      error: false,
       category: 'Categories', //sets default values
       size: 'Size', //this sets default values
       converted: '',
@@ -184,6 +191,11 @@ export default {
           options = this.optionsData.size
       }
       return options
+    },
+    user: function(){
+      console.log('small error')
+      let user = false
+      return user;
     }
   },
   methods: {
@@ -197,7 +209,7 @@ export default {
       this.converted = converted
       console.log(this.converted)
     }
-  }
+  },
 }
 </script>
 
@@ -208,8 +220,12 @@ export default {
   }
   table{
     border-collapse: collapse;
+    table-layout: fixed;
   }
   #table-border{
     border-bottom: .1em solid #2c3e50;
+  }
+  tr{
+    padding: 10em;
   }
 </style>
