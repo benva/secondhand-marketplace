@@ -22,6 +22,9 @@ exports.search = function(req,res,next){
   //category search
   if (req.query.category){
     searchQuery.category = req.query.category;
+    if(req.query.category === 'Categories'){
+        searchQuery.category = new RegExp("[\s\S]*",'gi');
+    }
   }
 
   //size search
@@ -57,7 +60,16 @@ exports.search = function(req,res,next){
           return console.log(err);
         } else {
 
-          res.render("index", {title: searchQuery.search, listings: listings});
+          res.render("index", {
+            data:{
+              listings: listings
+            },
+            vue:{
+              head:{
+                title: searchQuery.search
+              }
+            }
+           });
           //should be updated through the dom?
       }
     });

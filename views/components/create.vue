@@ -24,7 +24,7 @@
          <option value='accessories'>Accessories</option>
     </select>
     <br />
-    <select id="size-select" v-model='list' name='size' @change='sizeChange' required>
+    <select id="size-select" v-model='size' name='size' @change='sizeChange' required>
          <option selected hidden>Size</option>
          <option  v-for='option in options' :value='option.value'> {{ option.text }} </option>
     </select>
@@ -120,7 +120,7 @@ export default {
     return {
       error: false,
       category: 'Categories', //sets default values
-      list: 'Size', //this sets default values
+      size: 'Size', //this sets default values
       converted: '',
       optionsData: {
         tops: tops,
