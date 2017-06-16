@@ -1,6 +1,6 @@
 <template>
 <div class='register'>
-  <h1>Registration</h1>
+  <h1 id='title'>Registration</h1>
   <h5 v-if='error' id='error-styles'>{{error}}</h5>
 
   <form method='post' action='/users/register'>

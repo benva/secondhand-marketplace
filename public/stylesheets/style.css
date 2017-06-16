@@ -1,3 +1,6 @@
+/*Error colors: color: #8A0707 (red),
+default color: #2c3e50; (bluish black, Vue standard),
+title color: #2c5050; (dark green)*/
 body{
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
  -webkit-font-smoothing: antialiased;
@@ -5,6 +8,9 @@ body{
  text-align: center;
  color: #2c3e50;
  margin-top: 60px;
+}
+#title{
+  color:#2c5050;
 }
 li{
   list-style: none;
@@ -14,8 +20,9 @@ ul{
 }
 a{
   text-decoration: none;
+  color: #476481;
 }
 #error-styles{
   white-space: pre-wrap;
-  color: #8A0707;
+  color: #839fbb;
 }

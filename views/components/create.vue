@@ -1,7 +1,7 @@
 <template>
 <div class='create'>
-  <h1>List Item</h1>
-  <h5 v-if='error'>{{error}}</h5>
+  <h1 id='title'>List Item</h1>
+  <h5 v-if='error' id='error-styles'>{{error}}</h5>
 
   <form method='post' action='/listings/create' enctype='multipart/form-data'>
     <input type='hidden' name='_csrf' :value='csrfToken' required/>

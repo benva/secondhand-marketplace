@@ -16,8 +16,8 @@
 
   <div class='home-listings'>
     <table>
-      <h3>All Listings</h3>
-      <tr>
+      <h2 id='title'>All Listings</h2>
+      <tr id='table-border'>
         <th>Title</th>
         <th>Designer</th>
         <th>Price</th>
@@ -25,10 +25,10 @@
         <th>Created At</th>
       </tr>
       <tr v-for='listing in listings'>
-        <td>{{listing.title}}</td>
+        <td><a :href="'/listings/' + listing._id">{{listing.title}}</a></td>
         <td>{{listing.designer}}</td>
         <td>{{listing.price}}</td>
-        <td>{{listing.size}}</td>
+        <td>{{listing.conversion}}</td>
         <td>{{listing.createdAt}}</td>
       </tr>
 
@@ -53,7 +53,10 @@ export default {
     margin-top: 5%;
     display: inline-block;
   }
-  .home-listings h3{
-    color: #2c5050;
+  table{
+    border-collapse: collapse;
+  }
+  #table-border{
+    border-bottom: .1em solid #2c3e50;
   }
 </style>
