@@ -9,25 +9,29 @@ var search = require('./parts/search');
 exports.home = function(req, res, next) {
 
   //search Query made on the index mage
-  if (req.query.category || req.query.size || req.query.minPrice || req.query.maxPrice ||req.query.finderSearch) {
+  if (req.query.category || req.query.size || req.query.minPrice || req.query.maxPrice || req.query.finderSearch) {
 
     //from the parts folder
-    search.search(req,res,next);
-  }
-
-  else{
+    search.search(req, res, next);
+  } else {
     // Find all listings
     // Change query to more reasonable values
-    ListingModel.find({}).sort([['lastBumped' , 'desc']]).exec(function(err, listings) {
-      if(err) {
+    ListingModel.find({}).sort([['lastBumped', 'desc']])
+    .exec(function(err, listings) {
+      if (err) {
         return next(err);
       }
-      res.render('index', {data: {user: req.user, listings: listings },
-      vue: {
-              head: {
-                  title: 'Covenant',
-              }
-           }});
+      res.render('index', {
+        data: {
+          user: req.user,
+          listings: listings
+        },
+        vue: {
+          head: {
+            title: 'Covenant',
+          }
+        }
+      });
     });
   }
 };
@@ -35,23 +39,24 @@ exports.home = function(req, res, next) {
 // Login post
 exports.login = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
-    if(err) {
+    if (err) {
       return next(err);
     }
     // If login fails send error message
-    if(!user) {
+    if (!user) {
       var error = 'Invalid username or password';
-      return res.render('components/login', {
+      return res.render('pages/login', {
         data: {
           title: 'Login',
           error: error,
           username: req.body.username,
-          csrfToken: req.csrfToken()}
+          csrfToken: req.csrfToken()
+        }
       });
     }
     // Login and redirect to home page
     req.logIn(user, function(err) {
-      if(err) {
+      if (err) {
         return next(err);
       }
       res.redirect('/');

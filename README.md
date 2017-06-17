@@ -57,3 +57,4 @@ Aim Finish Date: 2017/04/8
    * sensitive information showing in script?
    * make it look nicer, pretty sure not using Vue js to its full potential.
    * Computed properties for lists?
+   * Components not working, so figure that out

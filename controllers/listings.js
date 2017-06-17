@@ -18,7 +18,7 @@ exports.listingPage = function(req, res, next) {
         ownListing = true;
       }
 
-      res.render('components/listing', {
+      res.render('pages/listing', {
         data: {
           listing: listing,
           own: ownListing,
@@ -122,7 +122,7 @@ exports.createListing = function(req, res, next) {
   // If listing info is invalid, reload listing page with given errors
   var errors = validListing(req);
   if(errors) {
-    return res.render('components/create', {
+    return res.render('pages/create', {
       data:{
         error: errors,
         designer: req.body.designer,
@@ -211,7 +211,7 @@ exports.editListing = function(req, res, next) {
           });
         }
 
-        return res.render('components/edit', {
+        return res.render('pages/edit', {
           data: {
             id: listing._id,
             designer: listing.designer,
@@ -243,7 +243,7 @@ exports.editPost = function(req, res, next) {
   // If listing info is invalid, reload edit page with given errors
   var errors = validListing(req);
   if(errors) {
-    return res.render('components/edit', {
+    return res.render('pages/edit', {
       data: {
         title: 'Edit Listing',
         error: errors,

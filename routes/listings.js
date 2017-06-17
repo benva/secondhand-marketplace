@@ -8,7 +8,7 @@ var listings = require('../controllers/listings');
 /* CREATE */
 router.get('/create', csrf( {cookie: true }), function(req, res, next) {
   if(req.user) {
-    return res.render('components/create', { data: {csrfToken: req.csrfToken()},
+    return res.render('pages/create', { data: {csrfToken: req.csrfToken()},
     vue:{
       head:{
         title: 'Create a Listing'
@@ -17,7 +17,7 @@ router.get('/create', csrf( {cookie: true }), function(req, res, next) {
   });
   }
   var error = 'You need to login before creating a listing';
-  res.render('components/login', { data: { error: error, csrfToken: req.csrfToken() },
+  res.render('pages/login', { data: { error: error, csrfToken: req.csrfToken() },
     vue:{
       head:{
         title: 'Login'

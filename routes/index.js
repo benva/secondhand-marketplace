@@ -14,7 +14,7 @@ router.get('/login',csrf( {cookie: true }), function(req, res, next) {
   if(req.user) {
     return res.redirect('/');
   }
-  res.render('components/login', {data: {csrfToken: req.csrfToken()},
+  res.render('pages/login', {data: {csrfToken: req.csrfToken()},
   vue: {
     head: {
       title: 'Login'

@@ -10,7 +10,7 @@ router.get('/register',csrf( {cookie: true }), function(req, res, next) {
   if(req.user) {
     return res.redirect('/');
   }
-  res.render('components/register', { data: { csrfToken: req.csrfToken() },
+  res.render('pages/register', { data: { csrfToken: req.csrfToken() },
       vue:{
         head:{
           title: 'Registration'

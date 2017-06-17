@@ -1,7 +1,7 @@
 <template>
 <div class="index">
   <h1>Welcome to Covenant</h1>
-
+  <etio></etio>
   <div v-if='user'>
     <a :href=" '/users/' + user.username">{{user.username}}</a>
     |
@@ -210,6 +210,7 @@ export default {
       console.log(this.converted)
     }
   },
+  components: ['etio']
 }
 </script>
 

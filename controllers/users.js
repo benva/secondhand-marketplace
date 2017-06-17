@@ -19,7 +19,7 @@ exports.userPage = function(req, res, next) {
         return next(err);
       }
 
-      res.render('components/dashboard', { data: {title: user.username, user: user, listings: listings },
+      res.render('pages/dashboard', { data: {title: user.username, user: user, listings: listings },
       vue:{
         head:{
           title: user.username
@@ -66,7 +66,7 @@ exports.createUser = function(req, res, next) {
   // If user info is invalid, reload the page with given errors
   var errors = validUser(req);
   if(errors) {
-    return res.render('components/register', {
+    return res.render('pages/register', {
       data: {
         error: errors,
         username: req.body.username,
@@ -99,7 +99,7 @@ exports.createUser = function(req, res, next) {
       } else {
         msg = err.message;
       }
-      return res.render('components/register', {
+      return res.render('pages/register', {
         data: {
           error: msg,
           username: newUser.username,
