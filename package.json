@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "VUE_ENV=server nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -12,7 +12,7 @@
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "express-session": "^1.15.3",
-    "express-vue": "^3.12.2",
+    "express-vue": "^3.14.2",
     "jade": "~1.11.0",
     "method-override": "^2.3.9",
     "mongodb": "^2.2.25",

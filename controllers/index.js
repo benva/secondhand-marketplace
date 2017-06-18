@@ -18,20 +18,28 @@ exports.home = function(req, res, next) {
     // Change query to more reasonable values
     ListingModel.find({}).sort([['lastBumped', 'desc']])
     .exec(function(err, listings) {
-      if (err) {
-        return next(err);
-      }
-      res.render('index', {
+      var index = {
         data: {
-          user: req.user,
           listings: listings
         },
         vue: {
           head: {
             title: 'Covenant',
           }
-        }
-      });
+        },
+        components: ['etio']
+      }
+      if (err) {
+        return next(err);
+      }
+      if(!req.user){
+        res.render('index', index );
+      }
+      else{
+        index.data.user = req.user
+        res.render('index', index)
+      }
+
     });
   }
 };

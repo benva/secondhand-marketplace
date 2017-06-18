@@ -1,5 +1,5 @@
 <template>
-<div class="index">
+<div>
   <h1>Welcome to Covenant</h1>
   <etio></etio>
   <div v-if='user'>
@@ -153,6 +153,7 @@ export default {
       }
     ]
     return {
+      user: null,
       category: 'Categories', //sets default values
       size: 'Size', //this sets default values
       converted: '',
@@ -191,11 +192,6 @@ export default {
           options = this.optionsData.size
       }
       return options
-    },
-    user: function(){
-      console.log('small error')
-      let user = false
-      return user;
     }
   },
   methods: {
