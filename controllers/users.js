@@ -17,10 +17,7 @@ exports.userPage = function(req, res, next) {
     ListingModel.find({ seller: username })
     .sort([['lastBumped', 'desc']])
     .exec(function(err, listings) {
-      if(err) {
-        return next(err);
-      }
-      res.render('pages/dashboard', {
+      var dashboard = {
         data: {
           title: user.username,
           user: user,
@@ -30,7 +27,17 @@ exports.userPage = function(req, res, next) {
             title: user.username
           }
         }
-      });
+      }
+      if(err) {
+        return next(err);
+      }
+      if(!req.user){
+        res.render('pages/dashboard', dashboard );
+      }
+      else{
+        dashboard.data.self = req.user.username
+        res.render('pages/dashboard', dashboard );
+      }
     });
   });
 };

@@ -13,11 +13,13 @@
     <p>{{listing.category}}</p>
     <p>{{listing.conversion}}</p>
     <p>{{listing.price}}</p>
+    <p><a :href="'/users/'+ listing.seller">{{listing.seller}}</a></p>
   </div>
 
   <!-- if own -->
   <div v-if='own'>
     <a :href=" '/listings/' + listing._id + '/edit' ">Edit</a>
+
   </div>
 
 

@@ -1,11 +1,10 @@
 <template>
 <div class="dashboard">
-  <h1>Welcome to your dashboard, {{user.username}}</h1>
-      <a id='error-styles' href="/logout">Log Out</a>
+  <h1>Profile of {{user.username}}</h1>
+  <a v-if='title === self' id='error-styles' href="/logout">Log Out</a>
   <ul class='listings'>
     <li v-for='listing in listings'>
       <a :href="'/listings/' + listing._id">{{listing.designer}}:  {{listing.title}}</a>
-
     </li>
   </ul>
 
@@ -16,7 +15,8 @@
 export default {
     data: function() {
         return {
-          listings: {}
+          listings: {},
+          self: false
         }
     }
 }
