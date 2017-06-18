@@ -13,7 +13,6 @@
     "express": "~4.15.2",
     "express-session": "^1.15.3",
     "express-vue": "^3.14.2",
-    "jade": "~1.11.0",
     "method-override": "^2.3.9",
     "mongodb": "^2.2.25",
     "mongoose": "^4.9.0",
