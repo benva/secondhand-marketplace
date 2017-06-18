@@ -55,23 +55,28 @@ exports.search = function(req,res,next){
    console.log(searchQuery, " this is my query");
 
    ListingModel.find(searchQuery).sort([['lastBumped' , 'desc']]).exec(function(err, listings) {
-
+        var search = {
+          data:{
+            listings: listings
+          },
+          vue:{
+            head:{
+              title: searchQuery.search
+            },
+            components: ['categorySize']
+          }
+         }
         if(err) {
           return console.log(err);
         } else {
+        if(!req.user){
+          res.render("index", search)
+        }
+        else{
+          search.data.user = req.user;
+          res.render("index", search);
+        }
 
-          res.render("index", {
-            data:{
-              user: req.user,
-              listings: listings
-            },
-            vue:{
-              head:{
-                title: searchQuery.search
-              }
-            }
-           });
-          //should be updated through the dom?
       }
     });
 

@@ -25,9 +25,9 @@ exports.home = function(req, res, next) {
         vue: {
           head: {
             title: 'Covenant',
-          }
-        },
-        components: ['etio']
+          },
+          components: ["categorySize"]
+        }
       }
       if (err) {
         return next(err);

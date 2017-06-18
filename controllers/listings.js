@@ -132,6 +132,12 @@ exports.createListing = function(req, res, next) {
         price: req.body.price,
         description: req.body.description,
         csrfToken: req.csrfToken()
+      },
+      vue:{
+        head:{
+          title: errors
+        },
+        components:['categorySize']
       }
     });
   }
@@ -210,7 +216,7 @@ exports.editListing = function(req, res, next) {
             error: '404 not found'
           });
         }
-
+        console.log(listing)
         return res.render('pages/edit', {
           data: {
             id: listing._id,
@@ -225,7 +231,8 @@ exports.editListing = function(req, res, next) {
           vue:{
             head:{
               title: 'Editing: ' + listing.designer + ' | ' + listing.title
-            }
+            },
+            components: ['categorySize']
           }
         });
       });
@@ -245,7 +252,6 @@ exports.editPost = function(req, res, next) {
   if(errors) {
     return res.render('pages/edit', {
       data: {
-        title: 'Edit Listing',
         error: errors,
         id: id,
         designer: req.body.designer,
@@ -258,8 +264,9 @@ exports.editPost = function(req, res, next) {
       },
       vue:{
         head:{
-          title: 'Editing: ' + listing.designer + ' | ' + listing.title
-        }
+          title: 'Editing: ' + req.body.designer + ' | ' + req.body.title
+        },
+        components: ['categorySize']
       }
     });
   }

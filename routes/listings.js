@@ -12,7 +12,8 @@ router.get('/create', csrf( {cookie: true }), function(req, res, next) {
     vue:{
       head:{
         title: 'Create a Listing'
-      }
+      },
+      components: ['categorySize']
     }
   });
   }

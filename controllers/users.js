@@ -14,18 +14,23 @@ exports.userPage = function(req, res, next) {
       return res.render('error', { error: '404 not found' });
     }
     // Find listings by this user
-    ListingModel.find({ seller: username }).sort([['lastBumped', 'desc']]).exec(function(err, listings) {
+    ListingModel.find({ seller: username })
+    .sort([['lastBumped', 'desc']])
+    .exec(function(err, listings) {
       if(err) {
         return next(err);
       }
-
-      res.render('pages/dashboard', { data: {title: user.username, user: user, listings: listings },
-      vue:{
-        head:{
-          title: user.username
+      res.render('pages/dashboard', {
+        data: {
+          title: user.username,
+          user: user,
+          listings: listings },
+        vue:{
+          head:{
+            title: user.username
+          }
         }
-      }
-    });
+      });
     });
   });
 };
