@@ -36,7 +36,7 @@ router.put('/:id/edit', csrf( {cookie: true }), listings.editPost);
 router.delete('/:id/delete', listings.delete);
 
 /* BUMP */
-router.post('/:id/bump', listings.bump);
+router.put('/:id/bump', listings.bump);
 
 // SEARCH RESULTS
 // router.get('/', listings.search)

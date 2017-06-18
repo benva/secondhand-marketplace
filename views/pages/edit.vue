@@ -16,7 +16,7 @@
     <br />
     <!-- <input type='file' name='photos' multiple required/> -->
     <!-- <br/> -->
-    <category-size></category-size>
+    <category-size :category='category'></category-size>
     <br />
     <br />
     <input type='submit' />
@@ -37,7 +37,8 @@ export default {
     return {
       error: false
     }
-  }
+  },
+
 }
 </script>
 

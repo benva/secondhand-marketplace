@@ -1,7 +1,7 @@
 <template>
   <div>
 
-  <select v-model='category' @change='onChange' name='category' required>
+  <select id='category-select' v-model='category' @change='onChange' name='category' required>
        <option selected hidden>Categories</option>
        <option value='outerwear'>Outerwear</option>
        <option value='tops'>Tops</option>

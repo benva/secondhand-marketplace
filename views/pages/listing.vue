@@ -15,6 +15,13 @@
     <p>{{listing.price}}</p>
     <p><a :href="'/users/'+ listing.seller">{{listing.seller}}</a></p>
 
+
+  </div>
+
+  <!-- if own -->
+  <div v-if='own'>
+    <a :href=" '/listings/' + listing._id + '/edit' ">Edit</a>
+    
     <form v-if='bump.flag && own' method='post' :action="'/listings/'+ listing._id + '/bump' ">
       <input type='hidden' name='_csrf' :value='csrfToken' required/>
       <input type='hidden' name='_method' value='put' required/>
@@ -23,16 +30,8 @@
 
     <h4 v-else>{{bump.hours}} Hours and {{bump.mins}} Minutes until the next bump</h4>
 
-  </div>
-
-  <!-- if own -->
-  <div v-if='own'>
-    <a :href=" '/listings/' + listing._id + '/edit' ">Edit</a>
 
   </div>
-
-
-
 
 </div>
 </template>
@@ -41,6 +40,11 @@
 export default {
     data: function() {
         return {
+          bump: {
+            hours: '',
+            minutes: '',
+            flag: null
+          }
         }
     }
 }
