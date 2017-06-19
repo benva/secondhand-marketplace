@@ -23,7 +23,7 @@ exports.listingPage = function(req, res, next) {
       res.render('pages/listing', {
         data: {
           listing: listing,
-          size: _size_,
+          sizing: _size_.sizeList,
           own: ownListing,
           bump: canBump(listing)
         },

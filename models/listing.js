@@ -17,7 +17,7 @@ var ListingSchema = new Schema({
 
 
   category : String,
-  size : Schema.Types.Mixed,
+  size : String,
   price : Number,
   description : String,
   lastBumped : Date,

@@ -8,7 +8,7 @@ var listings = require('../controllers/listings');
 /* CREATE */
 router.get('/create', csrf( {cookie: true }), function(req, res, next) {
   if(req.user) {
-    return res.render('pages/create', { data: {csrfToken: req.csrfToken()},
+    return res.render('pages/create', {data: {csrfToken: req.csrfToken()},
     vue:{
       head:{
         title: 'Create a Listing'

@@ -9,7 +9,7 @@
     <br />
     <input type='text' placeholder='Title' name='title' required/>
     <br />
-    <input type='text' placeholder='Description' name='description' required/>
+    <textarea rows='4' cols='20' type='text' placeholder='Description' name='description' required></textarea>
     <br />
     <input type='text' placeholder='Price' name='price' required/>
     <br />

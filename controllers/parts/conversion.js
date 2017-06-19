@@ -84,19 +84,13 @@ exports.sizeList = {
 
 
 
-exports.conversion = function(category,value){
-  var clothes = {};
-
-  clothes[category] = category;
-
-  function findConversion(size){
-
-    return size;
-  }
-
-  return clothes[category].find(findConversion,[value]).text
-
-}
-
-// console.log(conversion(sizeList.tops,'xs'))
-//
+// exports.conversion = function(category,value){
+//   var clothes = {};
+//   clothes[category] = category;
+//   function findConversion(size){
+//     if(size.value === this[0]){
+//       return size;
+//     }
+//   }
+//   return clothes[category].find(findConversion,[value]).text
+// }

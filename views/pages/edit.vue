@@ -10,7 +10,7 @@
     <br />
     <input type='text' placeholder='Title' :value='listTitle' name='title' required/>
     <br />
-    <input type='text' placeholder='Description' :value='description' name='description' required/>
+    <textarea rows='4' cols='20' type='text' placeholder='Description' name='description' :value='description' required></textarea>
     <br />
     <input type='text' placeholder='Price' :value='price' name='price' required/>
     <br />
