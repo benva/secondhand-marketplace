@@ -335,74 +335,59 @@ exports.bump = function(req, res, next) {
   res.redirect('/listings/' + id);
 };
 
-// Add a new conversation to the user's inbox
-function newConversation(username, convo, unread) {
+function addToInbox(username, conversation) {
   UserModel.findOne({ username: username }, function(err, user) {
-    convo.unread = unread;
-    user.inbox.push(convo);
+    user.inbox.push(conversation);
     user.save();
   });
 }
 
-// Add a new message to an existing conversation
-function newMessage(username, index, msg, unread) {
-  UserModel.findOne({ username: username }, function(err, user) {
-    // Add message to conversation
-    user.inbox[index].unread = unread;
-    user.inbox[index].messages.push(msg);
-    user.save();
-  });
-}
-
-// Send a new message to the seller of the listing
+// Send a message to the seller of the listing
 exports.message = function(req, res, next) {
   var sender = req.user;
   var id = req.params.id;
-  var message = req.body.text;
-
-  ListingModel.findOne({ _id: id } , function(err, listing) {
-    // Find index of existing conversation
-    // SUPER HACKY, problem with the schema, should be done in mongoose
-    var convo;
-    var index;
-    for(index = 0; index < sender.inbox.length; index++) {
-      if(sender.inbox[index].listing._id === listing._id)
-        convo = sender.inbox[index];
-        break;
+  var newMessage = new MessageModel({
+    from: sender.username,
+    body: req.body.text
+  });
+  newMessage.save(function(err) {
+    if(err) {
+      return next(err);
     }
+  });
 
-    // If conversation already exists, add new message to existing conversation
-    if(convo) {
-      console.log('conversation exists');
-      // Compose new message
-      var newMsg = new MessageModel({
-        sender: sender.username,
-        recipient: listing.seller,
-        body: message
-      });
-      // Add to both inboxes
-      newMessage(listing.seller, index, newMsg, true);
-      newMessage(sender.username, index, newMsg, false);
+  ListingModel.findOne({ _id: id }, function(err, listing) {
+    ConversationModel.findOne({ 
+      listing: listing._id, 
+      seller: listing.seller,
+      buyer: sender.username,
+    }, function(err, conversation) {
+      // If the conversation already exists
+      if(conversation) {
+        // Add a new message to the existing conversation
+        conversation.messages.push(newMessage);
+        conversation.buyerUnread = false;
+        conversation.sellerUnread = true;
+        conversation.save();
+      } else {
+        // Otherwise, create a new conversation with the message
+        var newConversation = new ConversationModel({
+          listing: listing._id,
+          seller: listing.seller,
+          buyer: sender.username,
+          messages: newMessage._id,
+        });
+        newConversation.save(function(err) {
+          if(err) {
+            return next(err);
+          }
+        });
+        // Add the conversation to both inboxes
+        addToInbox(newConversation.seller, newConversation);
+        addToInbox(newConversation.buyer, newConversation);
+      }
+    }); 
+  });
 
-    // Else, create a new conversation and add it to buyer's and seller's inbox
-    } else {
-      console.log('conversation does not exist');
-      // Compose new conversation
-      var newConvo = new ConversationModel({
-        listing: listing,
-        seller: listing.seller,
-        buyer: sender.username,
-        messages: [new MessageModel({
-          sender: sender.username,
-          recipient: listing.seller,
-          body: message
-        })]
-      });
-      // Add to both inboxes
-      newConversation(listing.seller, newConvo, true);
-      newConversation(sender.username, newConvo, false);
-    }
-  });  
-
-  res.redirect('/listings/' + id);  
+  res.redirect('/listings/' + id);
 };

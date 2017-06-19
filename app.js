@@ -12,9 +12,6 @@ var session = require('express-session');
 var csrf = require('csurf');
 var LocalStrategy = require('passport-local').Strategy;
 
-var ListingModel = require('./models/listing');
-var MessageModel = require('./models/message');
-var ConversationModel = require('./models/conversation');
 var UserModel = require('./models/user');
 
 var index = require('./routes/index');

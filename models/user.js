@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
 var passportLocalMongoose = require('passport-local-mongoose');
 var Schema = mongoose.Schema;
-var Conversation = mongoose.model('conversation').schema;
 
 var UserSchema = new Schema({
   username : { type : String, required : true, unique : true },
@@ -10,7 +9,10 @@ var UserSchema = new Schema({
   password : String,
   rating : Number,
   sales : Number,
-  inbox : [Conversation]
+  inbox : [{
+    type : mongoose.Schema.Types.ObjectId,
+    ref : 'conversation'
+  }]
 });
 
 UserSchema.plugin(timestamps);

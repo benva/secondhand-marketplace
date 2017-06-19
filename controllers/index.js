@@ -55,7 +55,7 @@ exports.login = function(req, res, next) {
 
 exports.messages = function(req, res, next) {
   if(!req.user) {
-    var error = 'You need to login before creating a listing';
+    var error = 'You need to login to view your messages';
     return res.render('login', { 
       title: 'Login', 
       error: error, 
@@ -64,9 +64,11 @@ exports.messages = function(req, res, next) {
   }
 
   conversations = req.user.inbox;
+  console.log(conversations);
 
   res.render('messages', {
     title: 'Messages',
-    conversations: conversations
+    conversations: conversations,
+    csrfToken: req.csrfToken()
   });
 };
