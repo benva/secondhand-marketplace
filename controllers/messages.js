@@ -40,7 +40,7 @@ exports.conversation = function(req, res, next) {
       });
     // Otherwise send them to login page
     } else {
-      return res.redirect('/login');
+      return res.redirect('/');
     }
   });
 };
