@@ -379,7 +379,7 @@ exports.message = function(req, res, next) {
         addToInbox(newConversation.to, newConversation);
         addToInbox(newConversation.from, newConversation);
       }
-      res.redirect('/messages');
+      res.redirect('/listings/' + id);
     }); 
   });
 };
