@@ -3,7 +3,6 @@ var ListingModel = require('../../models/listing');
 
 
 
-
 function escapeRegex(text) {
 
   return  "\\b" +  text.replace(/^\W*/, '') //removes trailing !@#$ from start
@@ -57,7 +56,7 @@ exports.search = function(req,res,next){
    ListingModel.find(searchQuery).sort([['lastBumped' , 'desc']]).exec(function(err, listings) {
         var search = {
           data:{
-            listings: listings
+            listings: listings,
           },
           vue:{
             head:{

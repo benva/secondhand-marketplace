@@ -17,7 +17,9 @@ exports.listingPage = function(req, res, next) {
       if (req.user !== undefined && listing.seller === req.user.username){
         ownListing = true;
       }
+      var obj = {}
 
+      console.log(listing)
       res.render('pages/listing', {
         data: {
           listing: listing,
@@ -155,7 +157,6 @@ exports.createListing = function(req, res, next) {
     title: req.body.title,
     category: req.body.category,
     size: req.body.size,
-    conversion: req.body.conversion,
     price: req.body.price,
     description: req.body.description,
     lastBumped: new Date(),
@@ -281,7 +282,6 @@ exports.editPost = function(req, res, next) {
       title: req.body.title,
       category: req.body.category,
       size: req.body.size,
-      conversion: req.body.conversion,
       price: req.body.price,
       description: req.body.description
     }

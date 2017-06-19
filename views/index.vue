@@ -18,7 +18,7 @@
 <!-- search mechanism-->
 <div id='finder'>
   <form method='get' action='/finder'>
-    <category-size></category-size>
+    <category-size category-p='Categories' size-p='Size'></category-size>
     <br />
     <input type='text' name='finderSearch' placeholder='Enter designer, item name...'/>
     <br />
@@ -47,7 +47,7 @@
         <td>{{listing.designer}}</td>
         <td>{{listing.price}}</td>
         <td>{{listing.category}}</td>
-        <td>{{listing.conversion}}</td>
+        <td>{{listing.size}}</td>
         <td>{{listing.createdAt}}</td>
       </tr>
 

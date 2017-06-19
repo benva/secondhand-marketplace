@@ -11,7 +11,7 @@
     <h2>{{listing.title}}</h2>
     <p>{{listing.description}}</p>
     <p>{{listing.category}}</p>
-    <p>{{listing.conversion}}</p>
+    <p>{{listing.size}}</p>
     <p>{{listing.price}}</p>
     <p><a :href="'/users/'+ listing.seller">{{listing.seller}}</a></p>
 
@@ -46,7 +46,7 @@ export default {
             flag: null
           }
         }
-    }
+    },
 }
 </script>
 

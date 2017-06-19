@@ -16,7 +16,7 @@
     <br />
     <!-- <input type='file' name='photos' multiple required/> -->
     <!-- <br/> -->
-    <category-size></category-size>
+    <category-size :category-p='category' :size-p='size'></category-size>
     <br />
     <br />
     <input type='submit' />
