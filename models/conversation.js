@@ -1,14 +1,28 @@
 var mongoose = require('mongoose');
+var shortid = require('shortid');
 var timestamps = require('mongoose-timestamp');
 var Schema = mongoose.Schema;
-var MessageModel = require('./message');
+var Listing = mongoose.model('listing').schema;
+var Message = mongoose.model('message').schema;
 
-var CoversationSchema = new Schema({
-  seller : String,
-  buyer : String,
-  listing : ObjectID,
-  messages : [MessageModel],
-  unread : Boolean
+// Schema for a conversation
+var ConversationSchema = new Schema({
+  _id: {
+    type : String,
+    'default' : shortid.generate
+  },
+  listing : Listing,
+  from : String,
+  to : String,
+  messages : [Message],
+  fromUnread : {
+    type : Boolean,
+    default : false
+  },
+  toUnread : {
+    type : Boolean,
+    default : true
+  }
 });
 
 ConversationSchema.plugin(timestamps);

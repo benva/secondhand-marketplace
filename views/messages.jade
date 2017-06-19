@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  ul
+    each conversation, i in conversations
+      li
+        a(href="/messages/#{conversation._id}") #{conversation.from} - #{conversation.listing.designer} #{conversation.listing.title}

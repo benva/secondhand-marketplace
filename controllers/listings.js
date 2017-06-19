@@ -2,6 +2,9 @@ var fs = require('fs');
 var validator = require('validator');
 
 var ListingModel = require('../models/listing');
+var UserModel = require('../models/user');
+var MessageModel = require('../models/message');
+var ConversationModel = require('../models/conversation');
 
 var _size_ = require('./parts/conversion.js')
 // Listing page
@@ -121,7 +124,7 @@ function validListing(req) {
 
 // Create new listing and redirect to listing page
 exports.createListing = function(req, res, next) {
-  console.log(req.body.size);
+  // console.log(req.body.size);
   // If listing info is invalid, reload listing page with given errors
   var errors = validListing(req);
   if(errors) {
@@ -163,7 +166,7 @@ exports.createListing = function(req, res, next) {
     lastBumped: new Date(),
     photos: photos
   });
-  console.log(req.body);
+  // console.log(req.body);
   newListing.save(function(err) {
     if(err) {
       return next(err);
@@ -347,7 +350,6 @@ exports.delete = function(req, res, next) {
   });
 };
 
-
 // Bump listing to the top of the list
 exports.bump = function(req, res, next) {
   var id = req.params.id;
@@ -362,4 +364,53 @@ exports.bump = function(req, res, next) {
   });
 
   res.redirect('/listings/' + id);
+};
+
+// Adds the conversation the user's inbox
+function addToInbox(username, conversation) {
+  UserModel.findOne({ username: username }, function(err, user) {
+    console.log(conversation);
+    user.inbox.push(conversation);
+    user.save();
+  });
+}
+
+// Sends a message to the seller of the listing
+exports.message = function(req, res, next) {
+  var sender = req.user;
+  var id = req.params.id;
+  var newMessage = new MessageModel({
+    from: sender.username,
+    body: req.body.text
+  });
+  newMessage.save();
+
+  ListingModel.findOne({ _id: id }, function(err, listing) {
+    ConversationModel.findOne({ 
+      "listing._id": listing._id, 
+      to: listing.seller,
+      from: sender.username
+    }, function(err, conversation) {
+      // If the conversation already exists
+      if(conversation) {
+        // Add a new message to the existing conversation
+        conversation.messages.push(newMessage);
+        conversation.sellerUnread = true;
+        conversation.save();
+      } else {
+        // Otherwise, create a new conversation with the message
+        var newConversation = new ConversationModel({
+          listing: listing,
+          to: listing.seller,
+          from: sender.username,
+          messages: newMessage,
+        });
+        newConversation.save();
+        // Add the conversation to both inboxes
+        addToInbox(newConversation.to, newConversation);
+        addToInbox(newConversation.from, newConversation);
+      }
+      res.redirect('/listings/' + id);
+    }); 
+  });
 };

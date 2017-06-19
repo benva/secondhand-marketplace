@@ -38,6 +38,9 @@ router.delete('/:id/delete', listings.delete);
 /* BUMP */
 router.put('/:id/bump', listings.bump);
 
+/* MESSAGE */
+router.post('/:id/message', listings.message);
+
 // SEARCH RESULTS
 // router.get('/', listings.search)
 

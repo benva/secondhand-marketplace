@@ -9,12 +9,10 @@ var UserSchema = new Schema({
   password : String,
   rating : Number,
   sales : Number,
-  locations : [
-    {
-      latitude : Number,
-      longitude : Number
-    }
-  ]
+  inbox : [{
+    type : String,
+    ref : 'conversation'
+  }]
 });
 
 UserSchema.plugin(timestamps);

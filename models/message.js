@@ -3,8 +3,7 @@ var timestamps = require('mongoose-timestamp');
 var Schema = mongoose.Schema;
 
 var MessageSchema = new Schema({
-  sender : String,
-  recipient : String,
+  from : String,
   body : String,
 });
 
