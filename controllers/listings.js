@@ -3,6 +3,7 @@ var validator = require('validator');
 
 var ListingModel = require('../models/listing');
 
+var _size_ = require('./parts/conversion.js')
 // Listing page
 exports.listingPage = function(req, res, next) {
   var id = req.params.id;
@@ -17,12 +18,12 @@ exports.listingPage = function(req, res, next) {
       if (req.user !== undefined && listing.seller === req.user.username){
         ownListing = true;
       }
-      var obj = {}
 
       console.log(listing)
       res.render('pages/listing', {
         data: {
           listing: listing,
+          size: _size_,
           own: ownListing,
           bump: canBump(listing)
         },

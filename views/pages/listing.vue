@@ -11,8 +11,9 @@
     <h2>{{listing.title}}</h2>
     <p>{{listing.description}}</p>
     <p>{{listing.category}}</p>
-    <p>{{listing.size}}</p>
+    <!-- <p>{{listing.size}}</p> -->
     <p>{{listing.price}}</p>
+    <p>{{conversion}}</p>
     <p><a :href="'/users/'+ listing.seller">{{listing.seller}}</a></p>
 
 
@@ -47,6 +48,23 @@ export default {
           }
         }
     },
+    computed:{
+      conversion: function(){
+        console.log(this.listing.category)
+        console.log(this.listing.size)
+        let conversion = this.size.sizeList[this.listing.category].find(function(size){
+          if (size.value === this[0]) {
+            return size;
+   }
+        }, [this.listing.size])
+
+        return conversion.text
+      }
+    },
+    mounted: function(){
+      console.log(this.conversion)
+      return this.conversion
+    }
 }
 </script>
 

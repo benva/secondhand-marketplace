@@ -143,7 +143,6 @@ export default {
   },
   created: function(){
       this.category = this.categoryP
-      this.size = this.sizeP
     }
 }
 </script>
