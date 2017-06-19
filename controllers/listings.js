@@ -350,15 +350,11 @@ exports.message = function(req, res, next) {
     from: sender.username,
     body: req.body.text
   });
-  newMessage.save(function(err) {
-    if(err) {
-      return next(err);
-    }
-  });
+  newMessage.save();
 
   ListingModel.findOne({ _id: id }, function(err, listing) {
     ConversationModel.findOne({ 
-      listing: listing._id, 
+      "listing._id": listing._id, 
       seller: listing.seller,
       buyer: sender.username,
     }, function(err, conversation) {
@@ -366,22 +362,17 @@ exports.message = function(req, res, next) {
       if(conversation) {
         // Add a new message to the existing conversation
         conversation.messages.push(newMessage);
-        conversation.buyerUnread = false;
         conversation.sellerUnread = true;
         conversation.save();
       } else {
         // Otherwise, create a new conversation with the message
         var newConversation = new ConversationModel({
-          listing: listing._id,
+          listing: listing,
           seller: listing.seller,
           buyer: sender.username,
-          messages: newMessage._id,
+          messages: newMessage,
         });
-        newConversation.save(function(err) {
-          if(err) {
-            return next(err);
-          }
-        });
+        newConversation.save();
         // Add the conversation to both inboxes
         addToInbox(newConversation.seller, newConversation);
         addToInbox(newConversation.buyer, newConversation);
