@@ -223,6 +223,7 @@ exports.editListing = function(req, res, next) {
             designer: listing.designer,
             listTitle: listing.title,
             category: listing.category,
+            conversion: listing.conversion,
             size: listing.size,
             price: listing.price,
             description: listing.description,

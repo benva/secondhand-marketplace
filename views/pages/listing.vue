@@ -21,7 +21,7 @@
   <!-- if own -->
   <div v-if='own'>
     <a :href=" '/listings/' + listing._id + '/edit' ">Edit</a>
-    
+
     <form v-if='bump.flag && own' method='post' :action="'/listings/'+ listing._id + '/bump' ">
       <input type='hidden' name='_csrf' :value='csrfToken' required/>
       <input type='hidden' name='_method' value='put' required/>

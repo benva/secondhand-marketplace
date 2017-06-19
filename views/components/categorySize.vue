@@ -1,7 +1,7 @@
 <template>
   <div>
 
-  <select id='category-select' v-model='category' @change='onChange' name='category' required>
+  <select id='category-select' v-model.lazy='category' @change='onChange' name='category' required>
        <option selected hidden>Categories</option>
        <option value='outerwear'>Outerwear</option>
        <option value='tops'>Tops</option>
@@ -10,12 +10,12 @@
        <option value='accessories'>Accessories</option>
   </select>
   <br />
-  <select id="size-select" v-model='size' name='size' @change='sizeChange' required>
+  <select id="size-select" v-model.lazy='size' name='size' @change='sizeChange' required>
        <option selected hidden>Size</option>
        <option  v-for='option in options' :value='option.value'> {{ option.text }} </option>
   </select>
 
-  <input name='conversion' type='hidden' :value='converted'/>
+  <input name='conversion' type='hidden' :value='conversion'/>
 </div>
 </template>
 
@@ -98,9 +98,9 @@ export default {
       }
     ]
     return {
-      category: 'Categories', //sets default values
+      category: 'Categories',
       size: 'Size', //this sets default values
-      converted: '',
+      conversion: '',
       optionsData: {
         tops: tops,
         outerwear: tops,
@@ -145,9 +145,9 @@ export default {
     },
     sizeChange: function(){
       let selected = document.getElementById("size-select").selectedIndex
-      let converted = this.options[selected - 1].text
-      this.converted = converted
-      console.log(this.converted)
+      let convertedSize= this.options[selected - 1].text
+      this.conversion = convertedSize
+      console.log(this.conversion)
     }
   }
 }

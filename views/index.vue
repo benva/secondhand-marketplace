@@ -1,7 +1,6 @@
 <template>
 <div>
-  <h1>Welcome to Covenant</h1>
-
+  <h1>Welcome to Covenant(Beta)</h1>
   <div v-if='user'>
     <a :href=" '/users/' + user.username">{{user.username}}</a>
     <span>|</span>
