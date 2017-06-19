@@ -1,19 +1,25 @@
 var mongoose = require('mongoose');
+var shortid = require('shortid');
 var timestamps = require('mongoose-timestamp');
 var Schema = mongoose.Schema;
 var Listing = mongoose.model('listing').schema;
 var Message = mongoose.model('message').schema;
 
+// Schema for a conversation
 var ConversationSchema = new Schema({
+  _id: {
+    type : String,
+    'default' : shortid.generate
+  },
   listing : Listing,
-  seller : String,
-  buyer : String,
+  from : String,
+  to : String,
   messages : [Message],
-  buyerUnread : {
+  fromUnread : {
     type : Boolean,
     default : false
   },
-  sellerUnread : {
+  toUnread : {
     type : Boolean,
     default : true
   }

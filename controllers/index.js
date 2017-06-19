@@ -2,8 +2,6 @@ var passport = require('passport');
 
 var SearchModel = require('../models/search');
 var ListingModel = require('../models/listing');
-var ConversationModel = require('../models/conversation');
-var MessageModel = require('../models/message');
 var search = require('./parts/search');
 
 
@@ -53,25 +51,4 @@ exports.login = function(req, res, next) {
       res.redirect('/');
     });
   })(req, res, next);
-};
-
-exports.messages = function(req, res, next) {
-  if(!req.user) {
-    var error = 'You need to login to view your messages';
-    return res.render('login', { 
-      title: 'Login', 
-      error: error, 
-      csrfToken: req.csrfToken()
-    });
-  }
-
-  var inbox = req.user.inbox;
-
-  ConversationModel.find({ _id: { $in: inbox } }, function(err, conversations) {
-    res.render('messages', {
-      title: 'Messages',
-      conversations: conversations,
-      csrfToken: req.csrfToken()
-    });
-  });
 };

@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  ul
+    each message, j in conversation.messages
+      li FROM: #{message.from} MSG: #{message.body}
+    br
+    form(name="reply", method="post", action="/messages/#{conversation._id}/reply")
+      input(required, type="hidden", name="_csrf", value=csrfToken)
+      textarea(name="text")
+      br
+      button(type="submit", name="reply") Send Message

@@ -26,7 +26,5 @@ router.get('/logout', function(req, res, next) {
   });
 });
 
-/* MESSAGES */
-router.get('/messages', csrf({ cookie: true }), index.messages);
 
 module.exports = router;

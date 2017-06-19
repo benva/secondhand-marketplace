@@ -335,14 +335,16 @@ exports.bump = function(req, res, next) {
   res.redirect('/listings/' + id);
 };
 
+// Adds the conversation the user's inbox
 function addToInbox(username, conversation) {
   UserModel.findOne({ username: username }, function(err, user) {
+    console.log(conversation);
     user.inbox.push(conversation);
     user.save();
   });
 }
 
-// Send a message to the seller of the listing
+// Sends a message to the seller of the listing
 exports.message = function(req, res, next) {
   var sender = req.user;
   var id = req.params.id;
@@ -355,8 +357,8 @@ exports.message = function(req, res, next) {
   ListingModel.findOne({ _id: id }, function(err, listing) {
     ConversationModel.findOne({ 
       "listing._id": listing._id, 
-      seller: listing.seller,
-      buyer: sender.username,
+      to: listing.seller,
+      from: sender.username
     }, function(err, conversation) {
       // If the conversation already exists
       if(conversation) {
@@ -368,17 +370,16 @@ exports.message = function(req, res, next) {
         // Otherwise, create a new conversation with the message
         var newConversation = new ConversationModel({
           listing: listing,
-          seller: listing.seller,
-          buyer: sender.username,
+          to: listing.seller,
+          from: sender.username,
           messages: newMessage,
         });
         newConversation.save();
         // Add the conversation to both inboxes
-        addToInbox(newConversation.seller, newConversation);
-        addToInbox(newConversation.buyer, newConversation);
+        addToInbox(newConversation.to, newConversation);
+        addToInbox(newConversation.from, newConversation);
       }
+      res.redirect('/messages');
     }); 
   });
-
-  res.redirect('/listings/' + id);
 };

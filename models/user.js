@@ -10,7 +10,7 @@ var UserSchema = new Schema({
   rating : Number,
   sales : Number,
   inbox : [{
-    type : mongoose.Schema.Types.ObjectId,
+    type : String,
     ref : 'conversation'
   }]
 });

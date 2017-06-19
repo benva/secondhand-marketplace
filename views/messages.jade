@@ -3,6 +3,5 @@ extends layout
 block content
   ul
     each conversation, i in conversations
-      each message, j in conversation.messages
-        li FROM: #{message.from} MSG: #{message.body}
-      br
+      li
+        a(href="/messages/#{conversation._id}") #{conversation.from} - #{conversation.listing.designer} #{conversation.listing.title}

@@ -19,6 +19,7 @@ var UserModel = require('./models/user');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var listings = require('./routes/listings');
+var messages = require('./routes/messages');
 
 var app = express();
 
@@ -59,6 +60,7 @@ mongoose.connect('mongodb://localhost:27017/covenant');
 app.use('/', index);
 app.use('/users', users);
 app.use('/listings', listings);
+app.use('/messages', messages);
 
 // passport config
 passport.use(new LocalStrategy(UserModel.authenticate()));
