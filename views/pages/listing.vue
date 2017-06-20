@@ -28,6 +28,21 @@
 
     <h4 v-else>{{bump.hours}} Hours and {{bump.mins}} Minutes until the next bump</h4>
 
+  </div>
+
+  <!-- just lookin -->
+  <div v-if='loggedIn'>
+    <br />
+
+    <h4>
+      Message 
+      <a :href="'/users/' + listing.seller">{{listing.seller}}</a>
+    </h4>
+    <form method='post' :action="'/listings/' + listing._id + '/message'">
+      <textarea name="text" cols="25" rows='4'></textarea>
+      <br />
+      <input type='submit' value='Send Message' />
+    </form>
 
   </div>
 
@@ -55,6 +70,9 @@ export default {
         }, [this.listing.size])
         return conversion.text
       }
+    },
+    mounted: function(){
+      console.log(this.loggedIn)
     }
 }
 </script>

@@ -14,6 +14,21 @@ exports.listingPage = function(req, res, next) {
 
   // If listing exists, show page
   ListingModel.findOne({ _id: id }, function(err, listing) {
+
+    var listing = {
+      data: {
+        listing: listing,
+        sizing: _size_.sizeList,
+        own: ownListing,
+        bump: canBump(listing)
+      },
+      vue:{
+        head:{
+          title: listing.designer + ' - ' + listing.title
+        }
+      }
+    }
+
     if (listing === undefined || listing === null) {
       return res.render('error', { error: '404 not found' });
     } else {
@@ -21,21 +36,13 @@ exports.listingPage = function(req, res, next) {
       if (req.user !== undefined && listing.seller === req.user.username){
         ownListing = true;
       }
-
-      console.log(listing)
-      res.render('pages/listing', {
-        data: {
-          listing: listing,
-          sizing: _size_.sizeList,
-          own: ownListing,
-          bump: canBump(listing)
-        },
-        vue:{
-          head:{
-            title: listing.designer + ' - ' + listing.title
-          }
-        }
-      });
+      if(req.user && req.user !== listing.seller){
+        listing.data.loggedIn = req.user
+        res.render('pages/listing', listing)
+      }
+      else{
+        res.render('pages/listing', listing );
+      }
     }
   });
 };
@@ -386,8 +393,8 @@ exports.message = function(req, res, next) {
   newMessage.save();
 
   ListingModel.findOne({ _id: id }, function(err, listing) {
-    ConversationModel.findOne({ 
-      "listing._id": listing._id, 
+    ConversationModel.findOne({
+      "listing._id": listing._id,
       to: listing.seller,
       from: sender.username
     }, function(err, conversation) {
@@ -411,6 +418,6 @@ exports.message = function(req, res, next) {
         addToInbox(newConversation.from, newConversation);
       }
       res.redirect('/listings/' + id);
-    }); 
+    });
   });
 };
