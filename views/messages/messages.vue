@@ -5,8 +5,12 @@
 
 <ul>
   <div v-for='conversation in conversations'>
-    <li>
+    <li v-if='user !== conversation.from'>
       {{conversation.from}} : <a :href=" '/messages/' + conversation._id " >{{conversation.listing.title}} by {{conversation.listing.designer}} </a>
+    </li>
+
+    <li v-else>
+      {{conversation.to}} : <a :href=" '/messages/' + conversation._id " >{{conversation.listing.title}} by {{conversation.listing.designer}} </a>
     </li>
   </div>
 
@@ -26,7 +30,7 @@ export default {
     }
   },
   mounted: function(){
-
+    console.log(this.user)
   }
 }
 </script>

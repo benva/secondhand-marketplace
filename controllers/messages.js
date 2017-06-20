@@ -17,6 +17,7 @@ exports.messages = function(req, res, next) {
   ConversationModel.find({ _id: { $in: inbox } }).sort([['updatedAt', 'desc']]).exec(function(err, conversations) {
     res.render('messages/messages', {
       data: {
+        user: req.user.username,
         conversations: conversations,
         csrfToken: req.csrfToken()
       },
@@ -37,6 +38,7 @@ exports.conversation = function(req, res, next) {
     if(req.user !== undefined && (conversation.from === req.user.username || conversation.to === req.user.username)) {
       return res.render('messages/conversation', {
         data:{
+          user: req.user.username,
           conversation: conversation,
           csrfToken: req.csrfToken()
         },
