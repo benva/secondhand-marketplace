@@ -17,7 +17,8 @@
 export default {
     data: function() {
         return {
-          error: false //for error messages
+          error: false, //for error messages
+          csrfToken: true
         }
     }
 }

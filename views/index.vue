@@ -5,6 +5,8 @@
     <a :href=" '/users/' + user.username">{{user.username}}</a>
     <span>|</span>
     <a href="/listings/create/">Create Listing</a>
+    <span>|</span>
+    <a href='/messages'>Messages</a>
   </div>
 
   <div v-else>

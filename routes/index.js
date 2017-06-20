@@ -11,18 +11,28 @@ router.get('/finder', index.home);
 
 /* LOGIN */
 router.get('/login',csrf( {cookie: true }), function(req, res, next) {
+
+  var login = {
+    data:{
+      csrfToken: req.csrfToken()
+    },
+  vue: {
+    head: {
+      title: 'Login',
+    }
+  }
+}
   if(req.user) {
     return res.redirect('/');
   }
-  res.render('pages/login', {data: {csrfToken: req.csrfToken()},
-  vue: {
-    head: {
-      title: 'Login'
-    }
+  if(req.query.valid){
+    login.data.error = req.query.valid
+    res.render('pages/login', login)
+  }
+  else{
+    res.render('pages/login', login );
   }
 
-
-});
 });
 router.post('/login',csrf( {cookie: true }), index.login);
 

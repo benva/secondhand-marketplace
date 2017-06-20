@@ -7,22 +7,24 @@ var MessageModel = require('../models/message');
 exports.messages = function(req, res, next) {
   // Send user to login page if not logged in
   if(!req.user) {
-    var error = 'You need to login to view your messages';
-    return res.render('login', { 
-      title: 'Login', 
-      error: error, 
-      csrfToken: req.csrfToken()
-    });
+    var string = encodeURIComponent('You need to login before viewing your messages');
+    res.redirect('/login/' + '?valid=' + string)
   }
 
   var inbox = req.user.inbox;
 
   // Find all conversations in inbox, sorted by most recent
   ConversationModel.find({ _id: { $in: inbox } }).sort([['updatedAt', 'desc']]).exec(function(err, conversations) {
-    res.render('messages', {
-      title: 'Messages',
-      conversations: conversations,
-      csrfToken: req.csrfToken()
+    res.render('messages/messages', {
+      data: {
+        conversations: conversations,
+        csrfToken: req.csrfToken()
+      },
+      vue: {
+        head:{
+          title: "My Messages"
+        }
+      }
     });
   });
 };
@@ -33,7 +35,7 @@ exports.conversation = function(req, res, next) {
   ConversationModel.findOne({ _id: id }, function(err, conversation) {
     // Check if user is a part of this conversation
     if(req.user !== undefined && (conversation.from === req.user.username || conversation.to === req.user.username)) {
-      return res.render('conversation', {
+      return res.render('messages/conversation', {
         title: 'Conversation',
         conversation: conversation,
         csrfToken: req.csrfToken()
