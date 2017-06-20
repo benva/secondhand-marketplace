@@ -37,10 +37,11 @@ exports.listingPage = function(req, res, next) {
         ownListing = true;
       }
       if(req.user && req.user !== listing.seller){
-        listing.data.loggedIn = req.user
+        listing.data.message = req.user
         res.render('pages/listing', listing)
       }
       else{
+        listing.data.message = ''
         res.render('pages/listing', listing );
       }
     }

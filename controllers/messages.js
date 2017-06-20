@@ -36,9 +36,15 @@ exports.conversation = function(req, res, next) {
     // Check if user is a part of this conversation
     if(req.user !== undefined && (conversation.from === req.user.username || conversation.to === req.user.username)) {
       return res.render('messages/conversation', {
-        title: 'Conversation',
-        conversation: conversation,
-        csrfToken: req.csrfToken()
+        data:{
+          conversation: conversation,
+          csrfToken: req.csrfToken()
+        },
+        vue:{
+          head:{
+            title: 'Conversation with ' + conversation.from + "about " + conversation.listing.title
+          }
+        }
       });
     // Otherwise send them to login page
     } else {

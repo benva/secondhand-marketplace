@@ -4,9 +4,9 @@
 <h1 id='title'>Messages Inbox</h1>
 
 <ul>
-  <div v-for='item in conversations'>
+  <div v-for='conversation in conversations'>
     <li>
-      {{item.from}} : <a :href=" '/messages/' + item._id " >{{item.listing.title}} by {{item.listing.designer}} </a>
+      {{conversation.from}} : <a :href=" '/messages/' + conversation._id " >{{conversation.listing.title}} by {{conversation.listing.designer}} </a>
     </li>
   </div>
 

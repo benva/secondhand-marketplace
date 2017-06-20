@@ -30,13 +30,13 @@
 
   </div>
 
-  <!-- just lookin -->
-  <div v-if='loggedIn'>
+  <!-- just lookin and allow commenting-->
+  <div v-if='(message.username !== listing.seller && message)'>
     <br />
-
     <h4>
-      Message 
+      Message
       <a :href="'/users/' + listing.seller">{{listing.seller}}</a>
+      about this listing
     </h4>
     <form method='post' :action="'/listings/' + listing._id + '/message'">
       <textarea name="text" cols="25" rows='4'></textarea>
@@ -56,7 +56,10 @@ export default {
           bump: {
             hours: '',
             minutes: '',
-            flag: null
+            flag: null,
+            own: false,
+            message: '',
+            listing: ''
           }
         }
     },
@@ -72,7 +75,9 @@ export default {
       }
     },
     mounted: function(){
-      console.log(this.loggedIn)
+
+      console.log(this.message.username, 'whoms\'t is logged in')
+      console.log(this.listing.seller)
     }
 }
 </script>
