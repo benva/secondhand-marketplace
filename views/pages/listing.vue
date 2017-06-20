@@ -39,6 +39,7 @@
       about this listing
     </h4>
     <form method='post' :action="'/listings/' + listing._id + '/message'">
+      <input type='hidden' name='_csrf' :value='csrfToken' required/>
       <textarea name="text" cols="25" rows='4'></textarea>
       <br />
       <input type='submit' value='Send Message' />
