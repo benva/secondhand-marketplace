@@ -418,7 +418,7 @@ exports.message = function(req, res, next) {
         addToInbox(newConversation.to, newConversation);
         addToInbox(newConversation.from, newConversation);
       }
-      res.redirect('/listings/' + id);
+      res.redirect('/messages');
     });
   });
 };
