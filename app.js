@@ -63,7 +63,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // mongoose initilization
-mongoose.connect('mongodb://localhost:27017/covenant');
+// mongoose.connect('mongodb://localhost:27017/covenant');
 mongoose.connect(process.env.MONGODB_URI);
 
 
