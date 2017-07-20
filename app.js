@@ -63,7 +63,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // mongoose initilization
+// Local
 // mongoose.connect('mongodb://localhost:27017/covenant');
+// Heroku
 mongoose.connect(process.env.MONGODB_URI);
 
 
