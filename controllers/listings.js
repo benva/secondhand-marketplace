@@ -6,14 +6,16 @@ var UserModel = require('../models/user');
 var MessageModel = require('../models/message');
 var ConversationModel = require('../models/conversation');
 
-var _size_ = require('./parts/conversion.js')
+var _size_ = require('./parts/conversion.js');
 // Listing page
-exports.listingPage = function(req, res, next) {
+exports.listingPage = function (req, res, next) {
   var id = req.params.id;
   var ownListing = false;
 
   // If listing exists, show page
-  ListingModel.findOne({ _id: id }, function(err, listing) {
+  ListingModel.findOne({
+    _id: id
+  }, function (err, listing) {
 
     var listing = {
       data: {
@@ -22,27 +24,28 @@ exports.listingPage = function(req, res, next) {
         own: ownListing,
         bump: canBump(listing)
       },
-      vue:{
-        head:{
+      vue: {
+        head: {
           title: listing.designer + ' - ' + listing.title
         }
       }
-    }
+    };
 
     if (listing === undefined || listing === null) {
-      return res.render('error', { error: '404 not found' });
+      return res.render('error', {
+        error: '404 not found'
+      });
     } else {
       // Set flag to true if user's own listing
-      if (req.user !== undefined && listing.seller === req.user.username){
+      if (req.user !== undefined && listing.seller === req.user.username) {
         ownListing = true;
       }
-      if(req.user && req.user !== listing.seller){
-        listing.data.message = req.user
-        res.render('pages/listing', listing)
-      }
-      else{
-        listing.data.message = ''
-        res.render('pages/listing', listing );
+      if (req.user && req.user !== listing.seller) {
+        listing.data.message = req.user;
+        res.render('pages/listing', listing);
+      } else {
+        listing.data.message = '';
+        res.render('pages/listing', listing);
       }
     }
   });
@@ -52,9 +55,11 @@ exports.listingPage = function(req, res, next) {
 function validListing(req) {
   // Valid values for category and size
   var categories = ['outerwear', 'tops', 'bottoms', 'footwear', 'accessories'];
-  var sizes = [['xs', 's', 'm', 'l', 'xl'],
+  var sizes = [
+    ['xs', 's', 'm', 'l', 'xl'],
     ['26', '28', '30', '32', '34'],
-    ['6', '7', '8', '9', '10', '11', '12', '13']];
+    ['6', '7', '8', '9', '10', '11', '12', '13']
+  ];
 
   var designer = req.body.designer;
   var title = req.body.title;
@@ -66,61 +71,57 @@ function validListing(req) {
   var filenames = [];
   var errors = '';
 
-  if(validator.isEmpty(designer)) {
+  if (validator.isEmpty(designer)) {
     errors += 'Choose a designer\n';
   }
 
-  if(validator.isEmpty(title)) {
+  if (validator.isEmpty(title)) {
     errors += 'Give your listing a title\n';
   }
 
-  if(category === 'Category') {
+  if (category === 'Category') {
     errors += 'Choose a category\n';
   }
   // This would only happen if someone were editing the values
-  else if(!validator.isIn(category, categories)) {
+  else if (!validator.isIn(category, categories)) {
     errors += 'Choose a valid category\n';
   }
 
-  if(size === 'Size') {
+  if (size === 'Size') {
     errors += 'Choose a size\n';
   }
   // This would only happen if someone were editing the values
-  else if((category === 'outerwear' || category === 'tops') && !validator.isIn(size, sizes[0])) {
+  else if ((category === 'outerwear' || category === 'tops') && !validator.isIn(size, sizes[0])) {
     errors += 'Choose a valid size for that category\n';
-  }
-  else if(category === 'bottoms' && !validator.isIn(size, sizes[1])) {
+  } else if (category === 'bottoms' && !validator.isIn(size, sizes[1])) {
     errors += 'Choose a valid size for that category\n';
-  }
-  else if(category === 'footwear' && !validator.isIn(size, sizes[2])) {
+  } else if (category === 'footwear' && !validator.isIn(size, sizes[2])) {
     errors += 'Choose a valid size for that category\n';
-  }
-  else if(category === 'accessories' && size !== '100') {  //quick fix, changed value of size to 100 in the jquery for consistency,
+  } else if (category === 'accessories' && size !== '100') { //quick fix, changed value of size to 100 in the jquery for consistency,
     errors += 'Choose a valid size for that category\n';
   }
 
-  if(validator.isEmpty(price)) {
+  if (validator.isEmpty(price)) {
     errors += 'Choose a price\n';
-  }
-  else if(!validator.isNumeric(price)) {
+  } else if (!validator.isNumeric(price)) {
     errors += 'The price must be numeric\n';
   }
 
-  if(validator.isEmpty(description)) {
+  if (validator.isEmpty(description)) {
     errors += 'Give your listing a description\n';
   }
 
   // Make sure all photo files are valid
-  if(req.files) {
-    for(var i = 0; i < req.files.length; i++) {
+  if (req.files) {
+    for (var i = 0; i < req.files.length; i++) {
       filenames[i] = req.files[i].originalname;
     }
-    if(filenames.length === 0) {
+    if (filenames.length === 0) {
       errors += 'Include at least one photo for the listing\n';
     }
     var regex = /\.(jpg|jpeg|png|gif|bmp)$/;
-    for(i = 0; i < filenames.length; i++) {
-      if(!filenames[i].match(regex)) {
+    for (i = 0; i < filenames.length; i++) {
+      if (!filenames[i].match(regex)) {
         errors += 'Photos must be JPG, JPEG, PNG, GIF, or BMP\n';
         break;
       }
@@ -131,13 +132,13 @@ function validListing(req) {
 }
 
 // Create new listing and redirect to listing page
-exports.createListing = function(req, res, next) {
+exports.createListing = function (req, res, next) {
   // console.log(req.body.size);
   // If listing info is invalid, reload listing page with given errors
   var errors = validListing(req);
-  if(errors) {
+  if (errors) {
     return res.render('pages/create', {
-      data:{
+      data: {
         error: errors,
         designer: req.body.designer,
         listTitle: req.body.title,
@@ -147,18 +148,18 @@ exports.createListing = function(req, res, next) {
         description: req.body.description,
         csrfToken: req.csrfToken()
       },
-      vue:{
-        head:{
+      vue: {
+        head: {
           title: errors
         },
-        components:['categorySize']
+        components: ['categorySize']
       }
     });
   }
 
   // Add uploaded photos' filenames into array
   var photos = [];
-  for(var i = 0; i < req.files.length; i++) {
+  for (var i = 0; i < req.files.length; i++) {
     photos[i] = req.files[i].filename;
   }
 
@@ -175,8 +176,8 @@ exports.createListing = function(req, res, next) {
     photos: photos
   });
   // console.log(req.body);
-  newListing.save(function(err) {
-    if(err) {
+  newListing.save(function (err) {
+    if (err) {
       return next(err);
     }
     res.redirect('./' + newListing._id);
@@ -211,11 +212,13 @@ function canBump(listing) {
 }
 
 // Listing edit page
-exports.editListing = function(req, res, next) {
+exports.editListing = function (req, res, next) {
   var id = req.params.id;
 
   // Find listing to edit
-  ListingModel.findOne({ _id: id }, function(err, listing) {
+  ListingModel.findOne({
+    _id: id
+  }, function (err, listing) {
     if (listing === undefined || listing === null) {
       return res.render('error', {
         error: '404 not found'
@@ -223,13 +226,15 @@ exports.editListing = function(req, res, next) {
     }
     // If current user owns listing, go to edit page
     if (req.user !== undefined && listing.seller === req.user.username) {
-      ListingModel.findOne({ _id: id }, function(err, listing) {
+      ListingModel.findOne({
+        _id: id
+      }, function (err, listing) {
         if (listing === undefined || listing === null) {
           return res.render('error', {
             error: '404 not found'
           });
         }
-        console.log(listing)
+        console.log(listing);
         return res.render('pages/edit', {
           data: {
             id: listing._id,
@@ -242,8 +247,8 @@ exports.editListing = function(req, res, next) {
             description: listing.description,
             csrfToken: req.csrfToken()
           },
-          vue:{
-            head:{
+          vue: {
+            head: {
               title: 'Editing: ' + listing.designer + ' | ' + listing.title
             },
             components: ['categorySize']
@@ -258,12 +263,12 @@ exports.editListing = function(req, res, next) {
 };
 
 // Listing edit post
-exports.editPost = function(req, res, next) {
+exports.editPost = function (req, res, next) {
   var id = req.params.id;
 
   // If listing info is invalid, reload edit page with given errors
   var errors = validListing(req);
-  if(errors) {
+  if (errors) {
     return res.render('pages/edit', {
       data: {
         error: errors,
@@ -276,8 +281,8 @@ exports.editPost = function(req, res, next) {
         description: req.body.description,
         csrfToken: req.csrfToken()
       },
-      vue:{
-        head:{
+      vue: {
+        head: {
           title: 'Editing: ' + req.body.designer + ' | ' + req.body.title
         },
         components: ['categorySize']
@@ -286,7 +291,9 @@ exports.editPost = function(req, res, next) {
   }
 
   // Update listing, redirect back to listing page
-  ListingModel.update({ _id: id }, {
+  ListingModel.update({
+    _id: id
+  }, {
     $set: {
       search: req.body.designer + " " + req.body.title,
 
@@ -297,7 +304,7 @@ exports.editPost = function(req, res, next) {
       price: req.body.price,
       description: req.body.description
     }
-  }, function(err, listing) {
+  }, function (err, listing) {
     if (listing === undefined || listing === null) {
       return res.render('error', {
         error: '404 not found'
@@ -311,8 +318,8 @@ exports.editPost = function(req, res, next) {
 // Delete photos from file system
 function deleteFiles(files, callback) {
   var i = files.length;
-  files.forEach(function(filepath) {
-    fs.unlink(filepath, function(err) {
+  files.forEach(function (filepath) {
+    fs.unlink(filepath, function (err) {
       i--;
       if (err) {
         callback(err);
@@ -325,19 +332,21 @@ function deleteFiles(files, callback) {
 }
 
 // Listing delete post
-exports.delete = function(req, res, next) {
+exports.delete = function (req, res, next) {
   var id = req.params.id;
 
   // Delete listing photos
-  ListingModel.findOne({ _id: id }, function(err, listing) {
+  ListingModel.findOne({
+    _id: id
+  }, function (err, listing) {
     if (err) {
       throw next(err);
     }
-    var photosArray = listing.photos.map(function(hash) {
+    var photosArray = listing.photos.map(function (hash) {
       return "public/images/" + hash;
     });
 
-    deleteFiles(photosArray, function(err) {
+    deleteFiles(photosArray, function (err) {
       if (err) {
         console.log(err);
       } else {
@@ -348,7 +357,7 @@ exports.delete = function(req, res, next) {
     // Remove listing from database
     ListingModel.remove({
       _id: id
-    }, function(err) {
+    }, function (err) {
       if (err) {
         return next(err);
       }
@@ -359,11 +368,17 @@ exports.delete = function(req, res, next) {
 };
 
 // Bump listing to the top of the list
-exports.bump = function(req, res, next) {
+exports.bump = function (req, res, next) {
   var id = req.params.id;
 
   // Update lastBumped to the current timestamp
-  ListingModel.update({ _id: id }, { $currentDate: { lastBumped: true }}, function(err, listing) {
+  ListingModel.update({
+    _id: id
+  }, {
+    $currentDate: {
+      lastBumped: true
+    }
+  }, function (err, listing) {
     if (listing === undefined || listing === null) {
       return res.render('error', {
         error: '404 not found'
@@ -376,7 +391,9 @@ exports.bump = function(req, res, next) {
 
 // Adds the conversation the user's inbox
 function addToInbox(username, conversation) {
-  UserModel.findOne({ username: username }, function(err, user) {
+  UserModel.findOne({
+    username: username
+  }, function (err, user) {
     console.log(conversation);
     user.inbox.push(conversation);
     user.save();
@@ -384,7 +401,7 @@ function addToInbox(username, conversation) {
 }
 
 // Sends a message to the seller of the listing
-exports.message = function(req, res, next) {
+exports.message = function (req, res, next) {
   var sender = req.user;
   var id = req.params.id;
   var newMessage = new MessageModel({
@@ -393,14 +410,16 @@ exports.message = function(req, res, next) {
   });
   newMessage.save();
 
-  ListingModel.findOne({ _id: id }, function(err, listing) {
+  ListingModel.findOne({
+    _id: id
+  }, function (err, listing) {
     ConversationModel.findOne({
       "listing._id": listing._id,
       to: listing.seller,
       from: sender.username
-    }, function(err, conversation) {
+    }, function (err, conversation) {
       // If the conversation already exists
-      if(conversation) {
+      if (conversation) {
         // Add a new message to the existing conversation
         conversation.messages.push(newMessage);
         conversation.sellerUnread = true;

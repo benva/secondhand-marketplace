@@ -5,40 +5,48 @@ var UserModel = require('../models/user');
 var ListingModel = require('../models/listing');
 
 // User profile page
-exports.userPage = function(req, res, next) {
+exports.userPage = function (req, res, next) {
   var username = req.params.username;
 
   // If username exists, show page
-  UserModel.findOne({ username: username }, function(err, user) {
-    if(user === null) {
-      return res.render('error', { error: '404 not found' });
+  UserModel.findOne({
+    username: username
+  }, function (err, user) {
+    if (user === null) {
+      return res.render('error', {
+        error: '404 not found'
+      });
     }
     // Find listings by this user
-    ListingModel.find({ seller: username })
-    .sort([['lastBumped', 'desc']])
-    .exec(function(err, listings) {
-      var dashboard = {
-        data: {
-          title: user.username,
-          user: user,
-          listings: listings },
-        vue:{
-          head:{
-            title: user.username
+    ListingModel.find({
+        seller: username
+      })
+      .sort([
+        ['lastBumped', 'desc']
+      ])
+      .exec(function (err, listings) {
+        var dashboard = {
+          data: {
+            title: user.username,
+            user: user,
+            listings: listings
+          },
+          vue: {
+            head: {
+              title: user.username
+            }
           }
+        };
+        if (err) {
+          return next(err);
         }
-      }
-      if(err) {
-        return next(err);
-      }
-      if(!req.user){
-        res.render('pages/dashboard', dashboard );
-      }
-      else{
-        dashboard.data.self = req.user.username
-        res.render('pages/dashboard', dashboard );
-      }
-    });
+        if (!req.user) {
+          res.render('pages/dashboard', dashboard);
+        } else {
+          dashboard.data.self = req.user.username;
+          res.render('pages/dashboard', dashboard);
+        }
+      });
   });
 };
 
@@ -49,24 +57,24 @@ function validUser(req) {
   var email = req.body.email;
   var errors = '';
 
-  if(validator.isEmpty(username)) {
+  if (validator.isEmpty(username)) {
     errors += 'Username is empty\n';
-  }
-  else if(!validator.isAlphanumeric(username)) {
+  } else if (!validator.isAlphanumeric(username)) {
     errors += 'Username can only contain letters and numbers\n';
   }
 
-  if(validator.isEmpty(password)) {
+  if (validator.isEmpty(password)) {
     errors += 'Password is empty\n';
-  }
-  else if(!validator.isLength(password, {min: 8, max: 32})) {
+  } else if (!validator.isLength(password, {
+      min: 8,
+      max: 32
+    })) {
     errors += 'Password must be between 8 and 32 characters long\n';
   }
 
-  if(validator.isEmpty(email)) {
+  if (validator.isEmpty(email)) {
     errors += 'Email is empty\n';
-  }
-  else if(!validator.isEmail(email)) {
+  } else if (!validator.isEmail(email)) {
     errors += 'Email must be a valid email address\n';
   }
 
@@ -74,10 +82,10 @@ function validUser(req) {
 }
 
 // Create new user
-exports.createUser = function(req, res, next) {
+exports.createUser = function (req, res, next) {
   // If user info is invalid, reload the page with given errors
   var errors = validUser(req);
-  if(errors) {
+  if (errors) {
     return res.render('pages/register', {
       data: {
         error: errors,
@@ -101,12 +109,12 @@ exports.createUser = function(req, res, next) {
   });
   var password = req.body.password;
 
-  UserModel.register(newUser, password, function(err, account) {
+  UserModel.register(newUser, password, function (err, account) {
     // Send any errors to register page
-    if(err) {
+    if (err) {
       var msg;
       // This might need to be changed when input is checked
-      if(err.name === 'MongoError') {
+      if (err.name === 'MongoError') {
         msg = 'User already exists with email address ' + newUser.email;
       } else {
         msg = err.message;

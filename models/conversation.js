@@ -8,20 +8,20 @@ var Message = mongoose.model('message').schema;
 // Schema for a conversation
 var ConversationSchema = new Schema({
   _id: {
-    type : String,
-    'default' : shortid.generate
+    type: String,
+    'default': shortid.generate
   },
-  listing : Listing,
-  from : String,
-  to : String,
-  messages : [Message],
-  fromUnread : {
-    type : Boolean,
-    default : false
+  listing: Listing,
+  from: String,
+  to: String,
+  messages: [Message],
+  fromUnread: {
+    type: Boolean,
+    default: false
   },
-  toUnread : {
-    type : Boolean,
-    default : true
+  toUnread: {
+    type: Boolean,
+    default: true
   }
 });
 

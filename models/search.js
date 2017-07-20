@@ -4,11 +4,11 @@ var Schema = mongoose.Schema;
 var shortid = require('shortid');
 
 var SearchSchema = new Schema({
-    _id : {
-      type : String,
-      'default' : shortid.generate
-    },
-    search: String,
+  _id: {
+    type: String,
+    'default': shortid.generate
+  },
+  search: String,
 });
 
 SearchSchema.plugin(timestamps);

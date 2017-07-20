@@ -6,19 +6,27 @@ var csrf = require('csurf');
 var users = require('../controllers/users');
 
 /* REGISTER */
-router.get('/register',csrf( {cookie: true }), function(req, res, next) {
-  if(req.user) {
+router.get('/register', csrf({
+  cookie: true
+}), function (req, res, next) {
+  if (req.user) {
     return res.redirect('/');
   }
-  res.render('pages/register', { data: { csrfToken: req.csrfToken() },
-      vue:{
-        head:{
-          title: 'Registration'
-        }
-      }});
+  res.render('pages/register', {
+    data: {
+      csrfToken: req.csrfToken()
+    },
+    vue: {
+      head: {
+        title: 'Registration'
+      }
+    }
+  });
 });
 
-router.post('/register', csrf( {cookie: true }), users.createUser);
+router.post('/register', csrf({
+  cookie: true
+}), users.createUser);
 
 /* USER PAGE */
 router.get('/:username', users.userPage);

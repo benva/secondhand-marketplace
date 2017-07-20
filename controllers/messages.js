@@ -4,17 +4,23 @@ var ListingModel = require('../models/listing');
 var ConversationModel = require('../models/conversation');
 var MessageModel = require('../models/message');
 
-exports.messages = function(req, res, next) {
+exports.messages = function (req, res, next) {
   // Send user to login page if not logged in
-  if(!req.user) {
+  if (!req.user) {
     var string = encodeURIComponent('You need to login before viewing your messages');
-    res.redirect('/login/' + '?valid=' + string)
+    res.redirect('/login/' + '?valid=' + string);
   }
 
   var inbox = req.user.inbox;
 
   // Find all conversations in inbox, sorted by most recent
-  ConversationModel.find({ _id: { $in: inbox } }).sort([['updatedAt', 'desc']]).exec(function(err, conversations) {
+  ConversationModel.find({
+    _id: {
+      $in: inbox
+    }
+  }).sort([
+    ['updatedAt', 'desc']
+  ]).exec(function (err, conversations) {
     res.render('messages/messages', {
       data: {
         user: req.user.username,
@@ -22,7 +28,7 @@ exports.messages = function(req, res, next) {
         csrfToken: req.csrfToken()
       },
       vue: {
-        head:{
+        head: {
           title: "My Messages"
         }
       }
@@ -30,35 +36,37 @@ exports.messages = function(req, res, next) {
   });
 };
 
-exports.conversation = function(req, res, next) {
+exports.conversation = function (req, res, next) {
   var id = req.params.id;
 
-  ConversationModel.findOne({ _id: id }, function(err, conversation) {
+  ConversationModel.findOne({
+    _id: id
+  }, function (err, conversation) {
     // Check if user is a part of this conversation
-    if(req.user !== undefined && (conversation.from === req.user.username || conversation.to === req.user.username)) {
+    if (req.user !== undefined && (conversation.from === req.user.username || conversation.to === req.user.username)) {
       return res.render('messages/conversation', {
-        data:{
+        data: {
           user: req.user.username,
           conversation: conversation,
           csrfToken: req.csrfToken()
         },
-        vue:{
-          head:{
+        vue: {
+          head: {
             title: 'Conversation with ' + conversation.from + "about " + conversation.listing.title
           }
         }
       });
 
-    // Otherwise send them to login page
+      // Otherwise send them to login page
     } else {
       return res.redirect('/');
     }
-    res.redirect('/' + conversation._id)
+    res.redirect('/' + conversation._id);
   });
 };
 
 // Reply to a conversation
-exports.reply = function(req, res, next) {
+exports.reply = function (req, res, next) {
   var id = req.params.id;
   var from = req.user;
   var newMessage = new MessageModel({
@@ -68,9 +76,11 @@ exports.reply = function(req, res, next) {
   newMessage.save();
 
   // Add the new message to the conversation and redirect to the conversation
-  ConversationModel.findOne({ _id: id }, function(err, conversation) {
+  ConversationModel.findOne({
+    _id: id
+  }, function (err, conversation) {
     conversation.messages.push(newMessage);
-    if(from.username === conversation.listing.seller) {
+    if (from.username === conversation.listing.seller) {
       conversation.fromUnread = true;
     } else {
       conversation.toUnread = true;
