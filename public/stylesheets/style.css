@@ -32,31 +32,15 @@ a {
   color: #8A0707;
 }  */
 
-.menu {
+.columns {
   margin-top: 20px;
-  margin-left: 20px;
-  width: 30%;
+  text-align: center;
 }
 
 .search {
-  width: 80%;
+  width: 40%;
 }
 
 .min-max {
   width: 30%;
-}
-
-@media (max-width: 767px) {
-  .search {
-    width: 30%;
-  }
-
-  .min-max {
-    width: 15%;
-  }
-
-  .menu {
-    width: 100%;
-    text-align: center;
-  }
 }

@@ -27,29 +27,95 @@
   </div>
 </nav>
 
-<!-- Side filter -->
-<aside class="menu">
-  <p class="menu-label">Search</p>
-  <input class="input search" type="text" placeholder="Designer, name, etc...">
-  <p class="menu-label">Categories</p>
-  <ul class="menu-list">
-    <li><label class="checkbox"><input type="checkbox"> Outerwear</label></li>
-    <li><label class="checkbox"><input type="checkbox"> Tops</label></li>
-    <li><label class="checkbox"><input type="checkbox"> Bottoms</label></li>
-    <li><label class="checkbox"><input type="checkbox"> Footwear</label></li>
-    <li><label class="checkbox"><input type="checkbox"> Accessories</label></li>
-  </ul>
-  <p class="menu-label">Sizes</p>
-  <ul class="menu-list">
+<div class="columns">
+  <div class="filters column is-one-third">
+    <!-- Side filter -->
+    <aside class="menu">
+      <p class="menu-label">Search</p>
+      <input class="input search" type="text" placeholder="Designer, name, etc...">
+      <p class="menu-label">Categories</p>
+      <ul class="menu-list">
+        <li><label class="checkbox"><input type="checkbox"> Outerwear</label></li>
+        <li><label class="checkbox"><input type="checkbox"> Tops</label></li>
+        <li><label class="checkbox"><input type="checkbox"> Bottoms</label></li>
+        <li><label class="checkbox"><input type="checkbox"> Footwear</label></li>
+        <li><label class="checkbox"><input type="checkbox"> Accessories</label></li>
+      </ul>
+      <p class="menu-label">Sizes</p>
+      <ul class="menu-list">
 
-  </ul>
-  <p class="menu-label">Minimum price</p>
-  <input class="input min-max" type="text" placeholder="Min">
-  <p class="menu-label">Maximum price</p>
-  <input class="input min-max" type="text" placeholder="Max">
-  <br><br>
-  <button class="button is-dark">Search</button>
-</aside>
+      </ul>
+      <p class="menu-label">Minimum price</p>
+      <input class="input min-max" type="text" placeholder="Min">
+      <p class="menu-label">Maximum price</p>
+      <input class="input min-max" type="text" placeholder="Max">
+      <br><br>
+      <button class="button is-dark">Search</button>
+    </aside>
+  </div>
+  <div class="listings column is-two-thirds">
+    <div class="columns">
+      <div class="column">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-square">
+              <img src="http://via.placeholder.com/300x300">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="content is-medium">
+              <strong>Rick Owens</strong> Geobaskets
+            </div>
+            <footer class="card-footer">
+              <div class="content is-small">
+                $455 Size 10
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-square">
+              <img src="http://via.placeholder.com/300x300">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="content is-medium">
+              <strong>Rick Owens</strong> Geobaskets
+            </div>
+            <footer class="card-footer">
+              <div class="content is-small">
+                $455 Size 10
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-square">
+              <img src="http://via.placeholder.com/300x300">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="content is-medium">
+              <strong>Rick Owens</strong> Geobaskets
+            </div>
+            <footer class="card-footer">
+              <div class="content is-small">
+                $455 Size 10
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- search mechanism-->
 <!-- <div id='finder'>
@@ -85,6 +151,7 @@
         <td>{{listing.category}}</td>
         <td>{{listing.size}}</td>
         <td>{{listing.createdAt}}</td>
+        <td><img :src="'/images/' + listing.photos[0]"></td>
       </tr>
 
     </table>
@@ -104,7 +171,7 @@ export default{
 }
 </script>
 
-<style lang="css">
+<!-- <style lang="css">
   .home-listings table{
     margin-top: 2em;
     display: inline-block;
@@ -119,4 +186,4 @@ export default{
   tr{
     padding: 10em;
   }
-</style>
+</style> -->
