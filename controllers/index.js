@@ -26,7 +26,7 @@ exports.home = function (req, res, next) {
           },
           vue: {
             head: {
-              title: 'Covenant',
+              title: 'Secondhand Marketplace',
             },
             components: ["categorySize"]
           }

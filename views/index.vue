@@ -1,24 +1,58 @@
 <template>
 <div>
-  <h1>Welcome to Covenant(Beta)</h1>
-  <div v-if='user'>
-    <a :href=" '/users/' + user.username">{{user.username}}</a>
-    <span>|</span>
-    <a href="/listings/create/">Create Listing</a>
-    <span>|</span>
-    <a href='/messages'>Messages</a>
-  </div>
 
-  <div v-else>
-    <a href="/login">Login</a>
-    <span>|</span>
-    <a href="/users/register">Register</a>
-
+<!-- Navigation bar -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="/logo.png" alt="Give some life to your forgotten clothing">
+    </a>
+    <div class="navbar-burger" data-target="navMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
-<br />
+  <div class="navbar-menu" id="navMenu">
+    <div class="navbar-end" v-if="user">
+      <a class="navbar-item" :href=" '/users/' + user.username">{{user.username}}</a>
+      <a class="navbar-item" href="/listings/create/">Create Listing</a>
+      <a class="navbar-item" href='/messages'>Messages</a>
+      <a class="navbar-item" href='/logout'>Logout</a>
+    </div>
+    <div class="navbar-end" v-else>
+      <a class="navbar-item" href="/login">Login</a>
+      <a class="navbar-item" href="/users/register">Register</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Side filter -->
+<aside class="menu">
+  <p class="menu-label">Search</p>
+  <input class="input search" type="text" placeholder="Designer, name, etc...">
+  <p class="menu-label">Categories</p>
+  <ul class="menu-list">
+    <li><label class="checkbox"><input type="checkbox"> Outerwear</label></li>
+    <li><label class="checkbox"><input type="checkbox"> Tops</label></li>
+    <li><label class="checkbox"><input type="checkbox"> Bottoms</label></li>
+    <li><label class="checkbox"><input type="checkbox"> Footwear</label></li>
+    <li><label class="checkbox"><input type="checkbox"> Accessories</label></li>
+  </ul>
+  <p class="menu-label">Sizes</p>
+  <ul class="menu-list">
+
+  </ul>
+  <p class="menu-label">Minimum price</p>
+  <input class="input min-max" type="text" placeholder="Min">
+  <p class="menu-label">Maximum price</p>
+  <input class="input min-max" type="text" placeholder="Max">
+  <br><br>
+  <button class="button is-dark">Search</button>
+</aside>
 
 <!-- search mechanism-->
-<div id='finder'>
+<!-- <div id='finder'>
   <form method='get' action='/finder'>
     <category-size category-p='Categories' size-p='Size'></category-size>
     <br />
@@ -54,7 +88,7 @@
       </tr>
 
     </table>
-  </div>
+  </div> -->
 
 </div>
 </template>
