@@ -28,7 +28,7 @@
 </nav>
 
 <div class="columns">
-  <div class="filters column is-one-third">
+  <div class="filters column is-2">
     <!-- Side filter -->
     <aside class="menu">
       <p class="menu-label">Search</p>
@@ -53,7 +53,7 @@
       <button class="button is-dark">Search</button>
     </aside>
   </div>
-  <div class="listings column is-two-thirds">
+  <div class="listings column">
     <div class="columns">
       <div class="column">
         <div class="card">
