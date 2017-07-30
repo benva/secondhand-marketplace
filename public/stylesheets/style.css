@@ -2,12 +2,13 @@
 default color: #2c3e50; (bluish black, Vue standard),
 title color: #2c5050; (dark green)*/
 
- /* body {
+body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin-top: 60px;
 }
 
 #title {
@@ -30,20 +31,4 @@ a {
 #error-styles {
   white-space: pre-wrap;
   color: #8A0707;
-}  */
-body{
-  overflow: hidden
-}
-
-.columns {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.search {
-  width: 40%;
-}
-
-.min-max {
-  width: 30%;
 }
